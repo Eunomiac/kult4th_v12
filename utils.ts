@@ -143,12 +143,11 @@ function toError(error: unknown): Error {
 
 function formatError(error: unknown): string {
   if (!(error instanceof Error)) {
-    // @ts-expect-error if `toString` fails there's nothing to do anyways
     // eslint-disable-next-line
     return error.toString();
   }
 
-  if (error.cause != null) {
+  if ("cause" in error && error.cause != null) {
     // If `toString` fails there's nothing to do anyways
     // eslint-disable-next-line
     return `${error.toString()}, cause = ${error.cause.toString()}`;

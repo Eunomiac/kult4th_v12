@@ -12,5 +12,11 @@ Hooks.on("ready", () => {
   // Try changing the `import` above to `const` and see what happens.
   const exampleActor: DataModel.Any = new Actor({ name: "Example Actor" });
 
-  console.log(exampleActor);
+// console.log(exampleActor);
+
+Hooks.on("init", () => {
+  console.log("init");
+  const test = gsap.timeline({});
+  test.to("#chat-log", {opacity: 0, duration: 2, ease: "power1.inOut"})
+    .to("#chat-log", {opacity: 1, duration: 2, ease: "power1.inOut"});
 });

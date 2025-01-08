@@ -4,34 +4,25 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import esbuild from "esbuild";
 import * as path from "path";
-import { findFoundryHost, findManifestJSON } from "./utils.ts";
+import { findFoundryHost, findManifestJSON } from "./utils";
 
 export type PackageType = "module" | "system" | "world";
 
-const packageType: PackageType = "module";
+const packageType: PackageType = "system";
 
 // The package name should be the same as the name in the `module.json`/`system.json` file.
-const packageID: string = "abc";
+const packageID: string = "kult4th";
 
 const manifestJSONPath = await findManifestJSON(packageType);
 
 const filesToCopy = [
   manifestJSONPath,
-  "CHANGELOG.md",
-  "README.md",
-  "CONTRIBUTING.md",
+  "README.md"
 ]; // Feel free to change me.
 
 const devServerPort = 30001;
 const scriptsEntrypoint = "./src/module/index.ts";
 const stylesEntrypoint = "./src/styles/styles.scss";
-
-// @ts-expect-error the types are set to invalid values to ensure the user sets them.
-if (packageType == "REPLACE ME" || packageID == "REPLACE ME") {
-  throw new Error(
-    `Must set the "packageType" and the "packageID" variables in vite.config.ts`,
-  );
-}
 
 const foundryHostData = await findFoundryHost();
 const foundryHost = foundryHostData.host;

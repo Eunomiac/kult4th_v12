@@ -8,6 +8,8 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "outDir": ".typescript-build",
+    // "lib": ["ESNext", "DOM"],
+    // "checkJs": true,
 
     "allowImportingTsExtensions": true,
 
@@ -19,8 +21,12 @@
 
     // The files this tsconfig.json includes won't even have `fvtt-types`.
     // See `src/tsconfig.json` for how it sets up its type.
-    // You can add types here if necessary. It'll only be scoped to the root files though.
-    "types": [],
+    // You can add types here if necessary. It'll only be scoped to the root files though.,
+    "types": [
+      "gsap",
+      "jquery",
+      "fvtt-types"
+    ],
 
     // Strict is _highly_ recommended. It's a whole suite of options in tsc that help you catch bugs early.
     // If you want to disable it for some reason, you must add "strictNullChecks": true or else foundry-vtt-types may not function correctly.
