@@ -238,10 +238,19 @@ function handleTooltipTrigger(event: JQuery.MouseEnterEvent): void {
     updateTriggerOutline(trigger$, 'NEW');
 
     const effectName = positionOverlayTooltip(existingTooltip$, trigger$);
+    if (!effectName) {
+      console.warn(`Failed to position tooltip: ${existingTooltip$.attr('class')}`);
+      return undefined;
+    }
     generateTooltipHoverAnimation(existingTooltip$, { x: event.clientX, y: event.clientY }, effectName);
+    const boundingRect = trigger$[0]?.getBoundingClientRect();
+    if (!boundingRect) {
+      console.warn(`Failed to get bounding rect for trigger: ${trigger$.attr('class')}`);
+      return undefined;
+    }
 
     activeTriggers.set(trigger$, {
-      boundingRect: trigger$[0].getBoundingClientRect(),
+      boundingRect,
       clonedTooltip: existingTooltip$
     });
   } else {
@@ -273,6 +282,11 @@ function cloneTooltipToOverlay(tooltip$: JQuery): JQuery | null {
     (element) => !tooltipPool.inUse.has(element)
   ) ?? tooltipPool.elements[0]; // Use the first tooltip if none are available
 
+  if (!availableTooltip) {
+    console.warn(`No available tooltip found for: ${tooltip$.attr('class')}`);
+    return null;
+  }
+
   tooltipPool.inUse.add(availableTooltip);
   availableTooltip.html(tooltip$.html()).show();
   // console.log(`Using tooltip from pool: ${availableTooltip.attr('id') ?? 'new'}`);
@@ -285,9 +299,17 @@ function cloneTooltipToOverlay(tooltip$: JQuery): JQuery | null {
  * @param tooltipTrigger$ - The jQuery object representing the tooltip trigger.
  * @returns The name of the effect to be used for the tooltip animation.
  */
-function positionOverlayTooltip(tooltip$: JQuery, tooltipTrigger$: JQuery): EffectName {
-  const triggerRect = tooltipTrigger$[0].getBoundingClientRect();
-  const tooltipRect = tooltip$[0].getBoundingClientRect();
+function positionOverlayTooltip(tooltip$: JQuery, tooltipTrigger$: JQuery): Maybe<EffectName> {
+  const triggerRect = tooltipTrigger$[0]?.getBoundingClientRect();
+  if (!triggerRect) {
+    console.warn(`Failed to get bounding rect for trigger: ${tooltipTrigger$.attr('class')}`);
+    return undefined;
+  }
+  const tooltipRect = tooltip$[0]?.getBoundingClientRect();
+  if (!tooltipRect) {
+    console.warn(`Failed to get bounding rect for tooltip: ${tooltip$.attr('class')}`);
+    return undefined;
+  }
   const windowHeight = window.innerHeight;
   const windowWidth = window.innerWidth;
 
@@ -426,26 +448,5 @@ function periodicCleanup(): void {
     }
   });
 }
-
-// Simple performance monitoring
-let lastPerformanceCheck = Date.now();
-let frameCount = 0;
-
-function checkPerformance(): void {
-  frameCount++;
-  const now = Date.now();
-  if (now - lastPerformanceCheck > 1000) {
-    const fps = frameCount / ((now - lastPerformanceCheck) / 1000);
-    if (fps < 30) {
-      console.warn(`Low FPS detected: ${fps.toFixed(2)}`);
-    }
-    frameCount = 0;
-    lastPerformanceCheck = now;
-  }
-  requestAnimationFrame(checkPerformance);
-}
-
-// Start performance monitoring
-// checkPerformance();
 
 export default InitializeTooltips;

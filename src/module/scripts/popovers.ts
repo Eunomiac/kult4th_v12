@@ -14,7 +14,7 @@ U.gsap.registerEffect({
       scale: 1.25
     }, {
       onStart(this: gsap.core.Tween) {
-        this.targets<HTMLElement>()[0].showPopover();
+        this.targets<HTMLElement>()[0]?.showPopover();
       },
       autoAlpha: 1,
       scale: 1,

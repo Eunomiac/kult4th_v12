@@ -33,6 +33,10 @@ export default ts.config(
       "import-x/resolver": "typescript",
     },
     rules: {
+      // Allow destructuring via `let` even if some of the variables are not reassigned (i.e. they could be `const`).
+      "prefer-const": ["error", {
+        destructuring: "all"
+      }],
       // Avoiding `any` is good practice in TypeScript
       // Many users of TypeScript struggle to avoid `any` though and this rule helps make sure they do.
       // `foundry-vtt-types` ships with common helper types like `AnyObject`, `AnyArray`, `AnyFunction`, etc.
@@ -59,6 +63,9 @@ export default ts.config(
       ],
 
       "@typescript-eslint/no-namespace": ["error", { allowDeclarations: true }],
+
+      // Allow non-null assertions. Although this can be a hard-to-spot source of bugs, inconsistent type inference is a frequent issue, and the non-null assertion operator is the simplest and most elegant solution.
+      "@typescript-eslint/no-non-null-assertion": "off",
 
       "tsdoc/syntax": "warn",
     },

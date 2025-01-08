@@ -1,5 +1,6 @@
 // #region IMPORTS ~
-// import K4Actor, {K4ActorType} from "../documents/K4Actor.js";
+import K4Actor from "../documents/K4Actor.js";
+// import {K4ActorType} from "../scripts/enums";
 // import K4Item from "../documents/K4Item.js";
 // import K4PCSheet from "../documents/K4PCSheet.js";
 // import K4NPCSheet from "../documents/K4NPCSheet.js";
@@ -80,68 +81,68 @@ declare global {
 
   // #region FUNCTIONS IN THE GLOBAL SCOPE ~
 
-  // /**
-  //  * Retrieves the current Game instance.
-  //  * @returns The current Game instance.
-  //  * @throws Error if the Game is not ready.
-  //  */
-  // function getGame(): ReadyGame;
+  /**
+   * Retrieves the current Game instance.
+   * @returns The current Game instance.
+   * @throws Error if the Game is not ready.
+   */
+  function getGame(): ReadyGame;
 
-  // /**
-  //  * Retrieves the current User instance.
-  //  * @returns The current User instance.
-  //  * @throws Error if the User is not ready.
-  //  */
-  // function getUser(): User;
+  /**
+   * Retrieves the current User instance.
+   * @returns The current User instance.
+   * @throws Error if the User is not ready.
+   */
+  function getUser(): User;
 
-  // /**
-  //  * Retrieves the collection of all K4Actor instances in the game.
-  //  * @returns A Collection of K4Actor instances.
-  //  * @throws Error if the Actors collection is not ready.
-  //  */
-  // function getActors(): Collection<K4Actor>;
+  /**
+   * Retrieves the collection of all K4Actor instances in the game.
+   * @returns A Collection of K4Actor instances.
+   * @throws Error if the Actors collection is not ready.
+   */
+  function getActors(): Collection<K4Actor>;
 
-  // /**
-  //  * Retrieves the collection of all K4Item instances in the game.
-  //  * @returns A Collection of K4Item instances.
-  //  * @throws Error if the Items collection is not ready.
-  //  */
+  /**
+   * Retrieves the collection of all K4Item instances in the game.
+   * @returns A Collection of K4Item instances.
+   * @throws Error if the Items collection is not ready.
+   */
   // function getItems(): Collection<K4Item>;
 
-  // /**
-  //  * Retrieves the collection of all K4ChatMessage instances in the game.
-  //  * @returns A Collection of K4ChatMessage instances.
-  //  * @throws Error if the Messages collection is not ready.
-  //  */
+  /**
+   * Retrieves the collection of all K4ChatMessage instances in the game.
+   * @returns A Collection of K4ChatMessage instances.
+   * @throws Error if the Messages collection is not ready.
+   */
   // function getMessages(): Collection<K4ChatMessage>;
 
-  // /**
-  //  * Retrieves the collection of all User instances in the game.
-  //  * @returns A Collection of User instances.
-  //  * @throws Error if the Users collection is not ready.
-  //  */
-  // function getUsers(): Collection<User>;
+  /**
+   * Retrieves the collection of all User instances in the game.
+   * @returns A Collection of User instances.
+   * @throws Error if the Users collection is not ready.
+   */
+  function getUsers(): Collection<User>;
 
-  // /**
-  //  * Retrieves the PC actor owned by the current user.
-  //  * @returns The current Actor instance.
-  //  * @throws Error if the Actor is not ready.
-  //  */
-  // function getActor(): K4Actor<K4ActorType.pc>;
+  /**
+   * Retrieves the PC actor owned by the current user.
+   * @returns The current Actor instance.
+   * @throws Error if the Actor is not ready.
+   */
+  function getActor(): K4Actor;
 
-  // /**
-  //  * Retrieves the current I18n instance.
-  //  * @returns The current I18n instance.
-  //  * @throws Error if the I18n is not ready.
-  //  */
-  // function getLocalizer(): Localization;
+  /**
+   * Retrieves the current I18n instance.
+   * @returns The current I18n instance.
+   * @throws Error if the I18n is not ready.
+   */
+  function getLocalizer(): Localization;
 
-  // /**
-  //  * Retrieves the current Notifications instance.
-  //  * @returns The current Notifications instance.
-  //  * @throws Error if the Notifications are not ready.
-  //  */
-  // function getNotifier(): Notifications;
+  /**
+   * Retrieves the current Notifications instance.
+   * @returns The current Notifications instance.
+   * @throws Error if the Notifications are not ready.
+   */
+  function getNotifier(): Notifications;
 
   /**
    * The kLog object provides a set of functions for logging messages to the console, displaying them in the chat,
@@ -205,7 +206,7 @@ declare global {
   // Represents a value or a Promise resolving to a value
   type ValueOrPromise<V = unknown> = V | Promise<V>;
 
-
+  type Point = {x: number, y: number};
 
   // Represents a function with an unknown number of parameters, returning a value of type R
   type Func<R = unknown, T extends unknown[] = unknown[]> = (...args: T) => R; // a function with a known return type and a tuple of parameter types
@@ -288,7 +289,7 @@ declare global {
   type ObjectValue = unknown;
   type ObjectEntry = [ObjectKey, ObjectValue];
 
-  type MapFunction = (value: ObjectValue, key: ObjectKey) => any;
+  type MapFunction = (value: ObjectValue, key: ObjectKey) => unknown;
   type TestFunction = (value: ObjectValue, key: ObjectKey) => boolean;
   // #endregion
 
@@ -349,6 +350,10 @@ declare global {
 
   // Represents a value with a minimum, maximum, and current value, and a name
   type NamedValueMax = ValueMax & {name: string;};
+
+  type KeyOf<T> = keyof T;
+
+  type ValOf<T> = T[keyof T];
   // #endregion
 
   // #region ENTITY-DOCUMENT TYPES ~
@@ -364,7 +369,10 @@ declare global {
   // type AnyEntity = EntityDoc | EntitySheet;
 
   // // Represents the constructor (i.e. class) of an object
-  // type ConstructorOf<T> = new (...args: unknown[]) => T;
+  type ConstructorOf<T> = new (...args: unknown[]) => T;
+
+  // Represents any constructor
+  type Constructor = ConstructorOf<unknown>;
 
   // Represents a constructor for an entity document
   // type EntityConstructor = foundry.abstract.Document.Internal.Constructor;
