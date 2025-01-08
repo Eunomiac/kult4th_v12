@@ -70,6 +70,7 @@
     "noImplicitOverride": true,
 
     "allowJs": true,
+    "strictNullChecks": true,
 
     // You might think that this option is useful to have on either for performance or to ignore errors.
     // However due to how many types in fvtt-types are global this doesn't usually significantly help performance.

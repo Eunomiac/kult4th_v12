@@ -14,7 +14,9 @@
     "outDir": ".typescript-build",
 
     "declarationMap": true,
-    "composite": true
+    "composite": true,
+    "strict": true,
+    "strictNullChecks": true
   },
 
   // Undo the `exclude` from the root tsconfig.json.

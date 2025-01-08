@@ -143,8 +143,12 @@ function toError(error: unknown): Error {
 
 function formatError(error: unknown): string {
   if (!(error instanceof Error)) {
-    // eslint-disable-next-line
-    return error.toString();
+    if (typeof error === "object" && error != null && "toString" in error) {
+      // eslint-disable-next-line
+      return error.toString();
+    }
+
+    return JSON.stringify(error);
   }
 
   if ("cause" in error && error.cause != null) {

@@ -18,10 +18,11 @@ declare global {
   //        If hovering `TestConfiguration` says `typeof MyActor`, congratulations! It's working.
   // Tip 2: If `MyActor` has generic parameters without defaults, you need to provide them here.
   //        For example `typeof Actor<"npc" | "character">`. Make sure that the generic parameters are as wide as possible.
-  interface DocumentClassConfig {}
+  // interface DocumentClassConfig {}
 
   // foundry-vtt-types needs to know what data models you register with Foundry at runtime.
-  interface DataModelConfig {}
+  // interface DataModelConfig {}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type TestConfiguration = Document.ConfiguredClassForName<"Actor">;
