@@ -1,0 +1,48 @@
+{
+	"version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Foundry Server",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "C:/FoundryVTT/v12/Foundry Virtual Tabletop/resources/app/main.js",
+        "--port=31200",
+        "--dataPath=D:/Projects/.CODING/FoundryVTT/FoundryV12DistData",
+        "--hotReload"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Dev Server with Custom Port",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["run", "dev"],
+      "options": {
+        "env": {
+          "FOUNDRY_PORT": "31200"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Build with Custom Port",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["run", "build"],
+      "options": {
+        "env": {
+          "FOUNDRY_PORT": "31200"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}
