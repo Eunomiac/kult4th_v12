@@ -3,49 +3,49 @@ import LogRocket from 'logrocket';
 import K4Config from "./scripts/config.js";
 import K4Actor from "./documents/K4Actor.js";
 import K4Item from "./documents/K4Item.js";
-import K4ItemSheet from "./documents/K4ItemSheet.js";
-import K4PCSheet from "./documents/K4PCSheet.js";
-import K4NPCSheet from "./documents/K4NPCSheet.js";
-import K4ActiveEffect from "./documents/K4ActiveEffect.js";
+// import K4ItemSheet from "./documents/K4ItemSheet.js";
+// import K4PCSheet from "./documents/K4PCSheet.js";
+// import K4NPCSheet from "./documents/K4NPCSheet.js";
+// import K4ActiveEffect from "./documents/K4ActiveEffect.js";
 import C, {Colors, Archetypes} from "./scripts/constants.js";
 import {K4ActorType, K4ItemType, K4Archetype} from "./scripts/enums";
 import InitializePopovers from "./scripts/popovers.js";
 import U from "./scripts/utilities.js";
-import {formatForKult, registerHandlebarHelpers as RegisterHandlebarHelpers} from "./scripts/helpers.js";
+// import {formatForKult, registerHandlebarHelpers as RegisterHandlebarHelpers} from "./scripts/helpers.js";
 import registerSettings from "./scripts/settings.js";
-import registerConsoleLogger from "./scripts/logger.js";
-import K4Alert from "./documents/K4Alert.js";
-import K4Sound from "./documents/K4Sound.js";
-import K4Roll from "./documents/K4Roll.js";
-import K4Dialog from "./documents/K4Dialog.js";
-import K4Socket from "./documents/K4Socket.js";
-import K4DebugDisplay from "./documents/K4DebugDisplay.js";
-import K4CharGen from "./documents/K4CharGen.js";
-import K4GMTracker from "./documents/K4GMTracker.js";
+// import registerConsoleLogger from "./scripts/logger.js";
+// import K4Alert from "./documents/K4Alert.js";
+// import K4Sound from "./documents/K4Sound.js";
+// import K4Roll from "./documents/K4Roll.js";
+// import K4Dialog from "./documents/K4Dialog.js";
+// import K4Socket from "./documents/K4Socket.js";
+// import K4DebugDisplay from "./documents/K4DebugDisplay.js";
+// import K4CharGen from "./documents/K4CharGen.js";
+// import K4GMTracker from "./documents/K4GMTracker.js";
 
 // import InitializeLibraries, {gsap} from "./libraries.js";
-import K4ChatMessage from "./documents/K4ChatMessage.js";
+// import K4ChatMessage from "./documents/K4ChatMessage.js";
 // #endregion
 
 // #region === CONSTANTS === ~
 const InitializableClasses = {
   K4Actor,
-  K4PCSheet,
-  K4NPCSheet,
+  // K4PCSheet,
+  // K4NPCSheet,
 
   K4Item,
-  K4ItemSheet,
+  // K4ItemSheet,
 
-  K4ChatMessage,
-  K4ActiveEffect,
-  K4Roll,
-  K4Dialog,
-  K4Sound,
-  K4Alert,
-  K4DebugDisplay,
-  K4GMTracker,
-  K4CharGen,
-  K4Socket
+  // K4ChatMessage,
+  // K4ActiveEffect,
+  // K4Roll,
+  // K4Dialog,
+  // K4Sound,
+  // K4Alert,
+  // K4DebugDisplay,
+  // K4GMTracker,
+  // K4CharGen,
+  // K4Socket
  } as const;
 // #endregion
 
@@ -180,7 +180,7 @@ Object.assign(globalThis, {
 
 /* #DEVCODE */
 const DEV_DEBUG_CONFIG = {
-  isRunningDevCode: true,
+  isRunningDevCode: false, // true,
   isDebuggingHooks: true,
   isDisablingCompatibilityWarnings: true,
   isRunningCSSPerformanceMonitor: false,
@@ -198,7 +198,7 @@ function GlobalAssignment() {
     void (async () => {
 
     // Dynamically import data.js for initializing and building Item documents during development (will become packs for production)
-    const {BUILD_ITEMS_FROM_DATA, PACKS, getUniqueValuesForSystemKey, getItemSystemReport, getSubItemSystemReport, findRepresentativeSubset, checkSubsetCoverage, findUniqueKeys} = await import("./scripts/data.js");
+    // const {BUILD_ITEMS_FROM_DATA, PACKS, getUniqueValuesForSystemKey, getItemSystemReport, getSubItemSystemReport, findRepresentativeSubset, checkSubsetCoverage, findUniqueKeys} = await import("./scripts/data.js");
 
     const whichArchetypesHave = (traitName: string) => {
       return Object.values(Archetypes)
@@ -221,24 +221,24 @@ function GlobalAssignment() {
       U,
       C,
       ActorSheet,
-      formatForKult,
+      // formatForKult,
       ACTOR, ITEM, EMBED, ACTORSHEET,
       ENTITIES: [ACTOR, ITEM, EMBED],
       ...InitializableClasses,
-      PACKS,
-      getItemSystemReport,
-      getSubItemSystemReport,
-      getUniqueValuesForSystemKey,
-      getUniqueEffects: () => getUniqueValuesForSystemKey(PACKS.all, "rules.effects"),
-      findRepresentativeSubset,
-      checkSubsetCoverage,
-      findUniqueKeys,
-      BUILD_ITEMS_FROM_DATA,
-      whichArchetypesHave,
-      isTraitUnique,
-        getArchetypeReport
+      // PACKS,
+      // getItemSystemReport,
+      // getSubItemSystemReport,
+      // getUniqueValuesForSystemKey,
+      // getUniqueEffects: () => getUniqueValuesForSystemKey(PACKS.all, "rules.effects"),
+      // findRepresentativeSubset,
+      // checkSubsetCoverage,
+      // findUniqueKeys,
+      // BUILD_ITEMS_FROM_DATA,
+      // whichArchetypesHave,
+      // isTraitUnique,
+      //getArchetypeReport
       });
-    })();
+    }) /* () */;
   });
 
 
@@ -521,26 +521,26 @@ async function DisableClientCanvas() {
 Hooks.on("init", async () => {
 
   // Register logging function and announce initialization to console.
-  registerConsoleLogger();
-  kLog.display("Initializing 'Kult: Divinity Lost 4th Edition' for Foundry VTT", 0);
+  // registerConsoleLogger();
+  // kLog.display("Initializing 'Kult: Divinity Lost 4th Edition' for Foundry VTT", 0);
 
   // Preload Handlebars Templates
-  await PreloadHBSTemplates();
+  // await PreloadHBSTemplates();
 
   // Register settings (including debug settings necessary for kLog)
-  registerSettings();
+  // registerSettings();
 
   // Define the "K4" namespace within the CONFIG object, and assign basic system configuration package.
-  CONFIG.K4 = K4Config;
+  // CONFIG.K4 = K4Config;
 
   // Initialize Libraries
-  InitializeLibraries();
+  // InitializeLibraries();
 
   // Initialize Tooltips Overlay
   InitializePopovers($("body"));
 
   // Register Handlebar Helpers
-  RegisterHandlebarHelpers();
+  // RegisterHandlebarHelpers();
 
   // Monitor notifications for canvas disabled and minimum screen size warnings
   MuteNotifications([
@@ -573,27 +573,27 @@ Hooks.on("ready", async () => {
   void DisableClientCanvas();
 
   // Initialize collection objects
-  getGame().rolls = new Collection<K4Roll>();
+  // getGame().rolls = new Collection<K4Roll>();
 
   // Call PostInitialize on all relevant classes
   await RunInitializer(InitializerMethod.PostInitialize);
 
-  // Get GM Tracker instance
-  const tracker = await K4GMTracker.Get();
+  // // Get GM Tracker instance
+  // const tracker = await K4GMTracker.Get();
 
-  // Actions for player (non-GM) users -- overlays
-  if (!getUser().isGM) {
+  // // Actions for player (non-GM) users -- overlays
+  // if (!getUser().isGM) {
 
-    // Initialize appropriate overlay given tracker phase
-    await tracker.preloadOverlay();
-    await tracker.displayOverlay();
+  //   // Initialize appropriate overlay given tracker phase
+  //   await tracker.preloadOverlay();
+  //   await tracker.displayOverlay();
 
-    // Further actions only trigger for GM users
-    return;
-  }
+  //   // Further actions only trigger for GM users
+  //   return;
+  // }
 
-  // Render GM Tracker sheet for GM
-  tracker.render(true);
+  // // Render GM Tracker sheet for GM
+  // tracker.render(true);
 
   // Add "gm-user" class to #interface, and "interface-visible" to body
   $("body").addClass("interface-visible");
@@ -602,13 +602,13 @@ Hooks.on("ready", async () => {
 
 
 // #region ░░░░░░░[SocketLib]░░░░ SocketLib Initialization ░░░░░░░ ~
-Hooks.once("socketlib.ready", () => {
-  socketlib.registerSystem("kult4th");
-  Object.values(InitializableClasses).filter(
-    (doc): doc is typeof doc & {SocketFunctions: Record<string, SocketFunction>} =>
-      "SocketFunctions" in doc
-  ).forEach((doc) => {
-    K4Socket.RegisterSocketFunctions(doc.SocketFunctions);
-  });
-});
+// Hooks.once("socketlib.ready", () => {
+//   socketlib.registerSystem("kult4th");
+//   Object.values(InitializableClasses).filter(
+//     (doc): doc is typeof doc & {SocketFunctions: Record<string, SocketFunction>} =>
+//       "SocketFunctions" in doc
+//   ).forEach((doc) => {
+//     K4Socket.RegisterSocketFunctions(doc.SocketFunctions);
+//   });
+// });
 // #endregion ░░░░[SocketLib]░░░░

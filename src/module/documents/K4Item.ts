@@ -1,286 +1,268 @@
 // #region IMPORTS ~
 import U from "../scripts/utilities.js";
-import K4ItemSheet from "./K4ItemSheet.js";
-import K4ChatMessage from "./K4ChatMessage.js";
-import C, {K4Attribute} from "../scripts/constants.js";
-import K4Actor, {K4ActorType} from "./K4Actor.js";
-import K4Roll, {K4RollResult} from "./K4Roll.js";
-import K4ActiveEffect from "./K4ActiveEffect.js";
-import {InterfaceToObject, ConstructorDataType} from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes.mjs";
+// import K4ItemSheet from "./K4ItemSheet.js";
+// import K4ChatMessage from "./K4ChatMessage.js";
+import C from "../scripts/constants.js";
+import {K4Attribute, K4ActorType, K4ItemType, K4ItemSubType} from "../scripts/enums";
+import K4Actor from "./K4Actor.js";
+import ItemDataModel_Advantage from "../dataModels/documents/ItemDataModel_Advantage";
+import ItemDataModel_Disadvantage from "../dataModels/documents/ItemDataModel_Disadvantage";
+import ItemDataModel_DarkSecret from "../dataModels/documents/ItemDataModel_DarkSecret";
+import ItemDataModel_Move from "../dataModels/documents/ItemDataModel_Move";
+import ItemDataModel_Relation from "../dataModels/documents/ItemDataModel_Relation";
+import ItemDataModel_Weapon from "../dataModels/documents/ItemDataModel_Weapon";
+import ItemDataModel_Gear from "../dataModels/documents/ItemDataModel_Gear";
+import ItemDataModel_GMTracker from "../dataModels/documents/ItemDataModel_GMTracker";
+// import K4Roll, {K4RollResult} from "./K4Roll.js";
+// import K4ActiveEffect from "./K4ActiveEffect.js";
+// import {InterfaceToObject, ConstructorDataType} from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes.mjs";
 // #endregion
 
 // #REGION === TYPES, ENUMS === ~
-// #region -- ENUMS ~
-console.log("Loading K4Item.ts");
-
-enum K4ItemType {
-  advantage = "advantage",
-  disadvantage = "disadvantage",
-  move = "move",
-  darksecret = "darksecret",
-  relation = "relation",
-  gear = "gear",
-  weapon = "weapon",
-  gmtracker = "gmtracker"
-}
-
-enum K4ItemSubType {
-  activeRolled = "active-rolled",
-  activeStatic = "active-static",
-  passive = "passive"
-}
-enum K4ItemRange {
-  arm = "arm",
-  room = "room",
-  field = "field",
-  horizon = "horizon"
-}
-
-// #endregion
 // #region -- TYPES ~
 
-declare global {
-  namespace K4SubItem {
-    export type Types = K4ItemType.move;
-    export type SubTypes = K4ItemSubType.activeRolled | K4ItemSubType.activeStatic;
+// declare global {
+//   namespace K4SubItem {
+//     export type Types = K4ItemType.move;
+//     export type SubTypes = K4ItemSubType.activeRolled | K4ItemSubType.activeStatic;
 
-    export namespace Components {
+//     export namespace Components {
 
-      export interface Base {
-        lists?: Record<string, K4Item.Components.ListData>,
-        isEdge?: boolean,
-        subType: K4ItemSubType;
-        shortDesc: string;
-      }
-      export interface ParentItemReference {
-        name: string,
-        id?: IDString | null,
-        type: K4ItemType;
-      }
-      export interface CanSubItem {
-        parentItem?: ParentItemReference;
-      }
-      export interface IsSubItem {
-        chatName?: string;
-        parentItem: ParentItemReference;
-      }
-    }
+//       export interface Base {
+//         lists?: Record<string, K4Item.Components.ListData>,
+//         isEdge?: boolean,
+//         subType: K4ItemSubType;
+//         shortDesc: string;
+//       }
+//       export interface ParentItemReference {
+//         name: string,
+//         id?: IDString | null,
+//         type: K4ItemType;
+//       }
+//       export interface CanSubItem {
+//         parentItem?: ParentItemReference;
+//       }
+//       export interface IsSubItem {
+//         chatName?: string;
+//         parentItem: ParentItemReference;
+//       }
+//     }
 
-    export namespace SystemSchema {
-      export interface Static extends Components.Base,
-        Components.IsSubItem,
-        K4Item.Components.RulesData,
-        Partial<K4Item.Components.ResultsData> {
-        subType: K4ItemSubType.activeStatic;
-      }
+//     export namespace SystemSchema {
+//       export interface Static extends Components.Base,
+//         Components.IsSubItem,
+//         K4Item.Components.RulesData,
+//         Partial<K4Item.Components.ResultsData> {
+//         subType: K4ItemSubType.activeStatic;
+//       }
 
-      export interface Active extends Components.Base,
-        Components.IsSubItem,
-        K4Item.Components.RulesData,
-        K4Item.Components.ResultsData {
-        subType: K4ItemSubType.activeRolled;
-        attribute: K4Attribute;
-      }
-      export type SubMove = Static | Active;
-    }
+//       export interface Active extends Components.Base,
+//         Components.IsSubItem,
+//         K4Item.Components.RulesData,
+//         K4Item.Components.ResultsData {
+//         subType: K4ItemSubType.activeRolled;
+//         attribute: K4Attribute;
+//       }
+//       export type SubMove = Static | Active;
+//     }
 
-    export type System<T extends Types = Types> =
-      T extends K4ItemType.move ? SystemSchema.SubMove
-      : never;
+//     export type System<T extends Types = Types> =
+//       T extends K4ItemType.move ? SystemSchema.SubMove
+//       : never;
 
-    export interface Schema<T extends K4SubItem.Types = K4SubItem.Types> {
-      id?: IDString,
-      name?: string,
-      type: T,
-      img: string,
-      system: K4SubItem.System<T>;
-    }
-  }
-  interface K4SubItem<T extends K4SubItem.Types = K4SubItem.Types> {
-    type: T,
-    system: K4SubItem.System<T> & K4SubItem.Components.IsSubItem;
-  }
+//     export interface Schema<T extends K4SubItem.Types = K4SubItem.Types> {
+//       id?: IDString,
+//       name?: string,
+//       type: T,
+//       img: string,
+//       system: K4SubItem.System<T>;
+//     }
+//   }
+//   interface K4SubItem<T extends K4SubItem.Types = K4SubItem.Types> {
+//     type: T,
+//     system: K4SubItem.System<T> & K4SubItem.Components.IsSubItem;
+//   }
 
-  namespace K4Item {
-    export namespace Types {
-      export type Parent = K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
-      export type Rollable = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage;
-      export type Static = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
-      export type Passive = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.relation | K4ItemType.weapon | K4ItemType.gear;
-      export type Active = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
-      export type HaveRules = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.weapon | K4ItemType.gear;
-      export type HaveResults = K4ItemType.move;
-      export type HaveMainEffects = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
-    }
-    export namespace Components {
-      export interface ListData {
-        name: string,
-        items: string[],
-        intro?: string,
-        overrideField?: string
-      }
-      export interface Base {
-        lists: Record<string, ListData>,
-        subType: K4ItemSubType;
-        gmNotes?: string;
-        shortDesc?: string;
-        traitNotesTarget?: string;
-      }
+//   namespace K4Item {
+//     export namespace Types {
+//       export type Parent = K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
+//       export type Rollable = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage;
+//       export type Static = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
+//       export type Passive = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.relation | K4ItemType.weapon | K4ItemType.gear;
+//       export type Active = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
+//       export type HaveRules = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.weapon | K4ItemType.gear;
+//       export type HaveResults = K4ItemType.move;
+//       export type HaveMainEffects = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
+//     }
+//     export namespace Components {
+//       export interface ListData {
+//         name: string,
+//         items: string[],
+//         intro?: string,
+//         overrideField?: string
+//       }
+//       export interface Base {
+//         lists: Record<string, ListData>,
+//         subType: K4ItemSubType;
+//         gmNotes?: string;
+//         shortDesc?: string;
+//         traitNotesTarget?: string;
+//       }
 
-      export interface HasSubItems {
-        subItems: K4SubItem.Schema[],
-        subMoves?: K4SubItem.Schema[]
-      }
+//       export interface HasSubItems {
+//         subItems: K4SubItem.Schema[],
+//         subMoves?: K4SubItem.Schema[]
+//       }
 
-      export interface RulesData {
-        rules: {
-          intro?: string,
-          trigger?: string,
-          outro?: string,
-          listRefs?: string[],
-          effects?: K4ActiveEffect.BuildData[],
-          holdText?: string;
-        };
-      }
+//       export interface RulesData {
+//         rules: {
+//           intro?: string,
+//           trigger?: string,
+//           outro?: string,
+//           listRefs?: string[],
+//           effects?: K4ActiveEffect.BuildData[],
+//           holdText?: string;
+//         };
+//       }
 
-      export interface ResultData {
-        result: string,
-        listRefs?: string[],
-        effects?: K4ActiveEffect.BuildData[],
-        edges?: number,
-        hold?: number;
-      }
+//       export interface ResultData {
+//         result: string,
+//         listRefs?: string[],
+//         effects?: K4ActiveEffect.BuildData[],
+//         edges?: number,
+//         hold?: number;
+//       }
 
-      export interface ResultsData {
-        results: Partial<Record<
-          K4RollResult|"triggered",
-          ResultData
-        >>;
-      }
-    }
+//       export interface ResultsData {
+//         results: Partial<Record<
+//           K4RollResult|"triggered",
+//           ResultData
+//         >>;
+//       }
+//     }
 
-    /**
-     * Describes the data structure as defined in template.json for each item type
-     */
-    export namespace SourceSchema {
-      export interface Move extends K4Item.Components.Base,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        K4SubItem.Components.CanSubItem,
-        K4Item.Components.RulesData,
-        K4Item.Components.ResultsData {
-        attribute: K4Attribute;
-      }
+//     /**
+//      * Describes the data structure as defined in template.json for each item type
+//      */
+//     export namespace SourceSchema {
+//       export interface Move extends K4Item.Components.Base,
+//         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+//         K4SubItem.Components.CanSubItem,
+//         K4Item.Components.RulesData,
+//         K4Item.Components.ResultsData {
+//         attribute: K4Attribute;
+//       }
 
-      export interface Advantage extends K4Item.Components.Base,
-        K4Item.Components.HasSubItems,
-        K4Item.Components.RulesData {
-        currentHold: number;
-      }
+//       export interface Advantage extends K4Item.Components.Base,
+//         K4Item.Components.HasSubItems,
+//         K4Item.Components.RulesData {
+//         currentHold: number;
+//       }
 
-      export interface Disadvantage extends K4Item.Components.Base,
-        K4Item.Components.HasSubItems,
-        K4Item.Components.RulesData {
-        currentHold: number;
-      }
+//       export interface Disadvantage extends K4Item.Components.Base,
+//         K4Item.Components.HasSubItems,
+//         K4Item.Components.RulesData {
+//         currentHold: number;
+//       }
 
-      export interface DarkSecret extends K4Item.Components.Base,
-        K4Item.Components.RulesData {
-        drive: string,
-        currentHold: number,
-        playerNotes: string
-      }
+//       export interface DarkSecret extends K4Item.Components.Base,
+//         K4Item.Components.RulesData {
+//         drive: string,
+//         currentHold: number,
+//         playerNotes: string
+//       }
 
-      export interface Relation extends K4Item.Components.Base {
-        target?: IDString, // Link to npc actor, if one has been created
-        concept?: string, // Brief subtitle description of character
-        strength: ValueMax;
-      }
-      export interface Weapon extends K4Item.Components.Base,
-        K4Item.Components.HasSubItems,
-        K4Item.Components.RulesData {
-        ammo?: ValueMax;
-      }
-      export interface Gear extends K4Item.Components.Base,
-        K4Item.Components.HasSubItems,
-        K4Item.Components.RulesData {
-        armor?: number;
-      }
-      export type Any = Move | Advantage | Disadvantage | DarkSecret | Relation | Weapon | Gear;
-    }
-    /**
-     * Discriminated union of all item source schemas
-     *  */
-    export type Source<T extends K4ItemType = K4ItemType> =
-      T extends K4ItemType.move ? InterfaceToObject<SourceSchema.Move>
-      : T extends K4ItemType.advantage ? InterfaceToObject<SourceSchema.Advantage>
-      : T extends K4ItemType.disadvantage ? InterfaceToObject<SourceSchema.Disadvantage>
-      : T extends K4ItemType.darksecret ? InterfaceToObject<SourceSchema.DarkSecret>
-      : T extends K4ItemType.relation ? InterfaceToObject<SourceSchema.Relation>
-      : T extends K4ItemType.weapon ? InterfaceToObject<SourceSchema.Weapon>
-      : T extends K4ItemType.gear ? InterfaceToObject<SourceSchema.Gear>
-      : SourceSchema.Any;
+//       export interface Relation extends K4Item.Components.Base {
+//         target?: IDString, // Link to npc actor, if one has been created
+//         concept?: string, // Brief subtitle description of character
+//         strength: ValueMax;
+//       }
+//       export interface Weapon extends K4Item.Components.Base,
+//         K4Item.Components.HasSubItems,
+//         K4Item.Components.RulesData {
+//         ammo?: ValueMax;
+//       }
+//       export interface Gear extends K4Item.Components.Base,
+//         K4Item.Components.HasSubItems,
+//         K4Item.Components.RulesData {
+//         armor?: number;
+//       }
+//       export type Any = Move | Advantage | Disadvantage | DarkSecret | Relation | Weapon | Gear;
+//     }
+//     /**
+//      * Discriminated union of all item source schemas
+//      *  */
+//     export type Source<T extends K4ItemType = K4ItemType> =
+//       T extends K4ItemType.move ? InterfaceToObject<SourceSchema.Move>
+//       : T extends K4ItemType.advantage ? InterfaceToObject<SourceSchema.Advantage>
+//       : T extends K4ItemType.disadvantage ? InterfaceToObject<SourceSchema.Disadvantage>
+//       : T extends K4ItemType.darksecret ? InterfaceToObject<SourceSchema.DarkSecret>
+//       : T extends K4ItemType.relation ? InterfaceToObject<SourceSchema.Relation>
+//       : T extends K4ItemType.weapon ? InterfaceToObject<SourceSchema.Weapon>
+//       : T extends K4ItemType.gear ? InterfaceToObject<SourceSchema.Gear>
+//       : SourceSchema.Any;
 
-    /**
-     * Describes the functional .system property after derivation methods in K4Item.
-     */
-    export namespace SystemSchema {
-      export type Move = K4Item.SourceSchema.Move
-      export interface Advantage extends K4Item.SourceSchema.Advantage, K4Item.Components.ResultsData { }
-      export interface Disadvantage extends K4Item.SourceSchema.Disadvantage, K4Item.Components.ResultsData { }
-      export type DarkSecret = K4Item.SourceSchema.DarkSecret
-      export type Relation = K4Item.SourceSchema.Relation
-      export interface Weapon extends K4Item.SourceSchema.Weapon, K4Item.Components.ResultsData { }
-      export interface Gear extends K4Item.SourceSchema.Gear, K4Item.Components.ResultsData { }
-      // export type Any = Move | Advantage | Disadvantage | DarkSecret | Relation | Weapon | Gear;
-      export type Any =
-        | InterfaceToObject<Move>
-        | InterfaceToObject<Advantage>
-        | InterfaceToObject<Disadvantage>
-        | InterfaceToObject<DarkSecret>
-        | InterfaceToObject<Relation>
-        | InterfaceToObject<Weapon>
-        | InterfaceToObject<Gear>;
-    }
+//     /**
+//      * Describes the functional .system property after derivation methods in K4Item.
+//      */
+//     export namespace SystemSchema {
+//       export type Move = K4Item.SourceSchema.Move
+//       export interface Advantage extends K4Item.SourceSchema.Advantage, K4Item.Components.ResultsData { }
+//       export interface Disadvantage extends K4Item.SourceSchema.Disadvantage, K4Item.Components.ResultsData { }
+//       export type DarkSecret = K4Item.SourceSchema.DarkSecret
+//       export type Relation = K4Item.SourceSchema.Relation
+//       export interface Weapon extends K4Item.SourceSchema.Weapon, K4Item.Components.ResultsData { }
+//       export interface Gear extends K4Item.SourceSchema.Gear, K4Item.Components.ResultsData { }
+//       // export type Any = Move | Advantage | Disadvantage | DarkSecret | Relation | Weapon | Gear;
+//       export type Any =
+//         | InterfaceToObject<Move>
+//         | InterfaceToObject<Advantage>
+//         | InterfaceToObject<Disadvantage>
+//         | InterfaceToObject<DarkSecret>
+//         | InterfaceToObject<Relation>
+//         | InterfaceToObject<Weapon>
+//         | InterfaceToObject<Gear>;
+//     }
 
-    /**
-     * Discriminated union of all item system schemas
-     *  */
-    export type System<T extends K4ItemType = K4ItemType> =
-      T extends K4ItemType.move ? InterfaceToObject<SystemSchema.Move>
-      : T extends K4ItemType.advantage ? InterfaceToObject<SystemSchema.Advantage>
-      : T extends K4ItemType.disadvantage ? InterfaceToObject<SystemSchema.Disadvantage>
-      : T extends K4ItemType.darksecret ? InterfaceToObject<SystemSchema.DarkSecret>
-      : T extends K4ItemType.relation ? InterfaceToObject<SystemSchema.Relation>
-      : T extends K4ItemType.weapon ? InterfaceToObject<SystemSchema.Weapon>
-      : T extends K4ItemType.gear ? InterfaceToObject<SystemSchema.Gear>
-      : SystemSchema.Any;
+//     /**
+//      * Discriminated union of all item system schemas
+//      *  */
+//     export type System<T extends K4ItemType = K4ItemType> =
+//       T extends K4ItemType.move ? InterfaceToObject<SystemSchema.Move>
+//       : T extends K4ItemType.advantage ? InterfaceToObject<SystemSchema.Advantage>
+//       : T extends K4ItemType.disadvantage ? InterfaceToObject<SystemSchema.Disadvantage>
+//       : T extends K4ItemType.darksecret ? InterfaceToObject<SystemSchema.DarkSecret>
+//       : T extends K4ItemType.relation ? InterfaceToObject<SystemSchema.Relation>
+//       : T extends K4ItemType.weapon ? InterfaceToObject<SystemSchema.Weapon>
+//       : T extends K4ItemType.gear ? InterfaceToObject<SystemSchema.Gear>
+//       : SystemSchema.Any;
 
-    /**
-     * The top-level schema for an Item
-     */
-    export interface Schema<T extends K4ItemType = K4ItemType> {
-      name: string,
-      type: T,
-      img: string,
-      system: K4Item.System<T>;
-    }
+//     /**
+//      * The top-level schema for an Item
+//      */
+//     export interface Schema<T extends K4ItemType = K4ItemType> {
+//       name: string,
+//       type: T,
+//       img: string,
+//       system: K4Item.System<T>;
+//     }
 
-    /**
-     * Discriminated unions of item types by subType or other criteria
-     */
-    export type Parent<T extends Types.Parent = Types.Parent> = K4Item<T>;
-    export type Static<T extends Types.Static = Types.Static> = K4Item<T>;
-    export type Passive<T extends Types.Passive = Types.Passive> = K4Item<T>;
-    export type Active<T extends Types.Active = Types.Active> = K4Item<T>;
-    export type HaveRules<T extends Types.HaveRules = Types.HaveRules> =
-      K4Item<T>;
-    export type HaveResults<T extends Types.HaveResults = Types.HaveResults> =
-      K4Item<T>;
-    export type HaveMainEffects<
-      T extends Types.HaveMainEffects = Types.HaveMainEffects,
-    > = K4Item<T>;
-  }
-}
+//     /**
+//      * Discriminated unions of item types by subType or other criteria
+//      */
+//     export type Parent<T extends Types.Parent = Types.Parent> = K4Item<T>;
+//     export type Static<T extends Types.Static = Types.Static> = K4Item<T>;
+//     export type Passive<T extends Types.Passive = Types.Passive> = K4Item<T>;
+//     export type Active<T extends Types.Active = Types.Active> = K4Item<T>;
+//     export type HaveRules<T extends Types.HaveRules = Types.HaveRules> =
+//       K4Item<T>;
+//     export type HaveResults<T extends Types.HaveResults = Types.HaveResults> =
+//       K4Item<T>;
+//     export type HaveMainEffects<
+//       T extends Types.HaveMainEffects = Types.HaveMainEffects,
+//     > = K4Item<T>;
+//   }
+// }
 // #ENDREGION
 // #endregion
 // #REGION === K4ITEM CLASS ===
@@ -290,9 +272,31 @@ declare global {
 
 //   get effects(): foundry.abstract.EmbeddedCollection<K4ActiveEffect & foundry.abstract.Document.Any, K4Item<Type> & foundry.abstract.Document.Any>;
 // }
+
+declare global {
+
+  export namespace K4Item {
+
+    export type System<Type extends K4ItemType> =
+      Type extends K4ItemType.advantage ? ItemDataModel_Advantage
+    : Type extends K4ItemType.disadvantage ? ItemDataModel_Disadvantage
+    : Type extends K4ItemType.darksecret ? ItemDataModel_DarkSecret
+    : Type extends K4ItemType.move ? ItemDataModel_Move
+    : Type extends K4ItemType.relation ? ItemDataModel_Relation
+    : Type extends K4ItemType.weapon ? ItemDataModel_Weapon
+    : Type extends K4ItemType.gear ? ItemDataModel_Gear
+    : Type extends K4ItemType.gmtracker ? ItemDataModel_GMTracker
+    : never;
+
+    export type OfType<Type extends K4ItemType> = K4Item & {system: System<Type>};
+  }
+}
+
 export default class K4Item extends Item {
-  declare type: Type;
-  declare system: K4Item.System<Type>;
+
+  isType<T extends K4ItemType>(itemType: T): this is K4Item.OfType<T> {
+    return this.type === itemType
+  }
 
   // #region INITIALIZATION ~
   /**
@@ -340,9 +344,9 @@ export default class K4Item extends Item {
   } isParentItem(): this is K4Item.Parent {return Boolean("subItems" in this.system && Array.isArray(this.system.subItems) && this.system.subItems.length > 0);}
   hasSubMoves(): this is K4Item.Parent {return "subMoves" in this.system && Array.isArray(this.system.subMoves) && this.system.subMoves.length > 0;}
   hasSubAttacks(): this is K4Item.Parent {return "subAttacks" in this.system && Array.isArray(this.system.subAttacks) && this.system.subAttacks.length > 0;}
-  isSubItem(): this is K4Item<K4ItemType.move> & K4SubItem {return Boolean("parentItem" in this.system && this.system.parentItem?.name);}
-  isBasicMove(): this is K4Item<K4ItemType.move> {return C.BasicMoves.includes(this.name);}
-  isEdge(): this is K4Item<K4ItemType.move> {return this.isSubItem() && Boolean(this.system.isEdge);}
+  isSubItem(): this is K4Item.OfType<K4ItemType.move> & K4SubItem {return Boolean("parentItem" in this.system && this.system.parentItem?.name);}
+  isBasicMove(): this is K4Item.OfType<K4ItemType.move> {return C.BasicMoves.includes(this.name);}
+  isEdge(): this is K4Item.OfType<K4ItemType.move> {return this.isSubItem() && Boolean(this.system.isEdge);}
   isOwnedItem(): this is K4Item & {parent: K4Actor;} {return Boolean(this.isEmbedded && this.parent instanceof Actor);}
   isOwnedSubItem(): this is K4Item & K4SubItem & {parent: K4Actor;} {return this.isSubItem() && this.isOwnedItem();}
   isOwnedByUser(): this is K4Item & {parent: K4Actor;} {return this.isOwnedItem() && this.parent.isOwner;}

@@ -317,6 +317,8 @@ declare global {
 
   type MapFunction = (value: ObjectValue, key: ObjectKey) => unknown;
   type TestFunction = (value: ObjectValue, key: ObjectKey) => boolean;
+
+  type BoolFunction<Args extends unknown[] = unknown[]> = (...args: Args) => boolean;
   // #endregion
 
   // #region BRANDED TYPES ~

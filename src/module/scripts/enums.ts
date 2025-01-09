@@ -13,6 +13,19 @@ export enum K4Attribute {
   soul = "soul"
 }
 
+export enum K4CharAttribute {
+  fortitude = "fortitude",
+  reflexes = "reflexes",
+  willpower = "willpower",
+  reason = "reason",
+  intuition = "intuition",
+  perception = "perception",
+  coolness = "coolness",
+  violence = "violence",
+  charisma = "charisma",
+  soul = "soul"
+}
+
 export enum K4Archetype {
   academic = "academic",
   agent = "agent",
@@ -73,12 +86,9 @@ export enum K4WoundType {
   stablecritical = "stablecritical"
 }
 export enum K4ActorType {
-  base = "base",
   pc = "pc",
   npc = "npc"
 }
-
-export type ActorType = "pc";
 
 export enum K4ItemType {
   advantage = "advantage",
@@ -116,4 +126,14 @@ export enum K4CharGenPhase {
   details = "details",
   relations = "relations",
   finished = "finished"
+}
+
+export enum K4RollResult {
+  completeSuccess = "completeSuccess",
+  partialSuccess = "partialSuccess",
+  failure = "failure"
+}
+export enum K4RollType {
+  attribute = "attribute",
+  move = "move"
 }

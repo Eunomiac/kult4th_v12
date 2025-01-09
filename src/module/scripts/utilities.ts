@@ -135,6 +135,7 @@ const UUIDLOG: Array<[string, string, number]> = [];
 
 // #endregion ▒▒▒▒[HELPERS]▒▒▒▒
 
+
 // #region █████████████████ INITIALIZATION ███████████████████████
 const Initialize = () => {
   Object.assign(globalThis, {_backTrace: {} });

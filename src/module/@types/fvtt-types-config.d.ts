@@ -1,17 +1,17 @@
 // import K4ActiveEffect from "../documents/K4ActiveEffect.js";
 import K4Actor from "../documents/K4Actor";
 import {K4ActorType, K4ItemType} from "../scripts/enums.js";
-import ActorDataModel_PC from "../dataModels/ActorModel_PC.js";
-import ActorDataModel_NPC from "../dataModels/ActorModel_NPC.js";
+import ActorDataModel_PC from "../dataModels/documents/ActorDataModel_PC.js";
+import ActorDataModel_NPC from "../dataModels/documents/ActorDataModel_NPC.js";
 import K4Item from "../documents/K4Item";
-import ItemDataModel_Advantage from "../dataModels/ItemModel_Advantage.js";
-import ItemDataModel_Disadvantage from "../dataModels/ItemModel_Disadvantage.js";
-import ItemDataModel_DarkSecret from "../dataModels/ItemModel_DarkSecret.js";
-import ItemDataModel_Gear from "../dataModels/ItemModel_Gear.js";
-import ItemDataModel_GMTracker from "../dataModels/ItemModel_GMTracker.js";
-import ItemDataModel_Move from "../dataModels/ItemModel_Move.js";
-import ItemDataModel_Relation from "../dataModels/ItemModel_Relation.js";
-import ItemDataModel_Weapon from "../dataModels/ItemModel_Weapon.js";
+import ItemDataModel_Advantage from "../dataModels/documents/ItemDataModel_Advantage.js";
+import ItemDataModel_Disadvantage from "../dataModels/documents/ItemDataModel_Disadvantage.js";
+import ItemDataModel_DarkSecret from "../dataModels/documents/ItemDataModel_DarkSecret.js";
+import ItemDataModel_Gear from "../dataModels/documents/ItemDataModel_Gear.js";
+import ItemDataModel_GMTracker from "../dataModels/documents/ItemDataModel_GMTracker.js";
+import ItemDataModel_Move from "../dataModels/documents/ItemDataModel_Move.js";
+import ItemDataModel_Relation from "../dataModels/documents/ItemDataModel_Relation.js";
+import ItemDataModel_Weapon from "../dataModels/documents/ItemDataModel_Weapon.js";
 import Document = foundry.abstract.Document;
 // import K4PCSheet from "../documents/K4PCSheet.js";
 // import K4NPCSheet from "../documents/K4NPCSheet.js";
@@ -21,7 +21,7 @@ import Document = foundry.abstract.Document;
 // import K4Roll, {K4RollResult} from "../documents/K4Roll.js";
 // import K4Scene from "../documents/K4Scene.js";
 
-// import K4Config from "../scripts/config.js";
+import K4Config from "../scripts/config";
 
 declare global {
 
@@ -84,5 +84,11 @@ declare global {
     // }
   }
 
-  type TestConfiguration = Document.ConfiguredClassForName<"Actor">;
+  interface Game {
+    // rolls: Collection<K4Roll>,
+  }
+
+  interface CONFIG {
+    K4: typeof K4Config
+  }
 }
