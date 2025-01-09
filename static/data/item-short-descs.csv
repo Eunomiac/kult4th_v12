@@ -1,0 +1,182 @@
+type,name,attribute,shortDesc,PDFpage
+advantage,Academic Network,charisma,You have contacts at universities around the world.,102
+advantage,Access the Dark Net,perception,You know how to access and search the Dark Net abyss.,108
+advantage,Ace Up the Sleeve,coolness,You are good in a tight spot.,105
+advantage,Analyst,reason,You are good at making connections when you %insert.docLink.Investigate%.,110
+advantage,Animal Speaker,intuition,You can control animals.,107
+advantage,Arcane Researcher,none,You know things about alternate planes of existance and creatures from other dimensions.,119
+advantage,Artifact,soul,You have an artifact with mystical powers.,113
+advantage,Artistic Talent,charisma,Your work of art have a great effect on audiences.,102
+advantage,At Any Cost,none,You can get <em>+2 to a roll</em> by decreasing #>text-keyword>Stability (−2)<#.,119
+advantage,Authority,charisma,You can use your academic authority to influence others.,102
+advantage,Awe-Inspiring,charisma,You can inspire awe and obedience in others.,102
+advantage,Backstab,coolness,You are dangerous when you attack unprepared victims.,105
+advantage,Battlefield Medicine,reason,You are trained in stabilising wounds.,110
+advantage,Body Awareness,perception,You have exceptional control over your body.,108
+advantage,Boss,coolness,You have a gang of criminal henchmen.,105
+advantage,Bound,soul,You can draw powers from an extradimensional entity.,113
+advantage,Burglar,coolness,You are an expert in breaking and entering.,105
+advantage,Chameleon,intuition,You are great at concealing your appearance and imitate others.,107
+advantage,Character Actor,intuition,You are a master at blending in.,107
+advantage,Charismatic Aura,soul,You can force people to trust you and seek your company.,113
+advantage,Code of Honor,none,Gain #>text-keyword>Stability<# when you take risks or make sacrifices for your code of honor.,119
+advantage,Collector,reason,You know how to find unusual or rare items.,110
+advantage,Contagious Insanity,soul,You can infect others with temporary insanity.,113
+advantage,Crafty,intuition,You can make others trust you.,107
+advantage,Crime Scene Investigator,reason,You are skilled at finding clues at crime scenes.,110
+advantage,Cult Leader,soul,You can perform rituals with your followers.,113
+advantage,Dabbler in the Occult,soul,You can perform rituals from written instructions.,114
+advantage,Daredevil,perception,You get Edges when you enter dangerous situations.,108
+advantage,Data Retrieval,reason,You are a skilled researcher.,110
+advantage,Dead Shot,none,Any #>text-keyword>Harm<# with a firearm is considered #>text-keyword>+1 Harm<#.,119
+advantage,Deadly Stare,violence,You can freeze an NPC with your stare.,117
+advantage,Death Drive,violence,You get Edges when you fight with no regard for personal safety.,117
+advantage,Desperate,none,You have <em>+1 on all rolls</em> when trying to make it through overwhelming odds.,119
+advantage,Divine,soul,You can make monsters obey you temporarily.,114
+advantage,Divine Champion,none,You get stronger when you fight against your deity’s enemies or protect a sacred object.,119
+advantage,Dreamer,soul,You can use dreams to meet people or experience past events.,114
+advantage,Driver,coolness,You are a trained professional at operating motor vehicles.,106
+advantage,Elite Education,charisma,You have contacts in the world’s social elite.,102
+advantage,Elite Sport (Athletic),none,You have competed professionally in a sport with top athletes.,119
+advantage,Elite Sport (Contact),none,You have competed professionally in a physically-demanding contact sport.,120
+advantage,Elite Sport (Fencing),none,You have competed professionally as a fencer.,121
+advantage,Endure Trauma,none,"Whenever you reduce #>text-keyword>Stability<#, you always lose 1 fewer level than normal.",119
+advantage,Enforcer,violence,You can threat people to do what you want.,117
+advantage,Enhanced Awareness,soul,You can open yourself to visions and communicate with entities from other dimensions.,114
+advantage,Erotic,charisma,You can use your attractivness to influence others.,103
+advantage,Escape Artist,coolness,You are a master at slipping away when the shit hits the fan.,106
+advantage,Exit Strategy,perception,You are an expert in hiding the tracks of your kills.,108
+advantage,Exorcist,soul,You can perform rituals to banish spirits or demons.,114
+advantage,Expert,reason,You get to ask an additonal question about whatever you want when you %insert.docLink.Investigate% things in your fields of knowledge.,110
+advantage,Explosives Expert,reason,You can build and disarm bombs.,110
+advantage,Extortionist,intuition,You can %insert.docLink.Read a Person.Read% others weaknesses.,107
+advantage,Eye for an Eye,none,You get <em>+2 ongoing</em> to all rolls against any one who wounds you.,119
+advantage,Eye for Detail,perception,You are good at noticing details on people.,109
+advantage,Fascination,charisma,You can use your art to seduce an NPC.,103
+advantage,Fast Talk,coolness,You are good at distracting NPCs with small talk.,106
+advantage,Field Agent,violence,You get Edges when you enter combat.,117
+advantage,Forbidden Inspiration,soul,You can use your art to experience visions and lure creatures to you.,114
+advantage,Forked Tongue,charisma,You can manipulate others into trusting you.,103
+advantage,Gang Leader,violence,You have a gang of criminals.,117
+advantage,Genius,soul,You get Edges in life-threatening situations.,115
+advantage,Good Samaritan,none,Gain #>text-keyword>Stability<# when you help others at your own expense.,119
+advantage,Gritted Teeth,none,You suffer no penalties to rolls from wounds.,119
+advantage,Grudge,none,You take <em>+1 ongoing</em> to revenge when someone ruin your plans.,120
+advantage,Hacker,reason,You are an expert on penetrating networks.,110
+advantage,Hardened,none,You take <em>+1 ongoing</em> to %insert.docLink.Endure Injury%.,120
+advantage,Hunter,perception,You are a skilled hunter.,109
+advantage,Ice Cold,coolness,You can use your calm and cool in the midst of violence and chaos.,106
+advantage,Implanted Messages,soul,You can get power over humans by experimenting on them.,115
+advantage,Impostor,charisma,You have several romantic relationships to use for resources.,103
+advantage,Improviser,coolness,You are good at winging it out of dangerous situations.,106
+advantage,Influental Friends,charisma,You have friends with power and influence.,103
+advantage,Inner Power,soul,"You harbour an uncontrollable, dangerous power.",115
+advantage,Instinct,perception,You get +2 on your questions when you %insert.docLink.Observe a Situation%.,109
+advantage,Interrogator,intuition,You are an expert in %insert.docLink.Read a Person.Reading% when others are lying.,108
+advantage,Intimidating,violence,You can scare others to submit.,117
+advantage,Intuitive,intuition,You get to ask an additional question when you succed in %insert.docLink.Read a Person.Reading% someone.,108
+advantage,Inventor,reason,You can create and repair things.,110
+advantage,Jaded,none,You can suppress the effects of a <strong>(10–14)</strong> on %insert.docLink.Keep it Together%.,120
+advantage,Keen-Eyed,perception,You are skilled at determing enemies’ strengths and weaknesses.,109
+advantage,Lay on Hands,soul,You can heal someone by sacrificing yourself or a victim.,115
+advantage,Lightning Fast,violence,You get Edges when you move fast in combat.,118
+advantage,Magical Intuition,soul,You can perceive Kirlian auras and sense the presence of magic.,115
+advantage,Magnetic Attraction,soul,You can draw people to you.,115
+advantage,Manhunter,reason,You are good at getting information about people.,110
+advantage,Manipulative,none,You can use given favors and learned secrets against people.,120
+advantage,Martial Arts Expert,violence,You get Edges when you fight in close quarters.,118
+advantage,Moles,charisma,You have a number of moles to use when needed.,104
+advantage,Network of Contacts,charisma,You can get information about people.,104
+advantage,Notorius,charisma,You can use your fame to influence others.,104
+advantage,Observant,intuition,You are good at judging someone’s character.,108
+advantage,Occult Library,reason,You have a library about supernatural things.,110
+advantage,Occult Studies,reason,You know things about the occult.,111
+advantage,Officer,violence,You get Edges when you fight with allies on your side.,118
+advantage,Opportunist,none,Gain #>text-keyword>Stability<# when you sacrifice someone to further your own goals.,120
+advantage,Parkour,coolness,"You are deft at running, climbing and jumping.",106
+advantage,Perpetual Victim,charisma,You can appear defenseless and make others take care of you.,104
+advantage,Prepared,reason,You are good at researching places.,111
+advantage,Puppeteer,reason,You are good at executing plans with other people as pawns.,111
+advantage,Quick Thinker,reason,You are good at thinking your way out of danger.,111
+advantage,Rage,none,Go into a rage to gain Edges in combat.,120
+advantage,Read a Crowd,perception,You are a master at overhearing information in crowds.,109
+advantage,Ruthless,violence,You get Edges when you sacrifice others to save yourself.,118
+advantage,Scientist,reason,You are good at %insert.docLink.Investigate.Investigating% objects or entities.,111
+advantage,Sealed Fate,none,You may mark Time to stabilize wounds <em>(requires %insert.docLink.Condemned%)</em>.,120
+advantage,Seducer,charisma,You can make people fall in love with you.,104
+advantage,Shadow,perception,You are skilled in shadowing and shaking of any stalkers.,109
+advantage,Sixth Sense,soul,You can sense danger and the right path in front of you.,116
+advantage,Snake Charmer,soul,"You can charm intelligent, monstrous creatures with your art.",116
+advantage,Sneak,coolness,You can avoid detection when hiding or sneaking.,107
+advantage,Sniper,violence,You are a master at firing at distant targets.,118
+advantage,Street Contacts,charisma,You have contacts among the social outsiders and outcasts.,104
+advantage,Streetfighter,violence,You get Edges when you fight in close combat.,119
+advantage,Streetwise,charisma,You have contacts in the criminal underworld.,105
+advantage,Stubborn,soul,You can push yourself to overcome threats and gain Edges.,116
+advantage,Survival Instinct,violence,You get more viscious when you are wounded.,119
+advantage,Survivalist,perception,You are trained in surviving in the wild.,109
+advantage,Thirst for Knowledge,none,You gain #>text-keyword>Stability<# when you learn about other dimensions and supernatural entities.,120
+advantage,To the Last Breath,none,You mark Time to reroll the dice <em>(requires %insert.docLink.Condemned%)</em>.,120
+advantage,Tracer,reason,You have intelligence networks to trace things or people with.,111
+advantage,Vigilant,intuition,You can %insert.docLink.Read a Person.Read% when others hide things from you.,108
+advantage,Voice of Insanity,soul,You can manipulate crowds.,116
+advantage,Voice of Pain,soul,You learn to fight enemies better when they wound you.,116
+advantage,Wanderer,perception,You know things about places.,110
+advantage,Watchers,none,You are watched over and protected by a group of mysterious people.,120
+advantage,Wayfinder,soul,You can let your madness lead you through shortcuts in the city.,116
+advantage,Weapon Master (Firearms),coolness,You are a master in gunplay.,107
+advantage,Weapon Master (Melee),coolness,You are a master in armed close-quarters combat.,107
+advantage,Workaholic,none,Gain #>text-keyword>Stability<# when you create things or carry out experiments.,120
+advantage,Worldly,none,Establish facts and relations when you arrive to new locations in the story.,120
+disadvantage,Bad Reputation,none,You are hated by the public for something you are accused of.,96
+disadvantage,Broken,none,Your #>text-keyword>Stability<# can never increase beyond <em>Distressed</em>.,96
+disadvantage,Competitor,none,You have a competitor in the criminal underworld.,96
+disadvantage,Condemned,none,Your fate is sealed and your Time is ticking down.,97
+disadvantage,Cursed,none,You are afflicted by a curse.,97
+disadvantage,Depression,none,You are struggling with depression.,97
+disadvantage,Drug Addict,none,You are addicted to hard drugs.,97
+disadvantage,Experiment Gone Wrong,none,You carried out an experiment that went terribly wrong.,97
+disadvantage,Fanatic,none,You are a fervent adherent of an ideology.,97
+disadvantage,Greedy,none,You are driven by an unquenchable desire for money and wealth.,98
+disadvantage,Guilt,none,You carry heavy guilt for your past sins.,98
+disadvantage,Harassed,none,You are part of a harassed minority group.,98
+disadvantage,Haunted,none,You are haunted by supernatural forces.,98
+disadvantage,Infirm,none,You suffer from a dangerous physical disease or condition.,98
+disadvantage,Involuntary Medium,none,You are an open vessel for spirits and demonic entities.,98
+disadvantage,Jealousy,none,You want someone else’s life for yourself.,98
+disadvantage,Liar,none,You are a compulsive liar.,99
+disadvantage,Lost Identity,none,You have a repressed true identity that resurfaces sometimes.,99
+disadvantage,Marked,none,You are marked by darkness.,99
+disadvantage,Mental Compulsion,none,You have a mental compulsion.,99
+disadvantage,Nemesis,none,You have made an enemy who does everything in their power to take revenge on you.,99
+disadvantage,Nightmares,none,You suffer from recurring nightmares.,99
+disadvantage,Oath of Revenge,none,You are obsessed of taking revenge on someone or an organization.,100
+disadvantage,Object of Desire,none,You ignite unhealthy desires in others.,100
+disadvantage,Obsession,none,You are obsessed by a conspiracy or supernatural phenomenon.,100
+disadvantage,Owned,none,You have fled from someone who kept you as his private property.,100
+disadvantage,Phobia,none,You harbour an overpowering fear of something.,100
+disadvantage,Rationalist,none,Your mind refuses to acknowledge anything except things confirmed by modern science.,100
+disadvantage,Repressed Memories,none,You have repressed an unpleasant event.,100
+disadvantage,Rival,none,"You have an ambitious rival, who will do anything to be in your shoes.",101
+disadvantage,Schizophrenia,none,You struggle with psychosis and hallucinations.,101
+disadvantage,Sexual Neurosis,none,"Your sexuality is a destructive, controlling force in your life.",101
+disadvantage,Stalker,none,You are hunted by a faceless enemy.,101
+disadvantage,Victim of Passion,none,You have an overwhelming passion for someone or something.,101
+disadvantage,Wanted,none,You are wanted by the authorities.,101
+darksecret,Chosen One,,You have been chosen by a god to become its advocate or sacrificial lamb.,93
+darksecret,Curse,,"You are afflicted by a curse, knowingly or not, that threatens you and those closest to you.",93
+darksecret,Family Secret,,"Your family has a well-kept secret, which has haunted you for your entire life.",93
+darksecret,Forbidden Knowledge,,"You have uncovered some horrid truth, which brings reality's very nature into question.",93
+darksecret,Guardian,,"You have been chosen to protect an important object, place, or person.",93
+darksecret,Guilty of Crime,,You feel constant remorse for a crime you have committed.,94
+darksecret,Heir,,You have been granted a unique inheritance from relatives or friends.,94
+darksecret,Mental Illness,,You or one of your close relations suffer from mental illness.,94
+darksecret,Occult Experience,,You have witnessed occult proceedings that changed your view of reality.,94
+darksecret,Pact with Dark Forces,,You have sealed a pact with a powerful entity.,94
+darksecret,Responsible for Medical Experiments,,"You were responsible for or assisted in shady medical experiments, which ended in horrifying results.",94
+darksecret,Returned from the Other Side,,"You experienced an event where the Illusion shattered completely, and you were the only one who returned.",94
+darksecret,Rootless,,"Your family always moved around, often suddenly, in the middle of the night. Your parents never told you why.",95
+darksecret,Strange Disappearance,,Someone close to you disappeared after getting too close to the truth.,95
+darksecret,Victim of Crime,,"You have endured a terrible crime, a violation that has marred your entire life.",95
+darksecret,Victim of Medical Experiments,,"You were subjected to medical experiments with unexpected outcomes, with or without your consent or knowledge.",95
+darksecret,Visitations,,You have a history of encounters with beings from the other side.,95

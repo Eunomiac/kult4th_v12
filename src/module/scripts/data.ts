@@ -393,7 +393,7 @@ function countSchemasWithSystemKey(schemaArray: AnySchema[], key: string): REPOR
   const returnData: REPORTS.CountReport = {count: 0, total: schemaArray.length};
 
   schemaArray.forEach((schema) => {
-    const flatSchema = flattenObject(schema.system) as Record<string, unknown>;
+    const flatSchema = foundry.utils.flattenObject(schema.system) as Record<string, unknown>;
     let schemaName: string;
     if (schema.name) {
       schemaName = schema.name;
@@ -519,7 +519,7 @@ function getSubItemSystemReport(itemDataArray: ITEM_DATA.Schema[] = PACKS.all, o
     Object.entries(keyTypeData)
       .map(([key, val]) => mapFunction([key, val]))
   );
-  return options.isExpanding !== false ? (expandObject(reportObject) as Record<string, unknown>) : reportObject;
+  return options.isExpanding !== false ? (foundry.utils.expandObject(reportObject) as Record<string, unknown>) : reportObject;
 }
 
 // function getMutationDiffReport() {
@@ -699,7 +699,7 @@ function findUniqueKeys(subset: Array<Record<string, unknown>>, allItems: Array<
   }
 
   // Flatten each item in the entire dataset
-  const flattenedAllItems = allItems.map(item => flattenObject(item) as Record<string, unknown>);
+  const flattenedAllItems = allItems.map(item => foundry.utils.flattenObject(item) as Record<string, unknown>);
 
   // Collect all keys and their occurrences across the entire dataset
   const keyOccurrences = new Map<string, number>();
@@ -716,7 +716,7 @@ function findUniqueKeys(subset: Array<Record<string, unknown>>, allItems: Array<
   });
 
   // Flatten each item in the subset
-  const flattenedSubset = subset.map(item => flattenObject(item) as Record<string, unknown>);
+  const flattenedSubset = subset.map(item => foundry.utils.flattenObject(item) as Record<string, unknown>);
 
   // Find unique keys for each item in the subset
   const uniqueKeysRecord: Record<string, string[]> = {};

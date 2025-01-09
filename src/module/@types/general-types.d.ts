@@ -56,6 +56,32 @@ interface ClampResponse {
 declare global {
 
   // type EffectChangeData = import("@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/documents/_types.d.mts").EffectChangeData;
+  // type EffectChangeData = import("fvtt-types/_types").EffectChangeData;
+  type EffectChangeData = {
+    /**
+     * The attribute path in the Actor or Item data which the change modifies
+     * @defaultValue `""`
+     */
+    key: string;
+
+    /**
+     * The value of the change effect
+     * @defaultValue `""`
+     */
+    value: string;
+
+    /**
+     * The modification mode with which the change is applied
+     * @defaultValue `CONST.ACTIVE_EFFECT_MODES.ADD`
+     */
+    mode: number | null;
+
+    /**
+     * The priority level with which this change is applied
+     * @defaultValue `null`
+     */
+    priority: number | null;
+  };
 
   // #region CORE JAVASCRIPT AUGMENTATIONS ~
   /**

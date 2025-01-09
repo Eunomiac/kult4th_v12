@@ -20,8 +20,8 @@ const filesToCopy = [
   "README.md"
 ]; // Feel free to change me.
 
-const devServerPort = 30001;
-const scriptsEntrypoint = "./src/module/index.ts";
+const devServerPort = 31200;
+const scriptsEntrypoint = "./src/module/kult4th.ts";
 const stylesEntrypoint = "./src/styles/styles.scss";
 
 const foundryHostData = await findFoundryHost();

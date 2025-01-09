@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" height="384" width="384">
+	<g fill="#958f6b">
+		<circle cx="149" cy="359" r="7"/>
+		<circle cx="192" cy="359" r="7"/>
+		<circle cx="235" cy="359" r="7"/>
+		<circle cx="103" cy="359" r="7"/>
+		<circle cx="77" cy="333" r="7"/>
+		<circle cx="51" cy="307" r="7"/>
+		<circle cx="25" cy="281" r="7"/>
+		<circle cx="281" cy="359" r="7"/>
+		<circle cx="307" cy="333" r="7"/>
+		<circle cx="333" cy="307" r="7"/>
+		<circle cx="359" cy="281" r="7"/>
+		<circle cx="149" cy="25" r="7"/>
+		<circle cx="192" cy="25" r="7"/>
+		<circle cx="235" cy="25" r="7"/>
+		<circle cx="103" cy="25" r="7"/>
+		<circle cx="77" cy="51" r="7"/>
+		<circle cx="51" cy="77" r="7"/>
+		<circle cx="25" cy="103" r="7"/>
+		<circle cx="281" cy="25" r="7"/>
+		<circle cx="307" cy="51" r="7"/>
+		<circle cx="333" cy="77" r="7"/>
+		<circle cx="359" cy="103" r="7"/>
+		<circle cx="25" cy="149" r="7"/>
+		<circle cx="25" cy="192" r="7"/>
+		<circle cx="25" cy="235" r="7"/>
+		<circle cx="359" cy="149" r="7"/>
+		<circle cx="359" cy="192" r="7"/>
+		<circle cx="359" cy="235" r="7"/>
+	</g>
+</svg>

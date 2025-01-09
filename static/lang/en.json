@@ -1,0 +1,189 @@
+{
+  "TYPES": {
+    "Actor": {
+      "pc": "Player Character",
+      "npc": "Non-Player Character"
+    },
+    "Item": {
+      "attack": "Attack",
+      "move": "Move",
+      "advantage": "Advantage",
+      "disadvantage": "Disadvantage",
+      "darksecret": "Dark Secret",
+      "weapon": "Weapon",
+      "relation": "Relation",
+      "gear": "Gear"
+    }
+  },
+	"kult4th": {
+		"system": {
+			"trigger": "trigger",
+			"keyword": "keyword",
+			"prompts": {
+				"systemInit": "Initializing Kult 4E"
+			},
+			"tinymce": {
+				"block": "block",
+				"paragraph": "paragraph",
+				"list": "list",
+				"inline": "inline",
+				"headings": "headings",
+				"heading": "heading",
+				"headingNum": "heading {headingNum}",
+				"bold": "bold",
+				"extraBold": "extra bold",
+				"italics": "italics"
+			},
+			"settings": {
+				"debugModeTitle": "Debug Level",
+				"debugModeHint": "Debug messages logged to the console each have a priority, a value between 0 and 5. Set the minimum priority for displaying debug messages: Debug messages with priorities lower than this number will not be shown.",
+				"displayGearsTitle": "Toggle Ambient Gear Animations",
+				"displayGearsHint": "Toggle the appearance of decorative rotating gears.",
+				"displayShadowsTitle": "Toggle Sheet Drop Shadows",
+				"displayShadowsHint": "Controls whether item and actor sheets cast shadows onto the canvas.",
+				"displayBlurTitle": "Toggle Sheet Blur",
+				"displayBlurHint": "Controls the blur effect applied to the character sheet when hovering over its navigation radial menu.",
+				"displayNavFlareTitle": "Toggle Navigation Menu Flare Effect",
+				"displayNavFlareHint": "Toggle the rendering of the animated flare effect when hovering over navigation radial menus.",
+				"displayHeavyAnimationsTitle": "Toggle HQ Animations",
+				"displayHeavyAnimationsHint": "Toggle the rendering of performance-intensive animated backgrounds."
+			}
+		},
+		"archetype": {
+			"archetype": "Archetype",
+			"archetypes": "Archetypes",
+			"sleeper": "Sleeper",
+			"aware": "Aware",
+			"awareArchetype": "Aware Archetype",
+			"awareArchetypes": "Aware Archetypes",
+			"academic": "Academic",
+			"agent": "Agent",
+			"artist": "Artist",
+			"avenger": "Avenger",
+			"broken": "Broken",
+			"careerist": "Careerist",
+			"criminal": "Criminal",
+			"cursed": "Cursed",
+			"deceiver": "Deceiver",
+			"descendant": "Descendant",
+			"detective": "Detective",
+			"doll": "Doll",
+			"drifter": "Drifter",
+			"fixer": "Fixer",
+			"occultist": "Occultist",
+			"prophet": "Prophet",
+			"ronin": "Ronin",
+			"scientist": "Scientist",
+			"seeker": "Seeker",
+			"veteran": "Veteran",
+			"enlightened": "Enlightened",
+			"enlightenedArchetype": "Enlightened Archetype",
+			"enlightenedArchetypes": "Enlightened Archetypes",
+			"abomination": "Abomination",
+			"deathMagician": "Death Magician",
+			"disciple": "Disciple",
+			"dreamMagician": "Dream Magician",
+			"madnessMagician": "Madness Magician",
+			"passionMagician": "Passion Magician",
+			"revenant": "Revenant",
+			"timeAndSpaceMagician": "Time and Space Magician"
+		},
+		"chat": {
+			"to": "to"
+		},
+		"roll": {
+			"someone": "Someone",
+			"success": "Success",
+			"withComplications": "with Complications",
+			"failure": "Failure",
+			"rollAttr": "rolls <span class='text-attributename'>+{attrName}</span>",
+			"rollAttrTo": "rolls <span class='text-attributename'>+{attrName}</span> to …",
+			"rollAttrFor": "rolls <span class='text-attributename'>+{attrName}</span> for …",
+			"triggers": "triggers …"
+		},
+		"trait": {
+			"attribute": "Attribute",
+			"attributes": "Attributes",
+			"active": "active",
+			"activeAttribute": "active Attribute",
+			"activeAttributes": "active Attributes",
+			"passive": "passive",
+			"passiveAttribute": "passive Attribute",
+			"passiveAttributes": "passive Attributes",
+			"fortitude": "Fortitude",
+			"willpower": "Willpower",
+			"reflexes": "Reflexes",
+			"reason": "Reason",
+			"intuition": "Intuition",
+			"perception": "Perception",
+			"coolness": "Coolness",
+			"violence": "Violence",
+			"charisma": "Charisma",
+			"soul": "Soul",
+			"zero": "Zero",
+			"stability": "Stability",
+			"harm": "Harm",
+			"harms": "Harm",
+			"wound": "Wound",
+			"wounds": "Wounds",
+			"seriousWound": "Serious Wound",
+			"seriousWounds": "Serious Wounds",
+			"criticalWound": "Critical Wound",
+			"criticalWounds": "Critical Wounds"
+		},
+		"sheet": {
+			"front": "front",
+			"bio": "bio",
+			"asset": "asset",
+			"assets": "assets",
+			"journal": "journal",
+			"lock": "lock",
+			"image": "image",
+			"settings": "settings",
+			"dramaticHook": "dramatic hook",
+			"dramaticHooks": "dramatic hooks",
+			"hook": "hook",
+			"hooks": "hooks",
+			"experience": "Experience",
+			"experiences": "Experience",
+			"advancement": "advancement",
+			"advancements": "advancements",
+			"description": "description",
+			"prompts": {
+				"whoAreYou": "Who Are You?"
+			}
+		},
+		"item": {
+			"type": {
+				"attack": "Attack",
+				"attacks": "Attacks",
+				"move": "Move",
+				"moves": "Moves",
+				"playerMove": "Player Move",
+				"playerMoves": "Player Moves",
+				"basicPlayerMove": "Basic Player Move",
+				"basicPlayerMoves": "Basic Player Moves",
+				"gmMove": "GM Move",
+				"gmMoves": "GM Moves",
+				"specialMove": "Special Move",
+				"specialMoves": "Special Moves",
+				"advantage": "Advantage",
+				"advantages": "Advantages",
+				"disadvantage": "Disadvantage",
+				"disadvantages": "Disadvantages",
+				"darksecret": "Dark Secret",
+				"darksecrets": "Dark Secrets",
+				"relation": "Relation",
+				"relations": "Relations",
+				"weapon": "Weapon",
+				"weapons": "Weapons",
+				"gear": "Gear",
+				"gears": "Gear"
+			},
+			"headings": {
+				"suppliesEdges": "This {itemType} rewards Edges",
+				"risksHold": "This {itemType} threatens Hold"
+			}
+		}
+	}
+}

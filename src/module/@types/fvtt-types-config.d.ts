@@ -1,7 +1,17 @@
 // import K4ActiveEffect from "../documents/K4ActiveEffect.js";
-import K4Actor from "../documents/K4Actor.js";
-import {K4ActorType} from "../scripts/enums.js";
-import {ActorDataModel_PC, ActorDataModel_NPC} from "../dataModels/Actor.js";
+import K4Actor from "../documents/K4Actor";
+import {K4ActorType, K4ItemType} from "../scripts/enums.js";
+import ActorDataModel_PC from "../dataModels/ActorModel_PC.js";
+import ActorDataModel_NPC from "../dataModels/ActorModel_NPC.js";
+import K4Item from "../documents/K4Item";
+import ItemDataModel_Advantage from "../dataModels/ItemModel_Advantage.js";
+import ItemDataModel_Disadvantage from "../dataModels/ItemModel_Disadvantage.js";
+import ItemDataModel_DarkSecret from "../dataModels/ItemModel_DarkSecret.js";
+import ItemDataModel_Gear from "../dataModels/ItemModel_Gear.js";
+import ItemDataModel_GMTracker from "../dataModels/ItemModel_GMTracker.js";
+import ItemDataModel_Move from "../dataModels/ItemModel_Move.js";
+import ItemDataModel_Relation from "../dataModels/ItemModel_Relation.js";
+import ItemDataModel_Weapon from "../dataModels/ItemModel_Weapon.js";
 import Document = foundry.abstract.Document;
 // import K4PCSheet from "../documents/K4PCSheet.js";
 // import K4NPCSheet from "../documents/K4NPCSheet.js";
@@ -17,12 +27,23 @@ declare global {
 
   interface DocumentClassConfig {
     Actor: typeof K4Actor;
+    Item: typeof K4Item;
   }
 
   interface DataModelConfig {
     Actor: {
       [K4ActorType.pc]: typeof ActorDataModel_PC,
       [K4ActorType.npc]: typeof ActorDataModel_NPC
+    }
+    Item: {
+      [K4ItemType.advantage]: typeof ItemDataModel_Advantage,
+      [K4ItemType.disadvantage]: typeof ItemDataModel_Disadvantage,
+      [K4ItemType.darksecret]: typeof ItemDataModel_DarkSecret,
+      [K4ItemType.gear]: typeof ItemDataModel_Gear,
+      [K4ItemType.gmtracker]: typeof ItemDataModel_GMTracker,
+      [K4ItemType.move]: typeof ItemDataModel_Move,
+      [K4ItemType.relation]: typeof ItemDataModel_Relation,
+      [K4ItemType.weapon]: typeof ItemDataModel_Weapon
     }
   }
 
