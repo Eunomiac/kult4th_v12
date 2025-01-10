@@ -1,15 +1,18 @@
-import {ItemSchemaComponent_Base, ItemSchemaComponent_HasSubItems} from "./Components/ItemDataModel_Components";
+import {ItemSchemaComponent_Base, ItemSchemaComponent_HasSubItems, type ItemDerivedData_HasSubItems, type ItemDerivedData_Base} from "./Components/ItemSchema_Components";
 import {K4GamePhase} from "../../scripts/enums";
 import TypeDataModel = foundry.abstract.TypeDataModel;
 import fields = foundry.data.fields;
+import type {EmptyObject, InterfaceToObject} from "fvtt-types/utils";
 
-const ItemSchema_GMTracker: fields.DataSchema = {
+const ItemSchema_GMTracker = {
   ...ItemSchemaComponent_Base(),
   ...ItemSchemaComponent_HasSubItems(),
   gamePhase: new fields.StringField({required: true, initial: K4GamePhase.intro, choices: Object.values(K4GamePhase)})
 }
 
-export default class ItemDataModel_GMTracker extends TypeDataModel<typeof ItemSchema_GMTracker, Item.ConfiguredInstance> {
+type ItemDerivedData_GMTracker = ItemDerivedData_Base & ItemDerivedData_HasSubItems;
+
+export default class ItemDataModel_GMTracker extends TypeDataModel<typeof ItemSchema_GMTracker, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_GMTracker>> {
   static override defineSchema(): typeof ItemSchema_GMTracker {
     return ItemSchema_GMTracker;
   }

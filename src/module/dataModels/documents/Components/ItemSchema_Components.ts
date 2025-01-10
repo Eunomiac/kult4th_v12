@@ -1,5 +1,6 @@
-import {ListDataField, ParentItemReferenceField} from "../../../fields/item";
-import {K4ItemSubType, K4RollResult} from "../../../scripts/enums";
+import {ListDataField, ParentItemReferenceField} from "../Fields/ItemFields";
+import {K4ItemSubType, K4RollResult, K4ItemType} from "../../../scripts/enums";
+import ItemDataModel_Move from "../ItemDataModel_Move";
 import fields = foundry.data.fields;
 
 export function ItemSchemaComponent_Base() {
@@ -11,23 +12,39 @@ export function ItemSchemaComponent_Base() {
   }
 }
 
+export interface ItemDerivedData_Base {
+
+}
+
 export function ItemSchemaComponent_CanBeSubItem() {
   return {
-    parentItem: ParentItemReferenceField(false)
+    parentItemRef: ParentItemReferenceField(false)
   }
+}
+
+export interface ItemDerivedData_CanBeSubItem {
+  parentItem: Maybe<K4Item.Parent>
 }
 
 export function ItemSchemaComponent_IsSubItem() {
   return {
     chatName: new fields.StringField(),
-    parentItem: ParentItemReferenceField(true)
+    parentItemRef: ParentItemReferenceField(true)
   }
+}
+
+export interface ItemDerivedData_IsSubItem {
+  parentItem: K4Item.Parent
 }
 
 export function ItemSchemaComponent_HasSubItems() {
   return {
-    subItems: new fields.ArrayField(new fields.EmbeddedDataField())
+    subItemData: new fields.ArrayField(new fields.EmbeddedDataField(ItemDataModel_Move))
   }
+}
+
+export interface ItemDerivedData_HasSubItems {
+  subItems: K4Item.OfType<K4ItemType.move>[]
 }
 
 export function ItemSchemaComponent_RulesData() {
@@ -43,6 +60,10 @@ export function ItemSchemaComponent_RulesData() {
   }
 }
 
+export interface ItemDerivedData_RulesData {
+
+}
+
 export function ItemSchemaComponent_ResultData() {
   return {
     result: new fields.StringField(),
@@ -50,6 +71,10 @@ export function ItemSchemaComponent_ResultData() {
     // effects: K4ActiveEffect.BuildData[],
     edges: new fields.NumberField()
   }
+}
+
+export interface ItemDerivedData_ResultData {
+
 }
 
 export function ItemSchemaComponent_ResultsData() {
@@ -61,4 +86,8 @@ export function ItemSchemaComponent_ResultsData() {
       triggered: new fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false})
     })
   }
+}
+
+export interface ItemDerivedData_ResultsData {
+
 }

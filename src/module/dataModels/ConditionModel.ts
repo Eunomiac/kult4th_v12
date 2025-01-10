@@ -1,4 +1,4 @@
-import { ModDefField } from "../fields/roll";
+import { ModDefField } from "./documents/Fields/RollFields";
 import DataModel = foundry.abstract.DataModel;
 import fields = foundry.data.fields;
 

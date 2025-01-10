@@ -1,8 +1,9 @@
-import {ItemSchemaComponent_Base, ItemSchemaComponent_RulesData} from "./Components/ItemDataModel_Components";
+import {ItemSchemaComponent_Base, ItemSchemaComponent_RulesData, type ItemDerivedData_Base, type ItemDerivedData_RulesData} from "./Components/ItemSchema_Components";
 import TypeDataModel = foundry.abstract.TypeDataModel;
 import fields = foundry.data.fields;
+import type {EmptyObject, InterfaceToObject} from "fvtt-types/utils";
 
-const ItemSchema_DarkSecret: fields.DataSchema = {
+const ItemSchema_DarkSecret = {
   ...ItemSchemaComponent_Base(),
   ...ItemSchemaComponent_RulesData(),
   drive: new fields.StringField(),
@@ -10,7 +11,9 @@ const ItemSchema_DarkSecret: fields.DataSchema = {
   playerNotes: new fields.HTMLField()
 }
 
-export default class ItemDataModel_DarkSecret extends TypeDataModel<typeof ItemSchema_DarkSecret, Item.ConfiguredInstance> {
+type ItemDerivedData_DarkSecret = ItemDerivedData_Base & ItemDerivedData_RulesData;
+
+export default class ItemDataModel_DarkSecret extends TypeDataModel<typeof ItemSchema_DarkSecret, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_DarkSecret>> {
   static override defineSchema(): typeof ItemSchema_DarkSecret {
     return ItemSchema_DarkSecret;
   }
