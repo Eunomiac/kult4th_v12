@@ -1,0 +1,9 @@
+<div class="svg-container svg-{{key}} {{#if classes}}{{classes}}{{/if}}">
+	{{kLog "SVG: About to Iterate" key}}
+	{{#each (getSVGs key) as |svg|}}
+	<svg class="svg-def {{~#if svg.classes}}{{#each svg.classes}} {{this}}{{/each}}{{/if}}" viewbox="{{svg.viewBox}}" {{~#if ../style}} style="{{../style}}"{{else}}{{#if svg.style}} style="{{svg.style}}"{{/if}}{{/if}}>
+		{{kLog "Inside SVG!" svg}}
+		<path d="{{{svg.d}}}" />
+	</svg>
+	{{/each}}
+</div>

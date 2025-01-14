@@ -1,0 +1,7 @@
+{{#each playerCharacters as |actorData id|}}
+<input class="panel-toggler" type="checkbox" name="system.collapsedPanels.{{columnIndex}}.{{@index}}.isChecked" {{checked (lookup (lookup ../collapsedPanels @index) "isChecked")}} />
+<span class="panel-label">{{actorData.owner.name}}</span>
+<div class="panel panel-player-character panel-content player-block-content" data-actor-id="{{actorData.actor.id}}">
+  {{> "systems/kult4th/templates/partials/player-block.hbs" actorData.data}}
+</div>
+{{/each}}

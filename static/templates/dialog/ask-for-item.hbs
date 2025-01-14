@@ -1,0 +1,34 @@
+{{log "ask-for-item.hbs" this}}
+<div class="dialog-container item-selection-container">
+  <h1 class="dialog-title">{{title}}</h1>
+  {{#if bodyText}}{{{formatForKult bodyText}}}{{/if}}
+
+  <div class="item-portrait-panel">
+    {{#each itemList as |item|}}
+      {{#let
+        anchorName=(getUniqueID "item-portrait-anchor")
+        popoverID=(getUniqueID "item-portrait-popover")
+      }}
+      <div class="item-portrait-button" data-item-id="{{item.id}}"
+        style="anchor-name: --{{anchorName}}"
+        popovertarget="{{popoverID}}"
+      >
+        <span class="item-portrait-name">{{item.name}}</span>
+        <div class="item-portrait-icon-container">
+          <div class="item-portrait-icon" style="mask:url('{{item.img}}') no-repeat center;-webkit-mask:url('{{item.img}}') no-repeat center"></div>
+        </div>
+      </div>
+      <div id="{{popoverID}}"
+          style="position-anchor: --{{anchorName}};"
+          popover>
+        <h2><center>{{item.name}}</center></h2>
+        {{{formatForKult item.shortDesc}}}
+      </div>
+      {{/let}}
+    {{/each}}
+  </div>
+
+  {{!-- Panel --}}
+
+  {{#if subText}}<p class="sub-text">{{{formatForKult subText}}}</p>{{/if}}
+</div>

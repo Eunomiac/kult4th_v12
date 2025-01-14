@@ -1,0 +1,40 @@
+<div class="panel-bg">
+  <img src="{{img}}" />
+</div>
+
+<div class="player-name">
+  {{name}}
+</div>
+
+<section class="player-panel-main">
+  <div class="panel-column panel-column-left">
+    <div class="attribute-summary">
+      {{#each attributes as |attrValue attrName|}}
+      {{#let
+      anchorName=(getUniqueID "attribute-panel-anchor")
+      popoverID=(getUniqueID "attribute-panel-popover")
+      }}
+      <div class="attribute-box attribute-{{attrName}} attribute-{{attrValue}}" style="anchor-name: --{{anchorName}}"
+        popovertarget="{{popoverID}}">
+        <span class="attribute-name">{{attrName}}</span>
+        <span class="attribute-value">{{signNum attrValue}}</span>
+      </div>
+      <div id="{{popoverID}}" style="position-anchor: --{{anchorName}};" popover>
+        {{attrName}}
+      </div>
+      {{/let}}
+      {{/each}}
+    </div>
+  </div>
+  <div class="panel-column panel-column-right">
+    {{#each advantages}}
+    {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+    {{/each}}
+    {{#each disadvantages}}
+    {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+    {{/each}}
+    {{#each darkSecrets}}
+    {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,106 @@
+
+
+{{log (concat "[ITEM-BLOCK: " item.name "] this & item") this item}}
+{{#with item as |item|}}
+	<main class="kult-text-container tab-content kult-move-container {{../cssClass}}">
+
+    {{#if item.system.parentItem.type}}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+      icon=item.img
+      type=item.system.parentItem.type
+      name=item.name
+      isChat=false
+    }}
+    {{else}}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+      icon=item.img
+      type=item.type
+      name=item.name
+      isChat=false
+    }}
+    {{/if}}
+    <div class="sheet-header">
+		  <label class="k4-title item-title">{{item.name}}</label>
+    </div>
+    {{#if item.parentName}}
+      {{#unless (test item.name "==" item.parentName)}}
+        <label class="k4-from-title">{{item.parentName}}</label>
+      {{/unless}}
+    {{/if}}
+
+		{{#unless (areEmpty item.system.rules.intro item.system.rules.trigger item.system.rules.outro)}}
+			{{> "systems/kult4th/templates/components/rules-block.hbs" rules=item.system.rules}}
+		{{/unless}}
+
+    {{#if (test item.system.subType "==" "active-rolled")}}{{#if (test item.type "==" "move")}}
+
+			{{> "systems/kult4th/templates/components/roll-result.hbs"
+        type="active-rolled"
+        diceRange="(15+)"
+        result=item.system.results.completeSuccess.result
+      }}
+
+			{{> "systems/kult4th/templates/components/roll-result.hbs"
+        type="active-rolled"
+        diceRange="(10-14)"
+        result=item.system.results.partialSuccess.result
+      }}
+
+			{{> "systems/kult4th/templates/components/roll-result.hbs"
+        type="active-rolled"
+        diceRange="(&minus;9)"
+        result=item.system.results.failure.result
+      }}
+
+		{{/if}}{{/if}}
+
+		{{#each item.system.subItems as |subMove|}}
+      {{#unless subMove.system.isEdge}}
+			{{> "systems/kult4th/templates/partials/subitem-block.hbs" subMove=subMove pItem=item isEmbedded=true}}
+      {{/unless}}
+		{{/each}}
+
+		{{~#if item.system.rules.listRefs}}
+			{{> "systems/kult4th/templates/components/item-list.hbs" lists=item.system.lists listRefs=item.system.rules.listRefs type=item.type isDisplayingName=true}}
+		{{/if}}
+
+		{{#if item.system.rules.holdText}}
+			<label class="k4-header hold-header neon-glow-animated-red">{{localize "kult4th.item.headings.risksHold" itemType=(case "title" item.type)}}</label>
+			<span class="hold-body">{{{formatForKult item.system.rules.holdText}}}</span>
+		{{/if}}
+{{!--
+    <div style="position: relative">
+    <label class="comp tab-label">
+      <a class="comp-control comp-button comp-add effect-control" data-action="create" title="Create Effect">
+        <i class="fa-sharp fa-solid fa-square-plus"></i>
+      </a>
+      <span class="tab-title">Active Effects</span>
+    </label>
+    <table class="items-list effects-list">
+      {{#each item.effects as |effect|}}
+        <tr class="item effect" data-effect-id="{{effect.id}}">
+          <td style="width: 30px;">
+            <img class="item-image" src="{{effect.icon}}" width="24" height="24"/>
+          </td>
+          <td class="effect-name flex">
+            <label class="comp-title">{{effect.label}}</label>
+          </td>
+          <td style="width: 45px;">
+            <div class="item-controls effect-controls flex">
+              <a class="effect-control" data-action="toggle" title="Toggle">
+                  <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
+              </a>
+              <a class="effect-control" data-action="edit" title="Edit">
+                  <i class="fas fa-edit"></i>
+              </a>
+              <a class="effect-control" data-action="delete" title="Delete">
+                  <i class="fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+    </div> --}}
+	</main>
+{{/with}}

@@ -1,0 +1,35 @@
+<div class="template-entry template-{{type}}">
+	<label>{{label}}</label>
+	{{#if isNumber}}
+	<input type="number" name="{{target}}" value="{{value}}" />{{else}}
+	{{#if isPre}}
+<pre>{{{value}}}</pre>{{else}}
+	{{#if isPhrase}}
+	<input type="text" name="{{target}}" value="{{value}}" />{{else}}
+	{{#if isText}}
+	<textarea name="{{target}}">{{value}}</textarea>{{else}}
+	{{#if isLabel}}
+	<input type="text" name="{{target}}" value="{{value}}" />{{else}}
+	{{#if isBoolean}}
+	<input type="checkbox" name="{{target}}" {{checked value}} />{{else}}
+	{{#if isList}}
+	{{#if intro}}
+	<input type="text" name="{{target}}.intro" value="{{intro}}" />
+	{{/if}}
+	<ol>
+		{{#with target as |target|}}
+		{{#each ../value as |val|}}
+		<li><input type="text" name="{{target}}.items.{{@index}}" value="{{val}}"/></li>
+		{{/each}}
+		{{/with}}
+	</ol>
+	{{else}}
+	<h1 style="color: red;">NO VALID TYPE: {{type}}</h1>
+	{{/if}}
+	{{/if}}
+	{{/if}}
+	{{/if}}
+	{{/if}}
+	{{/if}}
+	{{/if}}
+</div>

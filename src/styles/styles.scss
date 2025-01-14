@@ -1,1 +1,141 @@
-// Put your scss here!
+$assetPath: '/assets';
+$baseOverlayIndex: 99;
+
+@import 'globals/functions';
+@import 'globals/typography';
+@import 'globals/root';
+
+.vtt.game.system-kult4th {
+
+  background: var(--K4-dGREY);
+  background-image: none;
+  box-shadow: none;
+
+	@import 'globals/colors';
+  // @import 'globals/tooltips';
+  @import 'globals/popovers';
+  @import 'globals/editor';
+
+	@include cq-prolyfill("width >= 1000px") {
+		outline: 3px solid lime !important;
+	}
+
+	$isDebugging: false;
+	$isDebuggingChat: false;
+	@import 'debug';
+	--scrollbar-width: 6px;
+
+
+	#ui-left,
+	#ui-middle,
+	#ui-right,
+	#notifications,
+	#hud,
+	#board,
+	#pause,
+  #kult-alerts,
+  // #kult-tooltips,
+	.app.window-app {
+		@import 'globals/text-styles';
+		@import 'globals/icon-styles';
+	}
+
+  #controls { overflow: visible; }
+
+  #board { position: absolute; }
+
+  .application.sheet.user-config {
+    display: none;
+  }
+
+  #kult-alerts {
+    @import 'alerts/alerts';
+  }
+
+  #gamephase-overlay {
+    @import 'overlays/gamephase-overlay';
+  }
+
+  // .editor-content {
+  //   position: static !important;
+  // }
+
+	.app.window-app {
+		@import 'globals/app';
+
+		&.k4-sheet {
+			@import 'sheets/sheet';
+
+			&.k4-actor-sheet {
+				@import 'sheets/actor-sheet';
+			}
+			&.k4-item-sheet {
+				@import 'sheets/item-sheet';
+
+        &.k4-gmtracker-sheet {
+          @import 'sheets/gmtracker-sheet';
+        }
+			}
+		}
+		&.dialog {
+			@import 'dialog/dialog';
+		}
+
+    &.journal-entry {
+      .journal-entry-content {
+        background: transparent;
+      }
+    }
+	}
+
+  #ui-left {
+    #controls,
+    #players,
+    #logo { display: none; }
+  }
+  #ui-middle {
+    #ui-top {
+      #navigation { display: none; }
+    }
+    #ui-bottom {
+      #hotbar { display: none; }
+    }
+  }
+	#ui-right {
+    z-index: 50;
+		#sidebar {
+      @import 'sidebar/sidebar';
+      #chat { @import 'sidebar/chat'; }
+    }
+	}
+
+  #interface {
+    &.gm-user {
+      #ui-left {
+        #dev-mode-button {
+          left: 0;
+          top: 0;
+          background: none;
+          filter: brightness(0.5);
+          transition: filter 0.2s;
+
+          &:hover {
+            filter: brightness(1);
+          }
+        }
+      }
+      #ui-right {
+        #sidebar {
+          #chat {
+            #chat-controls {
+              pointer-events: auto;
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

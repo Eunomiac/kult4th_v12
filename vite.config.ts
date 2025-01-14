@@ -70,7 +70,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         // This file is substituted out with the real entrypoint in the foundryEntrypointsPlugin
         entry: "fake-entrypoint.js",
         formats: ["es"],
-        fileName: "index",
+        fileName: "kult4th",
       },
       target: "es2023",
     },
@@ -94,7 +94,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
 function foundryEntrypointsPlugin(): Vite.Plugin {
   const manifestPrefix = "\0virtual:foundry/";
-  const jsFile = `${manifestPrefix}index.js`;
+  const jsFile = `${manifestPrefix}kult4th.js`;
   const stylesFile = `${manifestPrefix}styles.css?url`;
 
   let config: Vite.ResolvedConfig;
@@ -108,7 +108,7 @@ function foundryEntrypointsPlugin(): Vite.Plugin {
         return jsFile;
       }
 
-      if (source === "/index.js") {
+      if (source === "/kult4th.js") {
         return jsFile;
       }
 

@@ -1,0 +1,106 @@
+<span class="player-summary-user-name" style="color: {{summaryData.userColor}};">{{summaryData.userName}}</span>
+
+{{#let
+anchorName=(getUniqueID (concat "player-summary-image-anchor" actorID))
+popoverID=(getUniqueID (concat "player-summary-image-popover" actorID))
+}}
+    <img class="player-summary-image" src="{{summaryData.img}}" style="anchor-name: --{{anchorName}}" popovertarget="{{popoverID}}">
+    <div id="{{popoverID}}" class="player-summary-image-popover"style="position-anchor: --{{anchorName}};" popover>
+      <div class="attribute-spread attributes">
+        {{#each attributes as |attrValue attrName|}}
+        <div class="attribute-box" data-attribute="{{attrName}}">
+          <span class="attribute-title">{{attrName}}</span>
+          <span class="attribute-value">{{signNum attrValue}}</span>
+        </div>
+        {{/each}}
+      </div>
+      <div class="player-summary-looks">
+        <div class="player-summary-looks-row">
+          <span class="player-summary-looks-title">Clothes: </span>
+          <span class="player-summary-looks-value">{{summaryData.looks.clothes}}</span>
+        </div>
+        <div class="player-summary-looks-row">
+          <span class="player-summary-looks-title">Face: </span>
+          <span class="player-summary-looks-value">{{summaryData.looks.face}}</span>
+        </div>
+        <div class="player-summary-looks-row">
+          <span class="player-summary-looks-title">Eyes: </span>
+          <span class="player-summary-looks-value">{{summaryData.looks.eyes}}</span>
+        </div>
+        <div class="player-summary-looks-row">
+          <span class="player-summary-looks-title">Body: </span>
+          <span class="player-summary-looks-value">{{summaryData.looks.body}}</span>
+        </div>
+      </div>
+      <div class="player-summary-description">{{{summaryData.description}}}</div>
+    </div>
+{{/let}}
+
+<div class="player-summary-top">
+  <span class="player-summary-name">{{summaryData.name}}</span>
+  <span class="player-summary-occupation">{{summaryData.occupation}}</span>
+  <span class="player-summary-archetype">{{case "title" summaryData.archetype}}</span>
+</div>
+
+<div class="player-summary-trait-row player-summary-advantages">
+  {{#each summaryData.advantages as |advantage|}}
+  {{#let
+  anchorName=(getUniqueID (concat "player-summary-advantage-anchor-" actorID "-" advantage.name))
+  popoverID=(getUniqueID (concat "player-summary-advantage-popover-" actorID "-" advantage.name))
+  }}
+    <div class="hover-strip k4-theme-bgold" style="anchor-name: --{{anchorName}}" popovertarget="{{popoverID}}">
+      <div class="icon-container icon-advantage ">
+        <svg class="non-chat-icon svg-container">
+          <use href="{{advantage.img}}#icon"></use>
+        </svg>
+      </div>
+    </div>
+    <div id="{{popoverID}}" class="player-summary-trait-popover" style="position-anchor: --{{anchorName}};" popover>
+      <div class="strip-name">{{advantage.name}}</div>
+      {{lookup @root.traitNotes advantage.name}}
+    </div>
+  {{/let}}
+  {{/each}}
+</div>
+
+<div class="player-summary-trait-row player-summary-disadvantages">
+  {{#each summaryData.disadvantages as |disadvantage|}}
+  {{#let
+  anchorName=(getUniqueID (concat "player-summary-disadvantage-anchor-" actorID "-" disadvantage.name))
+  popoverID=(getUniqueID (concat "player-summary-disadvantage-popover-" actorID "-" disadvantage.name))
+  }}
+  <div class="hover-strip k4-theme-red" style="anchor-name: --{{anchorName}}" popovertarget="{{popoverID}}">
+    <div class="icon-container icon-disadvantage ">
+      <svg class="non-chat-icon svg-container">
+        <use href="{{disadvantage.img}}#icon"></use>
+      </svg>
+    </div>
+  </div>
+  <div id="{{popoverID}}" class="player-summary-trait-popover" style="position-anchor: --{{anchorName}};" popover>
+    <div class="strip-name">{{disadvantage.name}}</div>
+    {{lookup @root.traitNotes disadvantage.name}}
+  </div>
+  {{/let}}
+  {{/each}}
+</div>
+
+<div class="player-summary-trait-row player-summary-dark-secrets">
+  {{#each summaryData.darkSecrets as |darkSecret|}}
+  {{#let
+  anchorName=(getUniqueID (concat "player-summary-dark-secret-anchor-" actorID "-" darkSecret.name))
+  popoverID=(getUniqueID (concat "player-summary-dark-secret-popover-" actorID "-" darkSecret.name))
+  }}
+  <div class="hover-strip k4-theme-dark" style="anchor-name: --{{anchorName}}" popovertarget="{{popoverID}}">
+    <div class="icon-container icon-darksecret ">
+      <svg class="non-chat-icon svg-container">
+        <use href="{{darkSecret.img}}#icon"></use>
+      </svg>
+    </div>
+  </div>
+  <div id="{{popoverID}}" class="player-summary-trait-popover" style="position-anchor: --{{anchorName}};" popover>
+    <div class="strip-name">{{darkSecret.name}}</div>
+    {{lookup @root.traitNotes darkSecret.name}}
+  </div>
+  {{/let}}
+  {{/each}}
+</div>

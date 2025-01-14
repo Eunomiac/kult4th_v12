@@ -11,9 +11,9 @@ import C, {Colors, Archetypes} from "./scripts/constants.js";
 import {K4ActorType, K4ItemType, K4Archetype} from "./scripts/enums";
 import InitializePopovers from "./scripts/popovers.js";
 import U from "./scripts/utilities.js";
-// import {formatForKult, registerHandlebarHelpers as RegisterHandlebarHelpers} from "./scripts/helpers.js";
+import {formatForKult, registerHandlebarHelpers as RegisterHandlebarHelpers} from "./scripts/helpers.js";
 import registerSettings from "./scripts/settings.js";
-// import registerConsoleLogger from "./scripts/logger.js";
+import registerConsoleLogger from "./scripts/logger";
 // import K4Alert from "./documents/K4Alert.js";
 // import K4Sound from "./documents/K4Sound.js";
 // import K4Roll from "./documents/K4Roll.js";
@@ -195,50 +195,51 @@ function GlobalAssignment() {
     const EMBED = ACTOR?.items.values().next().value as Maybe<K4Item>;
     const ACTORSHEET = ACTOR?.sheet;
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     void (async () => {
 
-    // Dynamically import data.js for initializing and building Item documents during development (will become packs for production)
-    // const {BUILD_ITEMS_FROM_DATA, PACKS, getUniqueValuesForSystemKey, getItemSystemReport, getSubItemSystemReport, findRepresentativeSubset, checkSubsetCoverage, findUniqueKeys} = await import("./scripts/data.js");
+      // Dynamically import data.js for initializing and building Item documents during development (will become packs for production)
+      // const {BUILD_ITEMS_FROM_DATA, PACKS} = await import("./scripts/data.js");
 
-    const whichArchetypesHave = (traitName: string) => {
-      return Object.values(Archetypes)
-          .filter(({advantage, disadvantage, darksecret}) =>
-              [...advantage, ...disadvantage, ...darksecret]
-                  .map((tName) => tName.replace(/^!/,""))
-                  .includes(traitName))
-          .map(({label}) => label);
-    }
-    const isTraitUnique = (traitName: string, archetype: K4Archetype) => {
-      const archetypesThatHaveTrait = whichArchetypesHave(traitName);
-      return archetypesThatHaveTrait.length === 1;
-    }
-    const getArchetypeReport = () => {
-      return Object.fromEntries([K4ItemType.advantage, K4ItemType.disadvantage, K4ItemType.darksecret].map((tType: K4ItemType) => [tType, Object.fromEntries((getGame().items as Collection<K4Item>).filter((item) => item.type === tType).map((item) => [item.name, whichArchetypesHave(item.name)]))]));
-    }
+      const whichArchetypesHave = (traitName: string) => {
+        return Object.values(Archetypes)
+            .filter(({advantage, disadvantage, darksecret}) =>
+                [...advantage, ...disadvantage, ...darksecret]
+                    .map((tName) => tName.replace(/^!/,""))
+                    .includes(traitName))
+            .map(({label}) => label);
+      }
+      const isTraitUnique = (traitName: string, archetype: K4Archetype) => {
+        const archetypesThatHaveTrait = whichArchetypesHave(traitName);
+        return archetypesThatHaveTrait.length === 1;
+      }
+      const getArchetypeReport = () => {
+        return Object.fromEntries([K4ItemType.advantage, K4ItemType.disadvantage, K4ItemType.darksecret].map((tType: K4ItemType) => [tType, Object.fromEntries((getGame().items as Collection<K4Item>).filter((item) => item.type === tType).map((item) => [item.name, whichArchetypesHave(item.name)]))]));
+      }
 
-    Object.assign(globalThis, {
-      gsap,
-      U,
-      C,
-      ActorSheet,
-      // formatForKult,
-      ACTOR, ITEM, EMBED, ACTORSHEET,
-      ENTITIES: [ACTOR, ITEM, EMBED],
-      ...InitializableClasses,
-      // PACKS,
-      // getItemSystemReport,
-      // getSubItemSystemReport,
-      // getUniqueValuesForSystemKey,
-      // getUniqueEffects: () => getUniqueValuesForSystemKey(PACKS.all, "rules.effects"),
-      // findRepresentativeSubset,
-      // checkSubsetCoverage,
-      // findUniqueKeys,
-      // BUILD_ITEMS_FROM_DATA,
-      // whichArchetypesHave,
-      // isTraitUnique,
-      //getArchetypeReport
+      Object.assign(globalThis, {
+        gsap,
+        U,
+        C,
+        ActorSheet,
+        formatForKult,
+        ACTOR, ITEM, EMBED, ACTORSHEET,
+        ENTITIES: [ACTOR, ITEM, EMBED],
+        ...InitializableClasses,
+        // PACKS,
+        // getItemSystemReport,
+        // getSubItemSystemReport,
+        // getUniqueValuesForSystemKey,
+        // getUniqueEffects: () => getUniqueValuesForSystemKey(PACKS.all, "rules.effects"),
+        // findRepresentativeSubset,
+        // checkSubsetCoverage,
+        // findUniqueKeys,
+        // BUILD_ITEMS_FROM_DATA,
+        // whichArchetypesHave,
+        // isTraitUnique,
+        //getArchetypeReport
       });
-    }) /* () */;
+    })();
   });
 
 
@@ -518,17 +519,17 @@ async function DisableClientCanvas() {
   kLog.log("Canvas has been disabled for all clients.");
 }
 
-Hooks.on("init", async () => {
+Hooks.on("init", () => {
 
   // Register logging function and announce initialization to console.
-  // registerConsoleLogger();
-  // kLog.display("Initializing 'Kult: Divinity Lost 4th Edition' for Foundry VTT", 0);
+  registerConsoleLogger();
+  kLog.display("Initializing 'Kult: Divinity Lost 4th Edition' for Foundry VTT", 0);
 
   // Preload Handlebars Templates
-  // await PreloadHBSTemplates();
+  void PreloadHBSTemplates();
 
   // Register settings (including debug settings necessary for kLog)
-  // registerSettings();
+  registerSettings();
 
   // Define the "K4" namespace within the CONFIG object, and assign basic system configuration package.
   // CONFIG.K4 = K4Config;
@@ -540,7 +541,7 @@ Hooks.on("init", async () => {
   InitializePopovers($("body"));
 
   // Register Handlebar Helpers
-  // RegisterHandlebarHelpers();
+  RegisterHandlebarHelpers();
 
   // Monitor notifications for canvas disabled and minimum screen size warnings
   MuteNotifications([
@@ -562,42 +563,41 @@ Hooks.on("init", async () => {
     GenerateSVGDefs()
   ];
 
-  await Promise.all(parallelAsyncFunctions);
+  void Promise.all(parallelAsyncFunctions);
 });
 
-Hooks.on("ready", async () => {
-  // Call Initialize on all relevant classes
-  await RunInitializer(InitializerMethod.Initialize);
+Hooks.on("ready", () => {
 
-  // Disable client canvas
-  void DisableClientCanvas();
+  void (async () => {
+    // Call Initialize on all relevant classes
+    await RunInitializer(InitializerMethod.Initialize);
 
-  // Initialize collection objects
-  // getGame().rolls = new Collection<K4Roll>();
+    // Disable client canvas
+    void DisableClientCanvas();
 
-  // Call PostInitialize on all relevant classes
-  await RunInitializer(InitializerMethod.PostInitialize);
+    // Initialize collection objects
+    // getGame().rolls = new Collection<K4Roll>();
 
-  // // Get GM Tracker instance
-  // const tracker = await K4GMTracker.Get();
+    // Call PostInitialize on all relevant classes
+    await RunInitializer(InitializerMethod.PostInitialize);
 
-  // // Actions for player (non-GM) users -- overlays
-  // if (!getUser().isGM) {
+    // // Get GM Tracker instance
+    // const tracker = await K4GMTracker.Get();
 
-  //   // Initialize appropriate overlay given tracker phase
-  //   await tracker.preloadOverlay();
-  //   await tracker.displayOverlay();
+    // // Actions for player (non-GM) users -- overlays
+    // if (!getUser().isGM) {
 
-  //   // Further actions only trigger for GM users
-  //   return;
-  // }
+    //   // Initialize appropriate overlay given tracker phase
+    //   await tracker.preloadOverlay();
+    //   await tracker.displayOverlay();
 
-  // // Render GM Tracker sheet for GM
-  // tracker.render(true);
+    //   // Further actions only trigger for GM users
+    //   return;
+    // }
 
-  // Add "gm-user" class to #interface, and "interface-visible" to body
-  $("body").addClass("interface-visible");
-  $("#interface").addClass("gm-user");
+    // // Render GM Tracker sheet for GM
+    // tracker.render(true);
+  })();
 });
 
 

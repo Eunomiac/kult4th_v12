@@ -1,0 +1,26 @@
+{{log "... (Item List) this" this}}
+{{#with this as |iData|}}
+{{~#each iData.listRefs as |listKey|}}
+	{{~#with (lookup iData.lists listKey) as |listData|}}
+    {{#if iData.type}}
+		{{~#if iData.isDisplayingName}}
+			{{#if (test listKey "==" "edges")}}
+				<label class="k4-header edges-header neon-glow-animated-blue">
+					{{localize "kult4th.item.headings.suppliesEdges" itemType=iData.type}}
+				</label>
+			{{else}}
+				<h2 class="list-name">{{listData.name}}</h2>
+			{{/if}}
+		{{/if}}
+		{{~#if listData.intro}}
+			<span class="list-intro">{{{formatForKult listData.intro}}}</span>
+		{{/if}}
+		<ul class="rules-list list-{{listKey}}">
+			{{#each listData.items as |item|}}
+				<li>{{{formatForKult item}}}</li>
+			{{/each}}
+		</ul>
+    {{/if}}
+	{{/with}}
+{{/each}}
+{{/with}}

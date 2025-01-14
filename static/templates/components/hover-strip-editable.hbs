@@ -1,0 +1,17 @@
+{{kLog "{comp} HOVER STRIP EDITABLE" this}}
+
+<div class="hover-strip icon-container {{~#each stripClasses}} {{this}}{{/each}}" {{~#if dataset}}{{#each dataset as |val key|}} data-{{key}}="{{val}}"{{/each}}{{/if}}>
+	<span class="strip-bg"></span>
+	<div id="{{id}}" class="strip-name content-editable clamp-text"
+    data-field="{{dataTarget}}"
+    data-placeholder="{{placeholder}}"
+    data-clamplines="1"
+    {{~#if dataset}}{{#each dataset as |val key|}} data-{{key}}="{{val}}"{{/each}}{{/if}}
+  ></div>
+
+  {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=icon
+    type=type
+    name=name
+  }}
+</div>

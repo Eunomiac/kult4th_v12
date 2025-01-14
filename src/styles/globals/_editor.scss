@@ -1,0 +1,105 @@
+.editor {
+  min-height: 26px !important;
+  min-width: 560px !important; /* Necessary to fit all toolbar buttons horizontally */
+  overflow: visible;
+  overflow-y: auto;
+  z-index: 20000;
+  pointer-events: auto;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 5px;
+  margin-top: 10px;
+  // box-shadow: inset 0px 0px 10px var(--K4-ddGOLD);
+  outline: 1px solid var(--K4-ddGOLD);
+  padding: 5px;
+
+  &:not(.prosemirror):hover {
+
+  }
+
+  &.prosemirror { /* Editor is in edit mode */
+    background: var(--K4-dBLACK);
+    box-shadow: inset 0px 0px 0px 1px var(--K4-bbGOLD);
+
+  }
+
+  .editor-edit {
+    background: transparent;
+    transform-origin: center center;
+    transition: 0.05s;
+    top: 0px;
+
+    i {
+
+      &::before {
+        color: var(--K4-dBLACK);
+        text-shadow: build-text-shadow(5px, var(--K4-bbGOLD), 3);
+        background: transparent;
+      }
+    }
+
+    &:hover {
+      scale: 1.25;
+
+      i::before {
+        color: var(--K4-bbGOLD);
+      }
+    }
+
+  }
+
+  .editor-menu {
+    position: relative;
+    top: -5px;
+    background: transparent;
+    // background: cyan;
+    margin-bottom: -15px;
+    height: 15px;
+    overflow: hidden;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    z-index: 20000;
+    transition: 0.45s;
+    transform-origin: top center;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+
+    li { display: none; }
+
+    &:hover {
+      height: 32px;
+      margin-bottom: -32px;
+      background: var(--K4-dBLACK);
+      top: 0px;
+      outline: 2px outset var(--K4-bGOLD);
+
+      li { display: list-item; }
+    }
+  }
+
+  .editor-container {
+    margin: 0;
+    height: fit-content;
+  }
+
+  .editor-content {
+    min-height: 26px;
+    position: static;
+
+    &.k4-one-line-editor {
+      overflow: hidden;
+      height: min-content;
+      white-space: nowrap;
+    }
+
+    &.k4-small-editor {
+      height: 100px;
+      min-height: 100px;
+    }
+
+    &.k4-medium-editor {
+      min-height: 300px;
+    }
+  }
+}

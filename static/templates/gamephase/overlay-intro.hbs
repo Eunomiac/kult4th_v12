@@ -1,0 +1,29 @@
+<div class="gamephase-overlay overlay-intro">
+  <div class="overlay-content">
+    <div class="gear-container gear-huge gear-kether-huge">
+    {{> "systems/kult4th/templates/components/svg.hbs" key="gear-kether-huge"}}
+    </div>
+    <div class="gear-container gear-top-right gear-binah">
+      {{> "systems/kult4th/templates/components/svg.hbs" key="gear-binah-outer-teeth"}}
+      {{> "systems/kult4th/templates/components/svg.hbs" key="gear-binah-inner-full"}}
+    </div>
+    <div class="gear-container gear-bottom-right gear-geburah">
+      {{> "systems/kult4th/templates/components/svg.hbs" key="gear-geburah"}}
+      {{> "systems/kult4th/templates/components/svg.hbs" key="gear-geburah-center-saw"}}
+    </div>
+    <div class="rolling-fog-container">
+      <video class="rolling-fog" autoplay loop muted playsinline>
+        <source src="systems/kult4th/assets/animations/rolling-fog.webm?v=1" type="video/webm">
+      </video>
+    </div>
+    <div class="rolling-fog-container inverted">
+      <video class="rolling-fog inverted" autoplay loop muted playsinline>
+        <source src="systems/kult4th/assets/animations/rolling-fog.webm?v=2" type="video/webm">
+      </video>
+    </div>
+    <img class="overlay-title" src="systems/kult4th/assets/overlays/kult-logo.webp">
+  </div>
+  <audio class="title-bang" preload="auto">
+    <source src="systems/kult4th/assets/audio/camera-pop.ogg" type="audio/ogg">
+  </audio>
+</div>

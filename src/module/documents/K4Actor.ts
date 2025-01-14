@@ -1,5 +1,5 @@
 // #region IMPORTS ~
-import K4Item from "./K4Item.js";
+import K4Item from "./K4Item";
 import C, {Archetypes} from "../scripts/constants.js";
 import {K4ItemType, K4Attribute, K4Archetype, ArchetypeTier, K4Stability, K4ConditionType, K4WoundType, K4ActorType, K4CharGenPhase, type K4CharAttribute} from "../scripts/enums";
 import ActorDataModel_PC from "../dataModels/documents/ActorDataModel_PC";
@@ -50,74 +50,79 @@ export default class K4Actor extends Actor {
      */
     async initMovesAndEffects() {
       if (!this.isType(K4ActorType.pc)) {return;}
-      const promises: Array<Promise<unknown>> = [];
 
-      // Dynamically import PACKS to avoid circular dependency
-      // const { PACKS } = await import("../scripts/data.js");
+      // eslint-disable-next-line @typescript-eslint/require-await
+      await (async () => {
+        const promises: Array<Promise<unknown>> = [];
 
-      // // Create the basic moves for the character
-      // if (this.basicMoves.length === 0) {
-      //   promises.push(this.createEmbeddedDocuments("Item", PACKS.basicPlayerMoves));
-      // }
+        // Dynamically import PACKS to avoid circular dependency
+        // const { PACKS } = await import("./scripts/data.js");
 
-      // // Create the dynamic ActiveEffect to handle wound modifiers
-      // promises.push(K4ActiveEffect.CreateFromBuildData(
-      //   {
-      //     parentData: K4ActiveEffect.BuildEffectData({
-      //       name: "Wounds",
-      //       dynamic: "wounds",
-      //       canToggle: false,
-      //       inStatusBar: true,
-      //       icon: "systems/kult4th/assets/icons/wounds/wound-serious.svg",
-      //       tooltip: "<center><h2>Wounds</h2></center><p>Your wounds affect your ability to fight and survive, while suffering clouds your mind.</p><p>(<em><strong>Note:</strong> Suppress wounds individually to exclude them from applying to your next roll.)</em></p>"
-      //     }),
-      //     changeData: []
-      //   }, this))
+        // // Create the basic moves for the character
+        // if (this.basicMoves.length === 0) {
+        //   promises.push(this.createEmbeddedDocuments("Item", PACKS.basicPlayerMoves));
+        // }
 
-      // // Create the dynamic ActiveEffect for stability modifiers
-      // promises.push(K4ActiveEffect.CreateFromBuildData(
-      //   {
-      //     parentData: K4ActiveEffect.BuildEffectData({
-      //       name: "Stability",
-      //       dynamic: "stability",
-      //       canToggle: false,
-      //       inStatusBar: true,
-      //       icon: "systems/kult4th/assets/icons/modifiers/stability-critical.svg",
-      //       tooltip: "<center><h2>Stability</h2></center><p>Your mental stability affects your ability to act and think clearly, even as it liberates you from the Illusion.</p>"
-      //     }),
-      //     changeData: []
-      //   }, this));
+        // // Create the dynamic ActiveEffect to handle wound modifiers
+        // promises.push(K4ActiveEffect.CreateFromBuildData(
+        //   {
+        //     parentData: K4ActiveEffect.BuildEffectData({
+        //       name: "Wounds",
+        //       dynamic: "wounds",
+        //       canToggle: false,
+        //       inStatusBar: true,
+        //       icon: "systems/kult4th/assets/icons/wounds/wound-serious.svg",
+        //       tooltip: "<center><h2>Wounds</h2></center><p>Your wounds affect your ability to fight and survive, while suffering clouds your mind.</p><p>(<em><strong>Note:</strong> Suppress wounds individually to exclude them from applying to your next roll.)</em></p>"
+        //     }),
+        //     changeData: []
+        //   }, this))
 
-      // // Create the dynamic ActiveEffect for stability condition modifiers
-      // promises.push(K4ActiveEffect.CreateFromBuildData(
-      //   {
-      //     parentData: K4ActiveEffect.BuildEffectData({
-      //       name: "Stability Conditions",
-      //       dynamic: "stabilityConditions",
-      //       canToggle: false,
-      //       inStatusBar: true,
-      //       icon: "systems/kult4th/assets/icons/conditions/stability.svg",
-      //       tooltip: "<center><h2>Stability Conditions</h2></center><p>Recent traumas have afflicted you with one or more Stability Conditions, which may or may not apply to any given roll.</p><p>(<em><strong>Note:</strong> Suppress Stability Conditions individually to exclude them from applying to your next roll.)</em></p>"
-      //     }),
-      //     changeData: []
-      //   }, this));
+        // // Create the dynamic ActiveEffect for stability modifiers
+        // promises.push(K4ActiveEffect.CreateFromBuildData(
+        //   {
+        //     parentData: K4ActiveEffect.BuildEffectData({
+        //       name: "Stability",
+        //       dynamic: "stability",
+        //       canToggle: false,
+        //       inStatusBar: true,
+        //       icon: "systems/kult4th/assets/icons/modifiers/stability-critical.svg",
+        //       tooltip: "<center><h2>Stability</h2></center><p>Your mental stability affects your ability to act and think clearly, even as it liberates you from the Illusion.</p>"
+        //     }),
+        //     changeData: []
+        //   }, this));
 
-      // // Create the dynamic ActiveEffect for armor modifiers
-      // promises.push(K4ActiveEffect.CreateFromBuildData(
-      //   {
-      //     parentData: K4ActiveEffect.BuildEffectData({
-      //       name: "Armor",
-      //       dynamic: "armor",
-      //       statusCategory: "armor",
-      //       canToggle: false,
-      //       inStatusBar: true,
-      //       icon: "systems/kult4th/assets/icons/modifiers/armor.svg",
-      //       tooltip: "<center><h2>Armor</h2></center><p>You are wearing armor that protects you from harm, conferring a bonus to your %insert.docLink.Endure Injury% rolls.</p>"
-      //     }),
-      //     changeData: []
-      //   }, this));
+        // // Create the dynamic ActiveEffect for stability condition modifiers
+        // promises.push(K4ActiveEffect.CreateFromBuildData(
+        //   {
+        //     parentData: K4ActiveEffect.BuildEffectData({
+        //       name: "Stability Conditions",
+        //       dynamic: "stabilityConditions",
+        //       canToggle: false,
+        //       inStatusBar: true,
+        //       icon: "systems/kult4th/assets/icons/conditions/stability.svg",
+        //       tooltip: "<center><h2>Stability Conditions</h2></center><p>Recent traumas have afflicted you with one or more Stability Conditions, which may or may not apply to any given roll.</p><p>(<em><strong>Note:</strong> Suppress Stability Conditions individually to exclude them from applying to your next roll.)</em></p>"
+        //     }),
+        //     changeData: []
+        //   }, this));
 
-      // await Promise.all(promises);
+        // // Create the dynamic ActiveEffect for armor modifiers
+        // promises.push(K4ActiveEffect.CreateFromBuildData(
+        //   {
+        //     parentData: K4ActiveEffect.BuildEffectData({
+        //       name: "Armor",
+        //       dynamic: "armor",
+        //       statusCategory: "armor",
+        //       canToggle: false,
+        //       inStatusBar: true,
+        //       icon: "systems/kult4th/assets/icons/modifiers/armor.svg",
+        //       tooltip: "<center><h2>Armor</h2></center><p>You are wearing armor that protects you from harm, conferring a bonus to your %insert.docLink.Endure Injury% rolls.</p>"
+        //     }),
+        //     changeData: []
+        //   }, this));
+
+        // await Promise.all(promises);
+
+      })()
     }
     // #endregion
 
@@ -151,7 +156,7 @@ export default class K4Actor extends Actor {
     // #region GETTERS ~
     get user(): Maybe<User> {
       if (!this.isType(K4ActorType.pc)) {return undefined;}
-      const ownerID = (Object.keys(this.ownership) as IDString[])
+      const ownerID = (Object.keys(this.ownership))
         .filter((id: IDString) => (getGame().users.get(id) as Maybe<User>)?.isGM === false)
         .find((id: IDString) => this.ownership[id] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
       if (!ownerID) {return undefined;}
@@ -727,7 +732,7 @@ export default class K4Actor extends Actor {
       });
     }
 
-    override async _onCreate(...params: Parameters<Actor["_onCreate"]>) {
+    override _onCreate(...params: Parameters<Actor["_onCreate"]>) {
       super._onCreate(...params);
       if (!getUser().isGM) { return; }
       if (this.type !== K4ActorType.pc) {return;}
@@ -735,7 +740,7 @@ export default class K4Actor extends Actor {
       // Set the default tab for the character sheet
       void this.setFlag("kult4th", "sheetTab", "front");
 
-      await this.initMovesAndEffects();
+      void this.initMovesAndEffects();
 
       // Register a custom end-of-scene hook
       Hooks.on("endScene", this._onEndScene.bind(this));

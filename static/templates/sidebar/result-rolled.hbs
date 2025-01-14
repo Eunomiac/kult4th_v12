@@ -1,0 +1,129 @@
+{{kLog "{CHAT} result-rolled.hbs" this}}
+
+<div class="kult4th-chat {{cssClass}}">
+
+  <div class="roll-intro-header roll-intro-header-with-footer">
+    <img class="drop-cap {{~#if isWideDropCap}} wide-drop-cap{{/if}}" src="{{getDropCap rollerName}}" />
+    <span class="roll-char-name">{{getRestCaps rollerName}}</span>
+    <span class="roll-intro-line">
+      {{#if sourceName}}
+      {{{localize "kult4th.roll.rollAttrTo" attrName=(case "title" attribute)}}}
+      {{else}}
+      {{{localize "kult4th.roll.rollAttr" attrName=(case "title" attribute)}}}
+      {{/if}}
+    </span>
+    {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=sourceImg
+    type=sourceType
+    name=sourceName
+    cssClasses="icon-base"
+    isChat=true
+    }}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=sourceImg
+    type=sourceType
+    name=sourceName
+    cssClasses="icon-fail"
+    isChat=true
+    }}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=sourceImg
+    type=sourceType
+    name=sourceName
+    cssClasses="icon-partial"
+    isChat=true
+    }}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=sourceImg
+    type=sourceType
+    name=sourceName
+    cssClasses="icon-success"
+    isChat=true
+    }}
+  </div>
+
+  {{#if sourceName}}
+  <div class="roll-source-header {{~#if source.system.parentItem.name}} roll-source-header-with-footer{{/if}}">
+    <span class="roll-source-name">
+      <span class="roll-source-text">{{sourceName}}</span>
+    </span>
+    {{#if source.system.parentItem}}{{#if source.system.parentItem.name}}
+    <span class="roll-source-source-name">
+      from <span class="roll-source-text">{{source.system.parentItem.name}}</span>
+    </span>
+    {{/if}}{{/if}}
+  </div>
+  {{/if}}
+
+  <div class="roll-dice-results">
+    <div class="roll-dice-line">
+      <div class="roll-term-container roll-d10">
+        <div class="d10-animation">
+          <video autoplay loop muted><source src="systems/kult4th/assets/chat/dice/d10-bg-animation.webm" type="video/webm"></video>
+        </div>
+        <img class="d10-front" src="systems/kult4th/assets/chat/dice/{{dice.[0]}}.png" />
+      </div>
+      {{#unless (eq attribute "zero")}}
+      <div class="roll-term-container attribute-{{attribute}}">
+        <img class="attribute-flare" src="systems/kult4th/assets/chat/attribute_flares/{{attribute}}-flare.png" />
+        <img class="attribute-value" src="systems/kult4th/assets/chat/attribute_vals/{{attrType}}{{attrVal}}.png" />
+      </div>
+      {{/unless}}
+      <div class="roll-term-container roll-d10">
+        <div class="d10-animation">
+          <video autoplay loop muted><source src="systems/kult4th/assets/chat/dice/d10-bg-animation.webm" type="video/webm"></video>
+        </div>
+        <img class="d10-front" src="systems/kult4th/assets/chat/dice/{{dice.[1]}}.png" />
+      </div>
+    </div>
+    <div class="roll-total">
+      <span class="roll-total-gear">
+        <img class="gear-chagidiel-inner-ring" src="systems/kult4th/assets/gears/gear-chagidiel-inner-ring.svg">
+        <img class="gear-chagidiel-middle-ring" src="systems/kult4th/assets/gears/gear-chagidiel-middle-ring.svg">
+        <img class="gear-chagidiel-outer-ring" src="systems/kult4th/assets/gears/gear-chagidiel-outer-ring.svg">
+      </span>
+      <img class="roll-total-number" src="systems/kult4th/assets/chat/rollvals/{{total}}.png"></i>
+    </div>
+    <div class="roll-modifiers">
+      {{#each modifiers}}
+        {{#let
+          anchorName=(getUniqueID "roll-mod-anchor")
+          popoverID=(getUniqueID "roll-mod-popover")
+        }}
+      <div class="roll-mod roll-mod-{{#if (test value ">=" 0)}}pos{{else}}neg{{/if}} {{cssClasses}}"
+        style="anchor-name: --{{anchorName}}"
+        popovertarget="{{popoverID}}"
+      >
+        <span class="roll-mod-val">{{signNum value}}</span>
+        <span class="roll-mod-desc">{{name}}</span>
+      </div>
+      <div id="{{popoverID}}"
+          class="roll-mod-tooltip"
+          style="position-anchor: --{{anchorName}};"
+          popover>
+        {{{formatForKult tooltip}}}
+      </div>
+      {{/let}}
+      {{/each}}
+    </div>
+    <div class="roll-outcome">
+      {{#if (gte total 15)}}
+      <span class="roll-outcome-main">{{localize "kult4th.roll.success"}}</span>
+      {{else}}{{#if (gte total 10)}}
+      <span class="roll-outcome-main">{{localize "kult4th.roll.success"}}</span>
+      <span class="roll-outcome-sub">{{localize "kult4th.roll.withComplications"}}</span>
+      {{else}}
+      <span class="roll-outcome-main">{{localize "kult4th.roll.failure"}}</span>
+      {{/if}}{{/if}}
+    </div>
+  </div>
+
+  {{> "systems/kult4th/templates/components/roll-result.hbs" type="active-rolled" diceRange="" result=result
+  context=source}}
+
+  {{~#if result.listRefs}}
+  {{> "systems/kult4th/templates/components/item-list.hbs" lists=source.system.lists listRefs=result.listRefs
+  type=source.type isDisplayingName=true}}
+  {{/if}}
+
+</div>

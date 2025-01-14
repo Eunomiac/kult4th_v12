@@ -1,0 +1,38 @@
+<div class="modifier {{~#if isLeftMod}} left-modifier{{/if}} {{statusBarCategory}}-modifier {{#unless statusValue}}no-value{{/unless}}" data-state="{{#if isEnabled}}enabled{{else}}disabled{{/if}}">
+
+  {{#let
+    anchorName=(getUniqueID "untoggleable-modifier-anchor")
+    popoverID=(getUniqueID "untoggleable-modifier-popover")
+  }}
+
+  <button class="modifier-button {{benefit}}-mod" data-state="{{#if isEnabled}}enabled{{else}}disabled{{/if}}"
+    {{#if statusTooltip}}
+      style="anchor-name: --{{anchorName}}"
+      popovertarget="{{popoverID}}"
+    {{/if}}
+  >
+
+    <span class="modifier-label">
+      <span class="modifier-name">{{statusLabel}}</span>
+      {{#if statusValue}}
+      <span class="modifier-value {{statusValueGlow}}">{{statusValue}}</span>
+      {{/if}}
+    </span>
+
+    <div class="icon-container">
+      <div class="icon-mask" style="mask:url({{statusIcon}}) no-repeat center;-webkit-mask:url({{statusIcon}}) no-repeat center;"></div>
+    </div>
+
+  </button>
+
+  {{#if statusTooltip}}
+    <div id="{{popoverID}}"
+        style="position-anchor: --{{anchorName}};"
+        popover>
+      {{{formatForKult statusTooltip}}}
+    </div>
+  {{/if}}
+
+  {{/let}}
+  <span class="toggle-mod-bg"></span>
+</div>

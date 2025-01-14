@@ -1,0 +1,31 @@
+{{log "GM Tracker Sheet" this}}
+<form class="kult4th-form form-gmtracker phase-{{item.system.gamePhase}} {{cssClass}}" autocomplete="off">
+
+  {{> (concat "systems/kult4th/templates/sheets/gmtracker-phases/" item.system.gamePhase ".hbs")}}
+
+  <footer class="phase-select-container phase-{{item.system.gamePhase}}">
+    <span class="phase-container phase-intro">
+      <span class="phase-label">PREPARATION</span>
+    </span>
+    {{#unless isChargenComplete}}
+    <span class="phase-container phase-chargen">
+      <button class="phase-select-button" data-phase="chargen"></button>
+      <span class="phase-label">CHARACTER CREATION</span>
+    </span>
+    {{else}}
+    <span class="phase-container phase-preSession">
+      <button class="phase-select-button" data-phase="preSession"></button>
+      <span class="phase-label">PRE-SESSION</span>
+    </span>
+    <span class="phase-container phase-session">
+      <button class="phase-select-button" data-phase="session"></button>
+      <span class="phase-label">SESSION</span>
+    </span>
+    <span class="phase-container phase-postSession">
+      <button class="phase-select-button" data-phase="postSession"></button>
+      <span class="phase-label">POST-SESSION</span>
+    </span>
+    {{/unless}}
+  </footer>
+
+</form>

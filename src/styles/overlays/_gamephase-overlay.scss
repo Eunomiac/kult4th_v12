@@ -1,0 +1,83 @@
+@at-root {
+  body,
+  body.vtt.game.system-kult4th {
+
+    /* The quick-loading overlay element initially used to block the interface while assets load */
+
+    @keyframes pulse-load-message {
+      0% {
+        color: change-alpha(rgb(244, 238, 228), 0.5)
+      }
+      50% {
+        color: change-alpha(rgb(244, 238, 228), 1)
+      }
+      100% {
+        color: change-alpha(rgb(244, 238, 228), 0.5)
+      }
+    }
+
+    &:not(.interface-visible):not(.gm-user) {
+
+      &::after {
+        content: "Loading ...";
+        display: block;
+        position: absolute;
+        z-index: $baseOverlayIndex;
+        background-color: var(--K4-dBLACK);
+        bottom: 0px;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        color: white;
+        font-size: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: 100px;
+        @include neon-glow-soft(rgb(244, 238, 228), rgba(255, 189, 65, 0.35));
+        animation: pulse-load-message 2s linear infinite;
+        opacity: 1;
+      }
+
+      &.is-initialized::after {
+        content: "";
+      }
+
+      #pause,
+      #notifications { visibility: hidden; }
+    }
+
+    &.gm-user #gamephase-overlay { visibility: hidden; }
+  }
+}
+
+&,
+.gamephase-overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // position: absolute;
+  // z-index: $baseOverlayIndex + 1;
+
+  &.gamephase-overlay {
+    position: fixed;
+    background-color: var(--K4-dBLACK);
+    z-index: $baseOverlayIndex - 1;
+
+    &.is-displaying {
+      visibility: hidden;
+      z-index: $baseOverlayIndex + 1 !important;
+    }
+
+    h1 {
+      border: none;
+    }
+
+    &.overlay-intro { @import 'overlay-intro'; }
+    &.overlay-chargen { @import 'overlay-chargen'; }
+    &.overlay-preSession { @import 'overlay-preSession'; }
+    &.overlay-session { @import 'overlay-session'; }
+    &.overlay-postSession { @import 'overlay-postSession'; }
+  }
+}

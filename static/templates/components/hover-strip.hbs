@@ -1,0 +1,86 @@
+<div
+  class="hover-strip item {{~#each stripClasses}} {{this}}{{/each}}"
+  data-type={{type}}
+  {{~#if dataset}}{{#each dataset as |val key|}}
+    data-{{key}}="{{val}}"
+  {{/each}}{{/if}}
+>
+  <span class="strip-bg"></span>
+
+{{#if display}}
+
+  {{#let
+    anchorName=(getUniqueID "hoverstrip-anchor")
+    popoverID=(getUniqueID "hoverstrip-popover")
+  }}
+
+  <div
+    class="strip-name"
+    data-clamplines="1"
+    {{~#if dataset}}{{#each dataset as |val key|}}
+      data-{{key}}="{{val}}"
+    {{/each}}{{/if}}
+    {{#if tooltip}}
+      style="anchor-name: --{{anchorName}}"
+      popovertarget="{{popoverID}}"
+    {{/if}}
+  >
+    {{display}}
+  </div>
+  {{#if tooltip}}
+    <div id="{{popoverID}}"
+        style="position-anchor: --{{anchorName}};"
+        popover>
+      {{{formatForKult tooltip}}}
+    </div>
+  {{/if}}
+
+  {{/let}}
+
+  <span class="button-strip"><span class="button-spacer"></span>
+
+    {{#each buttons as |bdata|}}
+      <button
+        class="strip-button icon-container {{~#if bdata.buttonClasses}}{{#each bdata.buttonClasses}} {{this}}{{/each}}{{/if}}"
+        {{~#each bdata.dataset as |val key|}}
+          data-{{key}}="{{val}}"
+        {{/each}}
+      >
+        {{> "systems/kult4th/templates/components/svg.hbs" key=(getImgName bdata.icon)}}
+        {{#if bdata.tooltip}}
+          <span class="button-tooltip">{{{formatForKult bdata.tooltip}}}</span>
+          <span class="button-tooltip button-tooltip-flare">{{{formatForKult bdata.tooltip}}}</span>
+        {{/if}}
+      </button>
+    {{/each}}
+
+  </span>
+
+  {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=icon
+    type=type
+    name=name
+  }}
+
+{{else}}
+
+	<div
+    id="{{id}}"
+    class="strip-name content-editable clamp-text"
+    data-field="{{dataTarget}}"
+    data-placeholder="{{placeholder}}"
+    data-clamplines="1"
+    {{~#if dataset}}{{#each dataset as |val key|}}
+      data-{{key}}="{{val}}"
+    {{/each}}{{/if}}
+  ></div>
+
+  {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=icon
+    type=type
+    name=name
+  }}
+
+{{/if}}
+
+</div>

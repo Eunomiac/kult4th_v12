@@ -1,0 +1,24 @@
+{{log "Alert Card" this}}
+<div class="k4-alert alert-card alert-card-{{type}} {{cssClasses}}">
+  <div class="alert-card-name">
+    <h2>{{name}}</h2>
+  </div>
+  <div class="alert-card-description">
+    <span class="alert-card-description-the">The</span>
+    <span class="alert-card-description-type">
+      {{#if (test type "===" "archon")}}Archon{{else}}Death Angel{{/if}}
+    </span>
+    <span class="alert-card-description-of">of</span>
+    <span class="alert-card-description-principle">{{principle}}</span>
+  </div>
+  <div class="alert-card-image-container">
+    <div class="alert-card-image-influence-key">
+      <svg viewBox="{{imgs.keySVG.viewBox}}">
+        <path d="{{imgs.keySVG.d}}" />
+      </svg>
+    </div>
+    <div class="alert-card-image-tarot">
+      <img src="{{imgs.tarotCard}}" alt="{{name}} Tarot Card">
+    </div>
+  </div>
+</div>

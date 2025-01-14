@@ -1,0 +1,34 @@
+<span class="modifiers-report">
+  {{#each collapsedRollModifiers}}
+    {{#if @index}}
+      <span class='k4-theme-black no-flex'></span>
+    {{/if}}
+    <span class="mod-container" data-filter="{{filter}}">
+
+      <span class="k4-theme-{{#if (test value ">=" 0)}}gold{{else}}red{{/if}}">
+        {{#let
+          anchorName=(getUniqueID "modifier-anchor")
+          popoverID=(getUniqueID "modifier-popover")
+        }}
+        <label
+          {{#if tooltip}}
+            style="anchor-name: --{{anchorName}}"
+            popovertarget="{{popoverID}}"
+          {{/if}}
+        >
+          <strong>{{#if (test value ">=" 0)}}+{{/if}}{{{value}}}</strong>&nbsp;to&nbsp;<strong>{{{display}}}</strong>
+        </label>
+        {{#if tooltip}}
+          <div id="{{popoverID}}"
+              style="position-anchor: --{{anchorName}};"
+              popover>
+            {{{formatForKult tooltip}}}
+          </div>
+        {{/if}}
+        {{/let}}
+      </span>
+      <span class="status-mod-bg k4-theme-{{#if (test value ">=" 0)}}gold{{else}}red{{/if}}">
+      </span>
+    </span>
+  {{/each}}
+</span>

@@ -1,0 +1,120 @@
+& {
+  --K4-icon-size: 30px;
+  --K4-icon-outline-width: 1px;
+	--K4-icon-clip-path: circle(closest-side);
+  --K4-icon-stroke-width: 10px;
+
+  --K4-icon-bg-color: var(--K4-color-contrast);
+  --K4-icon-outline-color: var(--K4-color-primary);
+  --K4-icon-fill: url(#fill-gold);
+  --K4-icon-stroke: url(#stroke-gold);
+
+  .icon-container {
+	  height: var(--K4-icon-size);
+	  width: var(--K4-icon-size);
+    clip-path: var(--K4-icon-clip-path);
+    background: var(--K4-icon-outline-color);
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.icon-gold,
+    &.icon-advantage  {
+      --K4-icon-fill: url(#fill-bgold);
+      --K4-icon-stroke: url(#stroke-bgold);
+      --K4-icon-outline-color: var(--K4-bbGOLD);
+      --K4-icon-bg-color: var(--K4-BLACK);
+    }
+
+    &.icon-move {
+      --K4-icon-fill: url(#fill-gold);
+      --K4-icon-stroke: url(#stroke-black);
+      --K4-icon-outline-color: var(--K4-BLACK);
+    }
+
+    &.icon-red,
+    &.icon-disadvantage {
+      --K4-icon-fill: url(#fill-red);
+      --K4-icon-stroke: url(#stroke-red);
+      --K4-icon-outline-color: var(--K4-bRED);
+    }
+
+    &.icon-blue {
+      --K4-icon-fill: url(#fill-blue);
+      --K4-icon-stroke: url(#stroke-blue);
+    }
+
+    &.icon-grey,
+    &.icon-darksecret {
+      --K4-icon-fill: url(#fill-grey);
+      --K4-icon-stroke: url(#stroke-grey);
+      --K4-icon-outline-color: var(--K4-bWHITE);
+    }
+
+    &.icon-attack {
+      --K4-icon-fill: url(#fill-attack);
+      --K4-icon-stroke: url(#stroke-attack);
+    }
+
+    &.icon-gear {
+      --K4-icon-fill: url(#fill-gear);
+      --K4-icon-stroke: url(#stroke-gear);
+    }
+
+    &.icon-relation {
+      --K4-icon-fill: url(#fill-relation);
+      --K4-icon-stroke: url(#stroke-relation);
+    }
+
+    &.icon-weapon {
+      --K4-icon-fill: var(--K4-WHITE);
+      --K4-icon-stroke: none;
+
+      .svg-bg {
+        --K4-icon-fill: url(#fill-weapon);
+        --K4-icon-stroke: url(#stroke-weapon);
+      }
+    }
+
+    // img.chat-icon { display: none; }
+
+    .svg-container {
+      height: calc(var(--K4-icon-size) - 2 * var(--K4-icon-outline-width));
+      width: calc(var(--K4-icon-size) - 2 * var(--K4-icon-outline-width));
+      display: block;
+      position: relative;
+      transform-origin: center center;
+      clip-path: var(--K4-icon-clip-path);
+      background: var(--K4-icon-bg-color);
+      overflow: hidden;
+      fill: var(--K4-icon-fill);
+      stroke: var(--K4-icon-stroke);
+      stroke-width: var(--K4-icon-stroke-width);
+      pointer-events: none;
+    }
+  }
+}
+
+.svg-def {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	fill: var(--K4-icon-fill);
+	fill-opacity: 1;
+	stroke: var(--K4-icon-stroke);
+	stroke-width: var(--K4-icon-stroke-width);
+	stroke-opacity: 1;
+	pointer-events: none;
+	filter: none;
+	opacity: 1;
+	transform-origin: center center;
+	display: block;
+
+	&.svg-bg {
+		fill: var(--K4-icon-outline-color);
+		transform: scale(1.1);
+	}
+}

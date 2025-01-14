@@ -1,0 +1,12 @@
+{{kLog "Color Defs" this}}
+
+<style>
+	* {
+		{{#each colors as |color name|}}
+			--K4-{{{name}}}: {{{color}}};
+		{{/each}}
+    {{#each colorFilters as |filter name|}}
+      --K4-filter-{{{name}}}: invert(1) sepia(1) saturate(10000%) {{{filter}}};
+    {{/each}}
+	}
+</style>

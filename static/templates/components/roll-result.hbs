@@ -1,0 +1,9 @@
+{{log "... ... <Result Entry> result & context" result context}}
+<div class="result-entry conditional-center">
+	{{#if context}}
+	<span>{{{formatForKult result.result context}}}</span>
+	{{else}}
+	<label class="text-tag text-resultlabel">{{{diceRange}}}</label>
+	<span>{{{formatForKult result}}}</span>
+	{{/if}}
+</div>

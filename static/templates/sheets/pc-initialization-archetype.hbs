@@ -1,0 +1,23 @@
+
+  <div class="archetype-staging">
+    <div class="archetype-carousel">
+      {{#each archetypeCarousel}}
+      <div class="archetype-carousel-item" data-index="{{@index}}" data-archetype="{{case "lower" label}}" data-is-selected="{{isSelected}}">
+        <img class="archetype-carousel-img" src="{{img}}" alt="{{label}}">
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{#each archetypeCarousel as |data archetype|}}
+  <div class="archetype-panels" data-archetype="{{case "lower" archetype}}">
+    <div class="archetype-panel archetype-panel-name">
+      <span class="archetype-carousel-the">The</span>
+      <span class="archetype-carousel-name">{{label}}</span>
+    </div>
+    <div class="archetype-panel archetype-panel-description">{{{description}}}</div>
+    <div class="archetype-trait-panels-wrapper">
+      {{> "systems/kult4th/templates/sheets/pc-initialization-archetype-trait-panels.hbs" data=data}}
+    </div>
+  </div>
+  {{/each}}
+  <div class="archetype-carousel-dragger"><div class="archetype-carousel-drag-handle"></div></div>

@@ -1,0 +1,14 @@
+{{log "... (Rules Block) rules" rules}}
+<p class="rules-top">
+	{{~#if rules.intro}}
+    <span class="text-intro">{{{formatForKult rules.intro}}}</span>
+  {{/if}}
+	{{~#if rules.trigger}}
+    {{#unless (test isDisplayingTrigger "===" false)}}
+      <span class="text-trigger">{{{formatForKult rules.trigger}}}</span>
+    {{/unless}}
+  {{/if}}
+	{{~#if rules.outro}}
+    <span class="text-outro">{{{formatForKult rules.outro}}}</span>
+  {{/if}}
+</p>

@@ -1,0 +1,142 @@
+{{log "OVERLAY-CHARGEN.HBS" this}}
+
+<div class="gamephase-overlay overlay-chargen">
+
+  <div class="pc-initialization-bg">
+    <img class="cityscape-mid" src="systems/kult4th/assets/animations/cityscape-mid.webp">
+    <img class="cityscape-fore" src="systems/kult4th/assets/animations/cityscape-fore.webp">
+    <video class="cloud-bg" autoplay loop muted playsinline>
+      <source src="systems/kult4th/assets/animations/cloud-bg.webm" type="video/webm">
+    </video>
+  </div>
+
+  <div class="pc-initialization">
+
+    <div class="archetype-panel actor-name">
+      {{> "systems/kult4th/templates/components/pc-actor-name.hbs" }}
+    </div>
+
+    <div class="archetype-panel attributes">
+      <label class="k4-title section-title">Attributes</label>
+      {{#each attributes}}
+      {{> "systems/kult4th/templates/components/attribute-box.hbs"}}
+      {{/each}}
+    </div>
+
+    <div class="archetype-staging">
+      <div class="archetype-carousel">
+        {{#each archetypeCarousel}}
+        <div class="archetype-carousel-item" data-index="{{@index}}" data-archetype="{{case "lower" label}}"
+          data-is-selected="{{isSelected}}">
+          <h3 class="archetype-carousel-title">{{label}}</h3>
+          <img class="archetype-carousel-img" src="{{img}}" alt="{{label}}">
+          <img class="archetype-carousel-img greyscale" src="{{img}}" alt="{{label}}">
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{#each archetypeCarousel as |data archetype|}}
+    <div class="archetype-panels" data-archetype="{{case " lower" archetype}}">
+      <div class="archetype-panel archetype-panel-name">
+        <span class="archetype-carousel-the">The</span>
+        <span class="archetype-carousel-name">{{label}}</span>
+      </div>
+      <div class="archetype-panel archetype-panel-description">{{{description}}}</div>
+      <div class="archetype-trait-panels-wrapper">
+        {{> "systems/kult4th/templates/sheets/pc-initialization-archetype-trait-panels.hbs" data=data}}
+      </div>
+    </div>
+    {{/each}}
+    <div class="archetype-carousel-dragger">
+      <div class="archetype-carousel-drag-handle"></div>
+    </div>
+
+    <div class="archetype-panel archetype-panel-notes">
+      <div class="archetype-sub-panel chargen-occupation">
+
+        <div class="archetype-sub-panel-title">
+
+          {{#let
+          anchorName=(getUniqueID "occupation-anchor")
+          popoverID=(getUniqueID "occupation-popover")
+          }}
+
+          <label class="k4-title section-title" style="anchor-name: --{{anchorName}}"
+            popovertarget="{{popoverID}}">Occupation</label>
+
+
+          <div id="{{popoverID}}" style="position-anchor: --{{anchorName}};" popover>
+            <h2>Suggestions</h2>
+            <div class="archetype-example-container">
+              <span class="archetype-example-list" data-target="occupation"></span>
+            </div>
+          </div>
+
+          {{/let}}
+
+
+        </div>
+        <div class="archetype-editor occupation-editor simple-editor content-editable clamp-text"
+          data-field="system.occupation" data-clamplines="1" data-placeholder="What do you do to eat?">
+          {{{actor.system.occupation}}}</div>
+      </div>
+      <div class="archetype-sub-panel chargen-description">
+        <div class="archetype-sub-panel-title">
+
+          {{#let
+          anchorName=(getUniqueID "description-anchor")
+          popoverID=(getUniqueID "description-popover")
+          }}
+          <label class="k4-title section-title" style="anchor-name: --{{anchorName}}" popovertarget="{{popoverID}}">
+            Description
+          </label>
+          <div id="{{popoverID}}" class="left-aligned" style="position-anchor: --{{anchorName}};" popover>
+            <h2>Suggestions</h2>
+            <div class="archetype-example-container">
+              <span class="archetype-example-label">Clothes:</span>
+              <span class="archetype-example-list" data-target="looks.clothes"></span>
+            </div>
+            <div class="archetype-example-container">
+              <span class="archetype-example-label">Face:</span>
+              <span class="archetype-example-list" data-target="looks.face"></span>
+            </div>
+            <div class="archetype-example-container">
+              <span class="archetype-example-label">Eyes:</span>
+              <span class="archetype-example-list" data-target="looks.eyes"></span>
+            </div>
+            <div class="archetype-example-container">
+              <span class="archetype-example-label">Body:</span>
+              <span class="archetype-example-list" data-target="looks.body"></span>
+            </div>
+          </div>
+
+          {{/let}}
+
+        </div>
+        <div class="archetype-editor description-editor simple-editor content-editable"
+          data-placeholder="Flesh out your character during the group discussion, including any important notes about traits or other character features."
+          data-field="system.description">{{{actor.system.description}}}</div>
+      </div>
+      <div class="archetype-sub-panel chargen-history">
+        <div class="archetype-sub-panel-title">
+          <label class="k4-title section-title">History</label>
+        </div>
+        <div class="archetype-editor history-editor simple-editor content-editable clamp-text"
+          data-placeholder="As the group develops their characters, backstories will inevitably emerge: Record any important details (especially relationships) here."
+          data-field="system.history">{{{actor.system.history}}}</div>
+      </div>
+      <div class="archetype-sub-panel-wrapper chargen-trait-notes-editor">
+        {{> "systems/kult4th/templates/gamephase/parts/chargen-trait-notes-editor.hbs" traitNotes=traitNotes}}
+      </div>
+    </div>
+
+    <div class="archetype-panel character-summary-panel">
+      {{#each otherPlayerData as |summaryData actorID|}}
+      <div class="character-summary" data-actor-id="{{actorID}}">
+        {{> "systems/kult4th/templates/gamephase/parts/other-player-summary-block.hbs" summaryData=summaryData}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+</div>

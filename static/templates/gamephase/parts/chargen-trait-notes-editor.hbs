@@ -1,0 +1,5 @@
+
+  {{#each traitNotes as |traitData traitName|}}
+    {{> "systems/kult4th/templates/gamephase/parts/chargen-trait-editor.hbs" traitType=traitData.traitType
+    trait=traitName note=traitData.value}}
+  {{/each}}

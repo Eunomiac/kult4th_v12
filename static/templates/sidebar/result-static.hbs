@@ -1,0 +1,52 @@
+{{log "{CHAT} result-static.hbs" this}}
+
+<div class="kult4th-chat {{cssClass}}">
+
+	<div class="roll-intro-header {{~#if item.system.isEdge}} roll-intro-header-with-footer{{/if}}">
+    <img class="drop-cap" src="{{getDropCap item.parent.name}}" />
+		<span class="roll-char-name">{{getRestCaps item.parent.name}}</span>
+    {{~#if item.system.isEdge}}
+    <span class="roll-intro-line"><span class="neon-glow-animated-blue">uses the Edge:</span></span>
+    {{/if}}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+      icon=img
+      type=parentType
+      name=name
+      isChat=true
+    }}
+    {{> "systems/kult4th/templates/components/icon.hbs"
+      icon=img
+      type=parentType
+      name=name
+      isChat=true
+    }}
+	</div>
+
+	<div class="roll-source-header roll-source-header-with-footer">
+		<span class="roll-source-name">
+      <span class="roll-source-text">{{name}}</span>
+    </span>
+    <span class="roll-source-source-name">from <span class="roll-source-text">{{parentName}}</span></span>
+	</div>
+
+  {{#unless (areEmpty item.system.rules.intro item.system.rules.outro)}}
+		{{> "systems/kult4th/templates/components/rules-block.hbs"
+      rules=item.system.rules
+      isDisplayingTrigger=false
+    }}
+	{{/unless}}
+
+  {{~#if item.system.rules.listRefs}}
+    {{> "systems/kult4th/templates/components/item-list.hbs"
+      lists=item.system.lists
+      listRefs=item.system.rules.listRefs
+      type=item.type
+      isDisplayingName=true
+    }}
+  {{/if}}
+
+  {{#if item.system.rules.holdText}}
+    <label class="k4-header hold-header neon-glow-animated-red">{{localize "kult4th.item.headings.risksHold" itemType=(case "title" item.type)}}</label>
+    <span class="hold-body">{{{formatForKult item.system.rules.holdText}}}</span>
+  {{/if}}
+</div>

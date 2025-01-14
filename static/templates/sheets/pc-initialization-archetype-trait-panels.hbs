@@ -1,0 +1,103 @@
+
+      <div class="archetype-panel archetype-panel-advantages k4-theme-gold">
+        <label class="k4-title section-title">Advantages</label>
+        {{#if data.selStringAdvantage}}
+        <h4>{{{formatForKult data.selStringAdvantage}}}</h4>
+        {{/if}}
+        {{#each data.advantage as |traits attribute|}}
+        <div class="archetype-sub-panel" data-attribute="{{attribute}}">
+          <div class="archetype-sub-panel-title">{{#if (eq attribute "zero")}}None{{else}}{{case "title" attribute}}{{/if}}</div>
+          {{#each traits}}
+          {{#let
+            anchorName=(getUniqueID "advantage-trait-anchor")
+            popoverID=(getUniqueID "advantage-trait-popover")
+          }}
+          <div class="archetype-trait-container" data-trait-type="advantage" data-trait="{{@key}}" data-is-selected="{{isSelected}}" data-is-mandatory="{{isMandatory}}"
+            style="anchor-name: --{{anchorName}}"
+            popovertarget="{{popoverID}}"
+          >
+            <div class="icon-container">
+              <div class="icon-mask" style="mask:url({{img}}) no-repeat center;-webkit-mask:url({{img}}) no-repeat center;"></div>
+            </div>
+            <span class="archetype-trait-name">{{name}}</span>
+          </div>
+          {{#if tooltip}}
+          <div id="{{popoverID}}"
+              style="position-anchor: --{{anchorName}};"
+              popover>
+            {{{formatForKult tooltip}}}
+          </div>
+          {{/if}}
+          {{/let}}
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+      <div class="archetype-panel archetype-panel-disadvantages k4-theme-red">
+        <label class="k4-title section-title">Disadvantages</label>
+        {{#if data.selStringDisadvantage}}
+        <h4>{{{formatForKult data.selStringDisadvantage}}}</h4>
+        {{/if}}
+        <div class="archetype-sub-panel">
+        {{#each data.disadvantage}}
+          {{#let
+            anchorName=(getUniqueID "disadvantage-trait-anchor")
+            popoverID=(getUniqueID "disadvantage-trait-popover")
+          }}
+          <div class="archetype-trait-container" data-trait-type="disadvantage" data-trait="{{@key}}" data-is-selected="{{isSelected}}" data-is-mandatory="{{isMandatory}}"
+            style="anchor-name: --{{anchorName}}"
+            popovertarget="{{popoverID}}"
+          >
+            <div class="icon-container">
+              <div class="icon-mask" style="mask:url({{img}}) no-repeat center;-webkit-mask:url({{img}}) no-repeat center;"></div>
+            </div>
+            <span class="archetype-trait-name">{{name}}</span>
+          </div>
+          {{#if tooltip}}
+          <div id="{{popoverID}}"
+              style="position-anchor: --{{anchorName}};"
+              popover>
+            {{{formatForKult tooltip}}}
+          </div>
+          {{/if}}
+          {{/let}}
+        {{/each}}
+        </div>
+        {{#if data.selStringDisadvantage}}
+        <button class="archetype-more-button more-disadvantages">More ▶</button>
+        {{/if}}
+      </div>
+      <div class="archetype-panel archetype-panel-darksecrets k4-theme-dark">
+        <label class="k4-title section-title">Dark Secrets</label>
+        {{#if data.selStringDarkSecret}}
+        <h4>{{{formatForKult data.selStringDarkSecret}}}</h4>
+        {{/if}}
+        <div class="archetype-sub-panel">
+        {{#each data.darksecret}}
+          {{#let
+            anchorName=(getUniqueID "darksecret-trait-anchor")
+            popoverID=(getUniqueID "darksecret-trait-popover")
+          }}
+          <div class="archetype-trait-container" data-trait-type="darksecret" data-trait="{{@key}}" data-is-selected="{{isSelected}}" data-is-mandatory="{{isMandatory}}"
+            style="anchor-name: --{{anchorName}}"
+            popovertarget="{{popoverID}}"
+          >
+            <div class="icon-container">
+              <div class="icon-mask" style="mask:url({{img}}) no-repeat center;-webkit-mask:url({{img}}) no-repeat center;"></div>
+            </div>
+            <span class="archetype-trait-name">{{name}}</span>
+          </div>
+          {{#if tooltip}}
+          <div id="{{popoverID}}"
+              style="position-anchor: --{{anchorName}};"
+              popover>
+            {{{formatForKult tooltip}}}
+          </div>
+          {{/if}}
+          {{/let}}
+        {{/each}}
+        </div>
+        {{#if data.selStringDarkSecret}}
+        <button class="archetype-more-button more-dark-secrets">More ▶</button>
+        {{/if}}
+      </div>

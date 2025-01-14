@@ -1,0 +1,163 @@
+& {
+
+  box-shadow: 0 0 15px var(--K4-bWHITE);
+  border-radius: 20px;
+  overflow: visible;
+  height: auto !important;
+
+  &.item-selection-dialog {
+    width: 800px !important;
+    .item-portrait-panel {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      overflow: visible;
+
+      .item-portrait-button {
+        position: relative;
+        height: 100px !important;
+        width: 100px !important;
+        flex-grow: 0;
+        flex-shrink: 0;
+        pointer-events: auto;
+
+        * {
+          pointer-events: none !important;
+        }
+
+        .item-portrait-name,
+        .item-portrait-icon,
+        .item-portrait-icon-container {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          left: 50%;
+          top: 50%;
+          hyphens: none;
+          text-wrap: balance;
+        }
+
+        .item-portrait-icon-container {
+          height: 100px;
+          width: 100px;
+        }
+
+        .item-portrait-icon {
+          background: var(--K4-dGREY);
+          height: 100px;
+          width: 100px;
+        }
+
+        .item-portrait-name {
+          text-align: center;
+          z-index: 1;
+          text-shadow: build-text-shadow(3px, var(--K4-dBLACK), 4);
+          font-family: var(--font-primary-smallcaps);
+          font-size: 14px;
+          line-height: 20px;
+          text-transform: lowercase;
+          width: 100px;
+          font-weight: $font-weight-black;
+          color: var(--K4-WHITE);
+        }
+      }
+    }
+  }
+
+  &.attribute-selection {
+
+    .dialog-buttons {
+      display: grid;
+
+      grid-template-areas:
+        ". zero ."
+        "fortitude willpower reflexes"
+        "reason perception intuition"
+        "coolness charisma violence"
+        ". soul .";
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+      grid-column-gap: 30px;
+      grid-row-gap: 2px;
+
+      .dialog-button { padding-left: 10px; padding-right: 10px;}
+
+      .dialog-button.zero { grid-area: zero; margin-bottom: 10px; }
+      .dialog-button.fortitude { grid-area: fortitude; margin-top: 10px; }
+      .dialog-button.willpower { grid-area: willpower; margin-bottom: 10px; }
+      .dialog-button.reflexes { grid-area: reflexes; margin-top: 10px; }
+      .dialog-button.reason { grid-area: reason; margin-bottom: 0px; margin-top: 10px; }
+      .dialog-button.perception { grid-area: perception; margin-top: 20px; margin-bottom: -10px; }
+      .dialog-button.intuition { grid-area: intuition; margin-bottom: 0px; margin-top: 10px; }
+      .dialog-button.coolness { grid-area: coolness; margin-bottom: 10px; }
+      .dialog-button.charisma { grid-area: charisma; margin-top: 10px; }
+      .dialog-button.violence { grid-area: violence; margin-bottom: 10px; }
+      .dialog-button.soul { grid-area: soul; margin-top: 0px; margin-bottom: 10px; }
+    }
+
+  }
+
+  .window-header {
+    display: none;
+  }
+
+  .window-content {
+    height: fit-content;
+    flex-grow: 1;
+    border-radius: 20px;
+    overflow: visible;
+
+    .dialog-content {
+      flex-grow: 0;
+      margin-bottom: 38px;
+    }
+  }
+
+  .dialog-title {
+    font-family: var(--font-primary-smallcaps);
+    text-transform: lowercase;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    margin: 0;
+    height: 20px;
+
+    + p {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  input[type="text"] {
+    background: var(--K4-dGREY);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    line-height: 20px;
+    padding: 5px;
+    margin: 5px 0;
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: inset 0 0 3px var(--K4-dBLACK);
+  }
+
+  .sub-text {
+    text-align: left;
+    font-size: 14px;
+    hyphens: auto;
+    text-wrap: balance;
+  }
+
+  .dialog-buttons {
+    max-height: 20px;
+
+    button {
+      max-width: 100px;
+      max-height: 20px;
+      line-height: 20px;
+    }
+
+  }
+
+}

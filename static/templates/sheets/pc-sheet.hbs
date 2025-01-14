@@ -1,0 +1,141 @@
+{{log "PC SHEET CONTEXT" this}}
+<form class="actor-sheet kult4th-form {{cssClass}} actor-pc" autocomplete="off">
+
+  <header class="sheet-header">
+    {{> "systems/kult4th/templates/components/pc-nav-menu.hbs" }}
+    {{> "systems/kult4th/templates/components/pc-actor-name.hbs" }}
+  </header>
+
+  <div class="tab-background">
+  </div>
+  <main class="tab-content">
+    <div id="twitchy-eye">
+      <img src="systems/kult4th/assets/animations/twitchy-eye.webp" />
+    </div>
+    <section class="tab front {{~#if (eq curTab "front")}} active{{/if}}" data-group="primary" data-tab="front">
+      <section class="subsection dramatic-hooks">
+        <label class="hook-label">{{case "title" (localize "kult4th.sheet.hooks")}}:</label>
+        {{#each actor.system.dramaticHooks}}
+        <div class="dramatic-hook">
+          <input type="checkbox" name="system.dramaticHooks.{{@index}}.isChecked" {{checked isChecked}} />
+          <input type="text" name="system.dramaticHooks.{{@index}}.value" value="{{value}}" />
+        </div>
+        {{/each}}
+      </section>
+      <section class="subsection status">
+        <div class="stability">
+          {{> "systems/kult4th/templates/components/stability-shards-overlay.hbs" value=actor.system.stability.value}}
+          <div class="button-container">
+            <button class="condition-add" title="Add Condition"><i class="fas fa-plus"></i></button>
+            <button class="wound-add" title="Add Wound"><i class="fas fa-plus"></i></button>
+            <button id="item-test-button"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="status-bar-strips">
+          {{#each statusBarStrips}}
+          {{> "systems/kult4th/templates/components/hover-strip.hbs" }}
+          {{/each}}
+        </div>
+        <div class="edges">
+          {{#if actor.system.edges.value}}
+          {{> "systems/kult4th/templates/components/edges-blade-container.hbs" value=actor.system.stability.value}}
+          <span class="edges-header">Edges</span>
+          <span class="edges-count neon-glow-animated-blue">{{actor.system.edges.value}}</span>
+          <span class="edges-source">{{actor.system.edges.sourceName}}</span>
+          {{#each actor.system.activeEdges}}
+          {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+          {{/each}}
+          {{/if}}
+        </div>
+      </section>
+      <section class="subsection modifiers">
+        {{> "systems/kult4th/templates/components/collapsed-modifiers-strip.hbs" collapsedRollModifiers=actor.collapsedRollModifiers}}
+        <div class="modifier-strip">
+        {{#each actor.system.statusBarEffects}}
+        {{#if canToggle}}
+        {{> "systems/kult4th/templates/components/modifier-toggleable.hbs" statusBarContext }}
+        {{else}}
+        {{> "systems/kult4th/templates/components/modifier-untoggleable.hbs" statusBarContext }}
+        {{/if}}
+        {{/each}}
+        </div>
+      </section>
+      <section class="subsection attributes">
+        <label class="k4-title section-title">{{case "upper" (localize "kult4th.trait.attributes")}}</label>
+        {{#each attributes}}
+        {{> "systems/kult4th/templates/components/attribute-box.hbs"}}
+        {{/each}}
+      </section>
+      <section class="subsection item-list flex-item-list item-list basic-moves">
+        <label class="k4-title section-title">{{case "upper" (localize "kult4th.item.type.basicPlayerMoves")}}</label>
+        {{#each actor.basicMoves}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+      <section class="subsection flex-item-list item-list special-moves">
+        <label class="k4-title section-title">{{case "upper" (localize "kult4th.item.type.specialMoves")}}</label>
+        {{#each derivedMoves}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+    </section>
+
+    <section class="tab bio {{~#if (eq curTab "bio")}} active{{/if}}" data-group="primary" data-tab="bio">
+      <section class="subsection description">
+        <label class="k4-title section-title">{{case "title" (localize "kult4th.sheet.description")}}</label>
+        <!-- Insert editor once it's figured out -->
+      </section>
+      <section class="subsection flex-item-list item-list advantages">
+        <label class="k4-title section-title">{{case "title" (localize "kult4th.item.type.advantages")}}</label>
+        {{#each advantages}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+      <section class="subsection flex-item-list item-list disadvantages">
+        <label class="k4-title section-title">{{case "title" (localize "kult4th.item.type.disadvantages")}}</label>
+        {{#each disadvantages}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+      <section class="subsection flex-item-list item-list darksecrets">
+        <label class="k4-title section-title">{{case "title" (localize "kult4th.item.type.darksecrets")}}</label>
+        {{#each darksecrets}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+      <section class="subsection flex-item-list item-list relations">
+        <label class="k4-title section-title">{{case "title" (localize "kult4th.item.type.relations")}}</label>
+        {{#each relations}}
+        {{> "systems/kult4th/templates/components/hover-strip.hbs" hoverStrip}}
+        {{/each}}
+      </section>
+    </section>
+
+    <section class="tab assets {{~#if (eq curTab "assets")}} active{{/if}}" data-group="primary" data-tab="assets">
+    </section>
+
+    <section class="tab notes {{~#if (eq curTab "notes")}} active{{/if}}" data-group="primary" data-tab="notes">
+    </section>
+
+    <section class="tab advancement {{~#if (eq curTab "advancement")}} active{{/if}}" data-group="primary"
+      data-tab="advancement"></section>
+  </main>
+
+  <div class="sheet-lock-container">
+    <input type="checkbox" name="system.isSheetLocked" {{checked actor.system.isSheetLocked}} />
+    <i class="fa-solid fa-lock{{#unless actor.system.isSheetLocked}}-open{{/unless}}"></i>
+  </div>
+
+</form>
+
+<div class="gear-container gear-huge gear-kether-huge">
+  {{> "systems/kult4th/templates/components/svg.hbs" key="gear-kether-huge"}}
+</div>
+<div class="gear-container gear-top-right gear-binah">
+  {{> "systems/kult4th/templates/components/svg.hbs" key="gear-binah-outer-teeth"}}
+  {{> "systems/kult4th/templates/components/svg.hbs" key="gear-binah-inner-full"}}
+</div>
+<div class="gear-container gear-bottom-right gear-geburah">
+  {{> "systems/kult4th/templates/components/svg.hbs" key="gear-geburah"}}
+  {{> "systems/kult4th/templates/components/svg.hbs" key="gear-geburah-center-saw"}}
+</div>

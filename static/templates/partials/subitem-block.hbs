@@ -1,0 +1,17 @@
+{{log (concat "[SubItem-Block: " subMove.name "] this & subMove") this subMove}}
+
+		{{#unless (areEmpty subMove.system.rules.intro subMove.system.rules.trigger subMove.system.rules.outro)}}
+			{{> "systems/kult4th/templates/components/rules-block.hbs" rules=subMove.system.rules}}
+		{{/unless}}
+
+		{{~#if (test subMove.system.subType "==" "active-rolled")}}
+			{{> "systems/kult4th/templates/components/roll-result.hbs" type="active-rolled" diceRange="(15+)" result=subMove.system.results.completeSuccess.result}}
+			{{> "systems/kult4th/templates/components/roll-result.hbs" type="active-rolled" diceRange="(10-14)" result=subMove.system.results.partialSuccess.result}}
+			{{> "systems/kult4th/templates/components/roll-result.hbs" type="active-rolled" diceRange="(&minus;9)" result=subMove.system.results.failure.result}}
+		{{/if}}
+
+    {{#unless isEmbedded}}
+		{{~#if subMove.system.rules.listRefs}}
+			{{> "systems/kult4th/templates/components/item-list.hbs" lists=pItem.system.lists listRefs=subMove.system.rules.listRefs type=subMove.type isDisplayingName=true}}
+		{{/if}}
+    {{/unless}}

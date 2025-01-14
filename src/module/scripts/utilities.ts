@@ -1680,33 +1680,33 @@ const withLog = (fn: (...args: unknown[]) => unknown) => {
 
 // #region ████████ HTML: Parsing HTML Code, Manipulating DOM Objects ████████ ~
 
-const changeContainer = (elem: HTMLElement, container: HTMLElement, isCloning = false): HTMLElement => {
-  // Get the element's current container, which defines its current coordinate space.
-  const curContainer = $(elem).parent()[0];
-  if (!curContainer) {
-    throw new Error("Element's current container not found");
-  }
-  // Get the element's current position in its current coordinate space.
-  const curPosition: gsap.Point2D = {
-    x: gsap.getProperty(elem, "x") as number,
-    y: gsap.getProperty(elem, "y") as number
-  };
-  // Convert the element's position in its current space, to the equivalent position in the target space.
-  const relPos = MotionPathPlugin.convertCoordinates(
-    curContainer,
-    container,
-    curPosition
-  );
+// const changeContainer = (elem: HTMLElement, container: HTMLElement, isCloning = false): HTMLElement => {
+//   // Get the element's current container, which defines its current coordinate space.
+//   const curContainer = $(elem).parent()[0];
+//   if (!curContainer) {
+//     throw new Error("Element's current container not found");
+//   }
+//   // Get the element's current position in its current coordinate space.
+//   const curPosition: gsap.Point2D = {
+//     x: gsap.getProperty(elem, "x") as number,
+//     y: gsap.getProperty(elem, "y") as number
+//   };
+//   // Convert the element's position in its current space, to the equivalent position in the target space.
+//   const relPos = MotionPathPlugin.convertCoordinates(
+//     curContainer,
+//     container,
+//     curPosition
+//   );
 
-  // Clone the element, if indicated
-  if (isCloning) {
-    elem = $(elem).clone()[0]!;
-  }
-  // Append the element to the new container, and set its new position
-  $(elem).appendTo($(container));
-  gsap.set(elem, relPos);
-  return elem;
-};
+//   // Clone the element, if indicated
+//   if (isCloning) {
+//     elem = $(elem).clone()[0]!;
+//   }
+//   // Append the element to the new container, and set its new position
+//   $(elem).appendTo($(container));
+//   gsap.set(elem, relPos);
+//   return elem;
+// };
 
 /**
  * Adjusts the aspect ratio of a text container to match a target ratio by modifying its font size and line height.
@@ -2524,7 +2524,7 @@ export default {
   getDynamicFunc, withLog,
 
   // ████████ HTML: Parsing HTML Code, Manipulating DOM Objects ████████
-  changeContainer, adjustTextContainerAspectRatio, getMutableRect,
+  /* changeContainer, */ adjustTextContainerAspectRatio, getMutableRect,
 
   getRawCirclePath, drawCirclePath, positionAlongCircle,
 
@@ -2544,7 +2544,7 @@ export default {
   // ■■■■■■■ GreenSock ■■■■■■■
   gsap, timeline, get, set, getGSAngleDelta, getNearestLabel, reverseRepeatingTimeline,
 
-  /* TextPlugin, Flip, */ MotionPathPlugin,
+  /* TextPlugin, Flip, MotionPathPlugin,*/
 
   distributeByPosition,
 

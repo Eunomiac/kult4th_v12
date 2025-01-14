@@ -1,0 +1,14 @@
+<div class="archetype-sub-panel chargen-trait-panel chargen-{{traitType}}" data-trait="{{trait}}">
+  <div class="archetype-sub-panel-title">
+    {{#if (eq traitType "darksecret")}}
+    <label class="k4-title section-title">Dark Secret: {{trait}}</label>
+    {{/if}}
+    {{#if (eq traitType "advantage")}}
+    <label class="k4-title section-title">Advantage: {{trait}}</label>
+    {{/if}}
+    {{#if (eq traitType "disadvantage")}}
+    <label class="k4-title section-title">Disadvantage: {{trait}}</label>
+    {{/if}}
+  </div>
+  <div class="archetype-editor trait-notes-editor {{traitType}}-editor simple-editor content-editable clamp-text" data-placeholder="Notes about {{trait}}" data-field="system.charGen.traitNotes.{{trait}}">{{{note}}}</div>
+</div>

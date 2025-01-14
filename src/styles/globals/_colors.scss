@@ -1,0 +1,355 @@
+/* OFFICIAL KULT COLORS
+
+KULT GOLD5
+	...print:   Pantone 8382C				#9C8F69
+	...adobe:   rgb(150,140,106)    #968C6A
+
+	GOLD5 - #968C6A		Tints 		Shades
+										#ABA388	  #787055
+										#BCB5A0	  #605A44
+										#C9C4B3	  #4D4836
+										#D4D0C2	  #3E3A2B
+										#DDD9CE	  #322E22
+										#E4E1D8	  #28251B
+										#E9E7E0	  #201E16
+										#EDECE6	  #1A1812
+										#F1F0EB	  #15130E
+
+KULT RED5
+	...print:	  cmyk(6,94,85,23)		#B90B1D
+	...adobe:   rgb(155,32,32)      #9B2020
+
+	RED5 - #9B2020		Tints 		Shades
+										#AF4D4D	  #7C1A1A
+										#BF7171	  #631515
+										#CC8D8D	  #4F1111
+										#D6A4A4	  #3F0E0E
+										#DEB6B6	  #320B0B
+										#E5C5C5	  #280909
+										#EAD1D1	  #200707
+										#EEDADA	  #1A0606
+										#F1E1E1	  #150505
+
+KULT BLUE5
+	...print    cmyk(90,53,8,22)		#145DB7
+	...adobe:   rgb(43,85,139)      #2B558B
+
+	BLUE5 - #2B558B	Tints  		Shades
+										#5577A2		#22446F
+										#7792B5		#1B3659
+										#92A8C4		#162B47
+										#A8B9D0		#122239
+										#B9C7D9		#0E1B2E
+										#C7D2E1		#0B1625
+										#D2DBE7		#09121E
+										#DBE2EC		#070E18
+										#E2E8F0		#060B13
+
+Kult Black
+	...adobe:   rgb(30,30,28)       #1E1E1C
+Kult Grey
+Kult White:  #FFFFFF */
+
+@mixin set-default-theme() {
+	--K4-color-primary: var(--K4-GOLD);
+	--K4-color-primary-bright: var(--K4-bGOLD);
+	--K4-color-primary-glow: var(--K4-bbGOLD);
+	--K4-color-primary-dark: var(--K4-dGOLD);
+
+	--K4-color-contrast: var(--K4-BLACK);
+	--K4-color-contrast-low: var(--K4-ddGOLD);
+	--K4-color-contrast-high: var(--K4-dBLACK);
+
+	--K4-color-title-fg: var(--K4-color-primary-bright);
+	--K4-color-title-bg: transparent;
+	--K4-color-header: var(--K4-bRED);
+
+	--K4-color-keyword: var(--K4-bbGOLD); // var(--K4-bGOLD);
+	--K4-color-keyword-bright: var(--K4-bbGOLD); // var(--K4-bGOLD);
+	--K4-color-pos: var(--K4-bbGOLD); // var(--K4-bGOLD);
+	--K4-color-neg: var(--K4-bRED); // var(--K4-RED);
+  --K4-neon-text-color: var(--K4-bWHITE);
+
+	--K4-font-primary: var(--font-primary);
+	--K4-font-weight-primary: #{$font-weight-normal};
+
+	--K4-list-indent: 12px;
+	--K4-bg: transparent #{to-url("backgrounds/bg-item-gold.webp")} no-repeat no-repeat center center / 100% 100%;
+	--K4-bg-inset: transparent #{to-url("backgrounds/bg-gold.webp")} repeat repeat center center/1000px 1000px;
+	--K4-bullet: transparent #{to-url("icons/bullets/bullet-gold-bright.svg")} no-repeat center center/calc(0.5 * var(--K4-list-indent));
+
+	--K4-strip-main-color-fg: var(--K4-color-primary-bright);
+	--K4-strip-main-color-bg: var(--K4-color-contrast);
+	--K4-strip-icon-color-bg: var(--K4-strip-main-color-bg);
+	--K4-strip-button-color-fg: var(--K4-color-contrast);
+	--K4-strip-button-color-bg: var(--K4-color-primary);
+	--K4-strip-button-hover-color-fg: var(--K4-color-contrast-high);
+	--K4-strip-button-hover-color-bg: var(--K4-color-primary-glow);
+	--K4-strip-tooltip-color-fg: var(--K4-bWHITE);
+	--K4-strip-tooltip-color-bg: var(--K4-dBLACK);
+}
+
+/* GRADIENTS */
+@mixin gradient-gloss-primary() {
+	background-color: var(--K4-color-primary);
+	@include filter-gradient(var(--K4-color-primary),var(--K4-color-primary), vertical);
+	@include background-image(linear-gradient(top,  var(--K4-color-primary) 0%,var(--K4-color-primary-bright) 50%,var(--K4-color-primary-bright) 51%,var(--K4-color-primary) 100%));
+}
+
+/* COLOR PALETTE & DEFAULT FOUNDRY OVERRIDES */
+& {
+  @include set-default-theme();
+  --color-text-light-primary: var(--K4-color-primary);
+	--color-text-light-highlight: var(--K4-color-primary-glow); // var(--K4-color-primary-bright); // #f0f0e0;
+  --color-text-light-heading: var(--K4-color-primary-bright); // #c9c7b8;
+
+  --chat-text-color-dark: var(--K4-color-primary-bright); // var(--K4-color-contrast-high); // #191813;
+  --color-text-dark-secondary: var(--K4-color-primary); // var(--K4-color-contrast-low); // #4b4a44;
+  --color-text-dark-header: var(--K4-color-contrast); // #23221d;
+  --color-text-dark-inactive: var(--K4-GREY);
+
+  --color-text-hyperlink: var(--K4-color-keyword); // #ff6400;
+
+  --color-text-light-0: var(--K4-bWHITE);
+  --color-text-light-1: var(--K4-WHITEt); // #eee;
+  --color-text-light-2: var(--K4-color-primary-glow); // #ddd;
+  --color-text-light-3: var(--K4-color-primary-glow); // #ccc;
+  --color-text-light-4: var(--K4-color-primary-bright); // #bbb;
+  --color-text-light-5: var(--K4-color-primary-bright); // #aaa;
+  --color-text-light-6: var(--K4-color-primary); // #999;
+  --color-text-light-7: var(--K4-color-primary); // #888;
+
+  --color-text-dark-1: var(--K4-color-contrast); // #111;
+  --color-text-dark-2: var(--K4-color-contrast); // #222;
+  --color-text-dark-3: var(--K4-color-contrast-low); // #444;
+  --color-text-dark-4: var(--K4-color-contrast-low); //  #555;
+  --color-text-dark-5: var(--K4-color-contrast-low); //  #666;
+  --color-text-dark-6: var(--K4-color-contrast-low); //  #777;
+
+  --color-border-light-1: var(--K4-color-primary-bright); // #ddd;
+  --color-border-light-2: var(--K4-color-primary); // #999;
+  --color-border-dark-1: var(--K4-color-primary); // #111;
+  --color-border-dark-2: var(--K4-color-primary); // #222;
+  --color-border-dark-3: var(--K4-color-primary-dark); // #333;
+  --color-border-dark-4: var(--K4-color-primary-dark); // #444;
+  --color-border-dark-5: var(--K4-color-primary-dark); // #666;
+  --color-shadow-primary: var(--K4-color-primary); // #ff0000;
+  --color-shadow-highlight: var(--K4-color-primary-bright); // #ff6400;
+  --color-shadow-dark: var(--K4-color-contrast-high); // #000;
+  --color-underline-inactive: var(--K4-color-primary-dark); // #7a7971;
+  --color-underline-active: var(--K4-color-keyword-bright); // #426899;
+  --color-underline-header: var(--K4-color-primary); // #782e22;
+  --color-border-light-highlight: var(--K4-color-primary-glow);
+  --color-border-light-primary: var(--K4-color-primary-bright); // #e4ddc3;
+  --color-border-light-secondary: var(--K4-color-primary-bright); // #c9c7b8;
+  --color-border-light-tertiary: var(--K4-color-primary); // #7a7971;
+  --color-border-dark: #000;
+  --color-border-dark-primary: var(--K4-color-contrast); // #191813;
+  --color-border-dark-secondary: var(--K4-color-contrast-low); // #23221d;
+  --color-border-dark-tertiary: var(--K4-color-contrast-low); // #4b4a44;
+  --color-border-highlight: var(--K4-color-primary-bright); // #ff6400;
+  --color-border-highlight-alt: var(--K4-color-primary-bright); // #ff0000;
+  --color-bg-btn-minor-inactive: var(--K4-color-primary-bright); // #c9c7b8;
+  --color-bg-btn-minor-active: var(--K4-color-primary-bright); // #c9c7b8;
+  --color-bg-option: var(--K4-color-primary-bright);
+}
+
+.k4-theme-gold, .k4-theme-bgold {
+	@include set-default-theme();
+
+  &.k4-theme-bgold {
+    --K4-color-primary: var(--K4-bGOLD);
+    --K4-color-contrast: var(--K4-dBLACK);
+    --K4-bg-inset: transparent #{to-url("backgrounds/bg-gold.webp")} repeat repeat center center/1000px 1000px;
+  }
+}
+
+.k4-theme-white {
+	--K4-color-primary: var(--K4-BLACK);
+	--K4-color-primary-bright: var(--K4-dBLACK);
+	--K4-color-primary-glow: var(--K4-dBLACK);
+	--K4-color-primary-dark: var(--K4-dGOLD);
+
+	--K4-color-contrast: var(--K4-WHITE);
+	--K4-color-contrast-low: var(--K4-bGREY);
+	--K4-color-contrast-high: var(--K4-bWHITE);
+
+	--K4-font-primary: var(--font-primary);
+	--K4-font-weight-primary: #{$font-weight-normal};
+
+	--K4-color-title-fg: var(--K4-color-primary-bright);
+	--K4-color-header: var(--K4-RED);
+
+	--K4-list-indent: 12px;
+	--K4-bg: transparent #{to-url("backgrounds/bg-item-white.webp")} no-repeat no-repeat center center / 100% 100%;
+	--K4-bg-inset: transparent #{to-url("backgrounds/bg-white.webp")} repeat repeat center center/1000px 1000px;
+	--K4-bullet: transparent #{to-url("icons/bullets/bullet-gold.svg")} no-repeat center center/calc(0.5 * var(--K4-list-indent));
+
+	--K4-strip-main-color-fg: var(--K4-color-primary-bright);
+	--K4-strip-main-color-bg: var(--K4-color-contrast);
+	--K4-strip-icon-color-bg: var(--K4-strip-main-color-bg);
+	--K4-strip-button-color-fg: var(--K4-color-contrast);
+	--K4-strip-button-color-bg: var(--K4-color-primary);
+	--K4-strip-button-hover-color-fg: var(--K4-color-contrast-high);
+	--K4-strip-button-hover-color-bg: var(--K4-color-primary-glow);
+	--K4-strip-tooltip-color-fg: var(--K4-bWHITE);
+	--K4-strip-tooltip-color-bg: var(--K4-dBLACK);
+
+	--K4-color-keyword: var(--K4-BLUE);
+	--K4-color-keyword-bright: var(--K4-ddBLUE);
+	--K4-color-pos: var(--K4-BLUE);
+	--K4-color-neg: var(--K4-RED);
+
+  .icon-container .chat-icon {
+    background: var(--K4-GREY) !important;
+  }
+
+  .text-negmod, .text-gmtext, .text-negmod + .text-keyword {
+    color: var(--K4-RED) !important;
+    text-shadow: none !important;
+  }
+
+  .text-posmod, .text-posmod + .text-keyword {
+    color: var(--K4-bBLUE) !important;
+    text-shadow: none !important;
+  }
+
+	// --K4-icon-fill: var(--K4-color-primary);
+	// --K4-icon-bg-color: var(--K4-color-contrast);
+	// --K4-icon-clip-path: circle(closest-side);
+	// --K4-icon-outline-color-color: transparent;
+}
+
+
+.k4-theme-blue {
+	--K4-color-primary: var(--K4-bWHITE);
+	--K4-color-primary-bright: var(--K4-bWHITE);
+	--K4-color-primary-glow: var(--K4-bBLUE);
+
+	--K4-color-contrast: var(--K4-WHITE);
+	--K4-color-contrast-low: var(--K4-bGOLD);
+	--K4-color-contrast-high: var(--K4-bWHITE);
+
+	--K4-font-primary: var(--font-primary);
+	--K4-font-weight-primary: #{$font-weight-normal};
+
+	--K4-color-title-fg: var(--K4-color-primary-bright);
+	--K4-color-header: var(--K4-RED);
+
+	--K4-list-indent: 12px;
+	--K4-bg: transparent #{to-url("backgrounds/bg-item-white.webp")} no-repeat no-repeat center center / 100% 100%;
+	--K4-bg-inset: transparent #{to-url("backgrounds/bg-white.webp")} repeat repeat center center/1000px 1000px;
+	--K4-bullet: transparent #{to-url("icons/bullets/bullet-gold.svg")} no-repeat center center/calc(0.5 * var(--K4-list-indent));
+
+	--K4-strip-main-color-fg: var(--K4-color-primary-bright);
+	--K4-strip-main-color-bg: var(--K4-color-contrast);
+	--K4-strip-icon-color-bg: var(--K4-strip-main-color-bg);
+	--K4-strip-button-color-fg: var(--K4-color-contrast);
+	--K4-strip-button-color-bg: var(--K4-color-primary);
+	--K4-strip-button-hover-color-fg: var(--K4-color-contrast-high);
+	--K4-strip-button-hover-color-bg: var(--K4-color-primary-glow);
+	--K4-strip-tooltip-color-fg: var(--K4-bWHITE);
+	--K4-strip-tooltip-color-bg: var(--K4-dBLACK);
+
+	--K4-color-keyword: var(--K4-BLUE);
+	--K4-color-keyword-bright: var(--K4-ddBLUE);
+	--K4-color-pos: var(--K4-BLUE);
+	--K4-color-neg: var(--K4-RED);
+
+	// --K4-icon-fill: var(--K4-color-primary);
+	// --K4-icon-bg-color: var(--K4-color-contrast);
+	// --K4-icon-clip-path: circle(closest-side);
+	// --K4-icon-outline-color-color: transparent;
+}
+
+.k4-theme-dark, .k4-theme-black {
+	--K4-color-primary: var(--K4-GREY8);
+	--K4-color-primary-bright: var(--K4-bWHITE);
+	--K4-color-primary-glow: var(--K4-bWHITE);
+  --K4-color-primary-dark: var(--K4-GREY4);
+
+	--K4-color-contrast: var(--K4-BLACK);
+	--K4-color-contrast-low: var(--K4-ddGOLD);
+	--K4-color-contrast-high: var(--K4-dBLACK);
+
+	--K4-font-primary: var(--font-primary);
+	--K4-font-weight-primary: #{$font-weight-normal};
+
+  --K4-color-title-fg: var(--K4-color-primary-bright);
+	--K4-color-title-bg: transparent;
+	--K4-color-header: var(--K4-bRED);
+
+	--K4-list-indent: 12px;
+	--K4-bg: transparent #{to-url("backgrounds/bg-item-dark.webp")} no-repeat no-repeat center center / 100% 100%;
+	--K4-bg-inset: transparent #{to-url("backgrounds/bg-dark.webp")} repeat repeat center center/1000px 1000px;
+	--K4-bullet: transparent #{to-url("icons/bullets/bullet-white.svg")} no-repeat center center/calc(0.5 * var(--K4-list-indent));
+
+	--K4-strip-main-color-fg: var(--K4-color-primary);
+	--K4-strip-main-color-bg: var(--K4-color-contrast);
+	--K4-strip-icon-color-bg: var(--K4-strip-main-color-bg);
+	--K4-strip-button-color-fg: var(--K4-color-contrast);
+	--K4-strip-button-color-bg: var(--K4-color-primary);
+	--K4-strip-button-hover-color-fg: var(--K4-color-contrast-high);
+	--K4-strip-button-hover-color-bg: var(--K4-color-primary-glow);
+	--K4-strip-tooltip-color-fg: var(--K4-bWHITE);
+	--K4-strip-tooltip-color-bg: var(--K4-dBLACK);
+
+	--K4-color-keyword: var(--K4-bWHITE);
+	--K4-color-keyword-bright: var(--K4-bWHITE);
+	--K4-color-pos: var(--K4-bWHITE);
+	--K4-color-neg: var(--K4-bRED);
+
+	// --K4-icon-fill: var(--K4-color-primary);
+	// --K4-icon-bg-color: var(--K4-color-contrast);
+	// --K4-icon-clip-path: circle(closest-side);
+	// --K4-icon-outline-color-color: transparent;
+
+  &.k4-theme-black {
+    // --K4-color-primary: var(--K4-bWHITE);
+    --K4-color-contrast: var(--K4-dBLACK);
+    --K4-bg-inset: transparent #{to-url("backgrounds/bg-black-leather.webp")} repeat repeat center center/1000px 1000px;
+  }
+}
+
+.k4-theme-red {
+	--K4-color-primary: var(--K4-RED);
+	--K4-color-primary-bright: var(--K4-bRED);
+	--K4-color-primary-glow: var(--K4-bbRED);
+  --K4-color-primary-dark: var(--K4-dRED);
+
+	--K4-color-contrast: var(--K4-BLACK);
+	--K4-color-contrast-low: var(--K4-RED);
+	--K4-color-contrast-high: var(--K4-dBLACK);
+
+	--K4-font-primary: var(--font-primary);
+	--K4-font-weight-primary: #{$font-weight-medium};
+
+  --K4-color-title-fg: var(--K4-color-primary-bright);
+	--K4-color-title-bg: transparent;
+	--K4-color-header: var(--K4-bRED);
+
+	--K4-list-indent: 12px;
+	--K4-bg: transparent #{to-url("backgrounds/bg-item-red.webp")} no-repeat no-repeat center center / 100% 100%;
+	--K4-bg-inset: transparent #{to-url("backgrounds/bg-red.webp")} repeat repeat center center/1000px 1000px;
+	--K4-bullet: transparent #{to-url("icons/bullets/bullet-red.svg")} no-repeat center center/calc(0.5 * var(--K4-list-indent));
+
+	--K4-strip-main-color-fg: var(--K4-color-primary-bright);
+	--K4-strip-main-color-bg: var(--K4-color-contrast);
+	--K4-strip-icon-color-bg: var(--K4-strip-main-color-bg);
+	--K4-strip-button-color-fg: var(--K4-color-contrast);
+	--K4-strip-button-color-bg: var(--K4-color-primary);
+	--K4-strip-button-hover-color-fg: var(--K4-color-contrast-high);
+	--K4-strip-button-hover-color-bg: var(--K4-color-primary-glow);
+	--K4-strip-tooltip-color-fg: var(--K4-bWHITE);
+	--K4-strip-tooltip-color-bg: var(--K4-dBLACK);
+
+	--K4-color-keyword: var(--K4-bRED);
+	--K4-color-keyword-bright: var(--K4-bRED);
+	--K4-color-pos: var(--K4-RED);
+	--K4-color-neg: var(--K4-RED);
+
+	// --K4-icon-fill: var(--K4-color-primary);
+	// --K4-icon-bg-color: var(--K4-color-contrast);
+	// --K4-icon-clip-path: circle(closest-side);
+	// --K4-icon-outline-color-color: transparent;
+}

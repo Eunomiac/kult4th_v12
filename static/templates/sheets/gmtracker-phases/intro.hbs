@@ -1,0 +1,18 @@
+<main>
+  <div class="actor-assignment">
+    <h1 class="actor-assignment-header {{~#if allActorsAssigned}} confirmed-header{{/if}}">Actor Assignment</h1>
+    {{#each playerCharacters}}
+    <div class="actor-assignment-row" data-user-id="{{#if owner}}{{owner.id}}{{/if}}" data-load-status="" data-load-phase="">
+      <span class="actor-name">{{actor.name}}</span>
+      <span class="user-selection-container">
+        <span class="user-online-status {{~#if isOwnerOnline}} online{{/if}}" data-user-id="{{#if owner}}{{owner.id}}{{/if}}"></span>
+        <select class="user-selection" data-actor-id="{{actor.id}}">
+          <option value="" disabled hidden {{~#unless owner}} selected{{/unless}}></option>
+          {{selectOptions @root.playerUsers selected=owner.id labelAttr="name" valueAttr="id"}}
+        </select>
+      </span>
+
+    </div>
+    {{/each}}
+  </div>
+</main>

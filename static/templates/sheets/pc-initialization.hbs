@@ -1,0 +1,99 @@
+{{kLog "PC INITIALIZATION.HBS" this}}
+
+<form class="actor-sheet kult4th-form {{cssClass}} actor-pc pc-initialization" autocomplete="off">
+
+
+
+
+
+  <div class="archetype-panel archetype-panel-notes">
+    <div class="archetype-sub-panel chargen-occupation">
+
+      <div class="archetype-sub-panel-title">
+
+        {{#let
+          anchorName=(getUniqueID "occupation-anchor")
+          popoverID=(getUniqueID "occupation-popover")
+        }}
+
+          <label class="k4-title section-title"
+                style="anchor-name: --{{anchorName}}"
+                popovertarget="{{popoverID}}">Occupation</label>
+
+
+          <div id="{{popoverID}}"
+              style="position-anchor: --{{anchorName}};"
+              popover>
+            <h2>Suggestions</h2>
+            <div class="archetype-example-container">
+              <span class="archetype-example-list" data-target="occupation"></span>
+            </div>
+          </div>
+
+        {{/let}}
+
+
+      </div>
+      <div class="archetype-editor occupation-editor simple-editor content-editable clamp-text" data-field="system.occupation" data-clamplines="1" data-placeholder="What do you do to eat?">{{{actor.system.occupation}}}</div>
+    </div>
+    <div class="archetype-sub-panel chargen-description">
+      <div class="archetype-sub-panel-title">
+
+        {{#let
+          anchorName=(getUniqueID "description-anchor")
+          popoverID=(getUniqueID "description-popover")
+        }}
+        <label class="k4-title section-title"
+                style="anchor-name: --{{anchorName}}"
+                popovertarget="{{popoverID}}">
+          Description
+        </label>
+        <div id="{{popoverID}}"
+            class="left-aligned"
+            style="position-anchor: --{{anchorName}};"
+            popover>
+          <h2>Suggestions</h2>
+          <div class="archetype-example-container">
+            <span class="archetype-example-label">Clothes:</span>
+            <span class="archetype-example-list" data-target="looks.clothes"></span>
+          </div>
+          <div class="archetype-example-container">
+            <span class="archetype-example-label">Face:</span>
+            <span class="archetype-example-list" data-target="looks.face"></span>
+          </div>
+          <div class="archetype-example-container">
+            <span class="archetype-example-label">Eyes:</span>
+            <span class="archetype-example-list" data-target="looks.eyes"></span>
+          </div>
+          <div class="archetype-example-container">
+            <span class="archetype-example-label">Body:</span>
+            <span class="archetype-example-list" data-target="looks.body"></span>
+          </div>
+        </div>
+
+        {{/let}}
+
+      </div>
+      <div class="archetype-editor description-editor simple-editor content-editable" data-placeholder="Flesh out your character during the group discussion, including any important notes about traits or other character features."data-field="system.description">{{{actor.system.description}}}</div>
+
+    </div>
+    <div class="archetype-sub-panel chargen-history">
+      <div class="archetype-sub-panel-title">
+        <label class="k4-title section-title">History</label>
+      </div>
+        <div class="archetype-editor history-editor simple-editor content-editable clamp-text" data-placeholder="As the group develops their characters, backstories will inevitably emerge: Record any important details (especially relationships) here." data-field="system.history">{{{actor.system.history}}}</div>
+    </div>
+  </div>
+
+
+  <div class="archetype-panel character-summary-panel">
+    {{#each otherPlayerData as |actorData actorID|}}
+    <div class="character-summary" data-actor-id="{{actorID}}">
+      <img src="{{actorData.img}}">
+      <h3>{{actorData.name}}</h3>
+    </div>
+    {{/each}}
+  </div>
+
+
+</form>

@@ -1,0 +1,26 @@
+<main>
+
+  <input class="column-toggler" type="checkbox" name="system.collapsedColumns.1.isChecked" {{checked item.system.collapsedColumns.1.isChecked}} />
+  <span class="column-label">CHARACTERS</span>
+  <section class="column no-scroll" style="flex-basis: 50%;">
+    {{> "systems/kult4th/templates/sheets/gmtracker-phases/parts/player-column.hbs"
+      columnIndex="1"
+      collapsedPanels=item.system.collapsedPanels.[1]
+      actor=actor
+      playerCharacters=playerCharacters
+    }}
+  </section>
+
+  <input class="column-toggler" type="checkbox" name="system.collapsedColumns.2.isChecked" {{checked item.system.collapsedColumns.2.isChecked}} />
+  <span class="column-label">Column 2</span>
+  <section class="column"></section>
+
+  <input class="column-toggler" type="checkbox" name="system.collapsedColumns.3.isChecked" {{checked item.system.collapsedColumns.3.isChecked}} />
+  <span class="column-label">Column 3</span>
+  <section class="column"></section>
+
+  <input class="column-toggler" type="checkbox" name="system.collapsedColumns.4.isChecked" {{checked item.system.collapsedColumns.4.isChecked}} />
+  <span class="column-label">Column 4</span>
+  <section class="column"></section>
+
+</main>

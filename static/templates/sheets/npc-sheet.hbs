@@ -1,0 +1,108 @@
+{{log "NPC SHEET" this}}
+
+<form class="actor-sheet kult4th-form {{cssClass}} actor-npc" autocomplete="off">
+	<nav class="nav-panel">
+		<img class="img-border" src="../systems/kult4th/assets/layout/portrait-frame.webp" />
+		<img class="profile-image blur-background" src="{{actor.img}}" />
+		<img class="profile-image" src="{{actor.img}}" data-edit="img" />
+		<div class="tabs" data-group="primary">
+			<a class="nav-tab" data-tab="front">
+				<span class="nav-tab-label">Front</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-tab="bio">
+				<span class="nav-tab-label">Bio</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-tab="assets">
+				<span class="nav-tab-label">Assets</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-tab="notes">
+				<span class="nav-tab-label">Journal</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-tab="advancement">
+				<span class="nav-tab-label">Advancement</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-action="toggleLock">
+				<span class="nav-tab-label">Lock</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-action="selectImg">
+				<span class="nav-tab-label">Image</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+			<a class="nav-tab" data-tab="settings">
+				<span class="nav-tab-label">Settings</span>
+				<img class="nav-tab-animation" src="../systems/kult4th/assets/animations/selection-nova.webp" />
+			</a>
+  	</div>
+		<a class="header-button close"><i class="fas fa-times"></i></a>
+		<a class="header-button minimize"><i class="fas fa-minus"></i></a>
+	</nav>
+	<div class="border-container">
+		<div class="sheet-border corner top-left"></div>
+		<div class="sheet-border horiz-bar top"></div>
+		<div class="sheet-border corner top-right"></div>
+		<div class="sheet-border vert-bar left"></div>
+		<div class="sheet-border vert-bar right"></div>
+		<div class="sheet-border corner bot-left"></div>
+		<div class="sheet-border horiz-bar bot"></div>
+		<div class="sheet-border corner bot-right"></div>
+	</div>
+	<div class="bg-container"></div>
+	<header class="sheet-header">
+		<input type="text" class="actor-name" name="name" value="{{actor.name}}" placeholder="" />
+	</header>
+	<main class="tab-content">
+		<section class="active tab front" data-group="primary" data-tab="front">
+			<section class="subsection description">
+        <!-- Insert editor once it's figured out -->
+			</section>
+			<section class="subsection attributes">
+				<h1 class="subsection-header">Attributes</h1>
+				{{#each attributes}}
+				{{> "systems/kult4th/templates/components/attribute-box.hbs"}}
+				{{/each}}
+			</section>
+			<section class="subsection questions">
+        <!-- Insert editor once it's figured out -->
+			</section>
+		</section>
+		<section class="tab bio" data-group="primary" data-tab="bio">
+			<section class="subsection column-50">
+				<h1>Header 1</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi varius nisi orci, id sollicitudin magna sodales posuere. Cras posuere turpis neque, vel convallis dolor sagittis in. Sed eu sapien sem. Cras quis volutpat tortor. Vivamus luctus odio nec sem tempus viverra. Aliquam vehicula turpis massa, ac auctor dui consequat non. Quisque interdum ante vel nibh luctus facilisis. Etiam efficitur porta felis, at lobortis sapien euismod non. Sed consequat lobortis ante, vel dignissim quam consequat porttitor. In et suscipit augue.</p>
+				<h2>Header 2</h2>
+				<p>Suspendisse potenti. Morbi consectetur quis ante facilisis congue. Mauris sit amet libero et tellus rhoncus maximus et in sem. Praesent ac aliquam risus. Duis placerat, orci ac malesuada congue, neque ex euismod elit, lacinia pulvinar dui odio et diam. Suspendisse dui dolor, malesuada sed facilisis eu, auctor vitae nibh. Phasellus tincidunt placerat neque et finibus. Sed aliquet urna et arcu varius faucibus.</p>
+				<h3>Header 3</h3>
+				<p>Maecenas eu augue sed sapien pellentesque vehicula ac ac risus. Ut euismod vehicula erat, mollis vestibulum justo accumsan at. number ultricies lorem eget molestie varius. Vivamus at leo orci. Sed ornare quis dolor vitae laoreet. Mauris ullamcorper at velit ut ullamcorper. Praesent tempus nisi ac augue maximus vulputate maximus eget arcu. Morbi sit amet maximus leo. Sed nec euismod arcu, eget rutrum metus. Pellentesque luctus convallis odio id pulvinar. Donec pellentesque ante pellentesque dolor dignissim ornare. Sed aliquam neque sed sodales aliquam. Etiam imperdiet vestibulum vulputate. Donec ut lorem eleifend, auctor enim non, feugiat arcu.</p>
+				<h4>Header 4</h4>
+				<p>Sed semper dolor id odio aliquet tempus. Fusce aliquet maximus magna vitae commodo. Donec volutpat rhoncus finibus. number non urna in urna ullamcorper hendrerit eget in eros. Nulla sit amet orci ultricies, facilisis augue sed, placerat urna. Etiam efficitur blandit ornare. Praesent eu aliquet dolor. Cras sit amet mattis nisi, eu lobortis nulla. Nunc at interdum diam. Proin non neque euismod, efficitur purus in, porta libero. Sed eget finibus ligula, a pharetra augue. Nulla facilisi.</p>
+			</section>
+			<section class="subsection column-50">
+				<h1>Lists</h1>
+				<ul>
+				<li>Mauris feugiat facilisis ultricies. Maecenas id molestie mi, vitae luctus elit.</li>
+				<li>Suspendisse maximus id metus id molestie.</li>
+				<li>Morbi consectetur mauris ullamcorper eros aliquam accumsan. Nam lacinia est eget pretium mollis. In ornare interdum sapien, sit amet posuere eros mattis in. Quisque non arcu eget dui pulvinar facilisis. Etiam mattis tincidunt massa at dapibus. Cras nec dui mi. Duis at eleifend metus. Aenean mollis nisi nisl, mattis fringilla nulla blandit quis.</li>
+				</ul>
+				<ol>
+				<li>Mauris feugiat facilisis ultricies. Maecenas id molestie mi, vitae luctus elit.</li>
+				<li>Suspendisse maximus id metus id molestie.</li>
+				<li>Morbi consectetur mauris ullamcorper eros aliquam accumsan. Nam lacinia est eget pretium mollis. In ornare interdum sapien, sit amet posuere eros mattis in. Quisque non arcu eget dui pulvinar facilisis. Etiam mattis tincidunt massa at dapibus. Cras nec dui mi. Duis at eleifend metus. Aenean mollis nisi nisl, mattis fringilla nulla blandit quis.</li>
+				</ol>
+			</section>
+		</section>
+		<section class="tab assets" data-group="primary" data-tab="assets">
+			<section class="subsection column-50">
+        <!-- Insert editor once it's figured out -->
+			</section>
+			<section class="subsection column-50">
+        <!-- Insert editor once it's figured out -->
+			</section>
+		</section>
+	</main>
+</form>

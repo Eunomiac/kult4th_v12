@@ -1,11 +1,11 @@
 // #region IMPORTS ~
-import U from "../scripts/utilities.js";
+import U from "../scripts/utilities";
 // import K4ItemSheet from "./K4ItemSheet.js";
 // import K4ChatMessage from "./K4ChatMessage.js";
 import C from "../scripts/constants.js";
 import {K4Attribute, K4ActorType, K4ItemType, K4ItemSubType} from "../scripts/enums";
 import K4Actor from "./K4Actor.js";
-import {ItemSchemaComponent_RulesData} from "../dataModels/documents/Components/ItemSchema_Components.js";
+import {ItemSchemaComponent_RulesData} from "../dataModels/documents/Components/ItemSchema_Components";
 import ItemDataModel_Advantage from "../dataModels/documents/ItemDataModel_Advantage";
 import ItemDataModel_Disadvantage from "../dataModels/documents/ItemDataModel_Disadvantage";
 import ItemDataModel_DarkSecret from "../dataModels/documents/ItemDataModel_DarkSecret";
@@ -16,7 +16,7 @@ import ItemDataModel_Gear from "../dataModels/documents/ItemDataModel_Gear";
 import ItemDataModel_GMTracker from "../dataModels/documents/ItemDataModel_GMTracker";
 // import K4Roll, {K4RollResult} from "./K4Roll.js";
 // import K4ActiveEffect from "./K4ActiveEffect.js";
-// import {InterfaceToObject, ConstructorDataType} from "@league-of-foundry-developers/foundry-vtt-types/src/types/helperTypes.mjs";
+import type {InterfaceToObject} from "fvtt-types/utils";
 // #endregion
 
 // #REGION === TYPES, ENUMS === ~
@@ -382,7 +382,7 @@ export default class K4Item extends Item {
   isEdge(): this is K4Item.OfType<K4ItemType.move> {return this.isSubItem() && Boolean("isEdge" in this.system && this.system["isEdge"]);}
   isOwnedItem(): this is K4Item & {parent: K4Actor;} {return Boolean(this.isEmbedded && this.parent instanceof Actor);}
   isOwnedSubItem(): this is K4Item & K4Item.SubItem & {parent: K4Actor, system: {parentItem: K4Item.Parent}} {return this.isSubItem() && this.isOwnedItem();}
-  isOwnedByUser(): this is K4Item & {parent: K4Actor;} {return this.isOwnedItem() && this.parent.isOwner;}
+  isOwnedByUser(): this is K4Item & {parent: K4Actor;} {return this.isOwnedItem() && (this.parent as K4Actor).isOwner;}
   isActiveItem(): this is K4Item.Active {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeRolled;}
   isStaticItem(): this is K4Item.Static {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeStatic;}
   isPassiveItem(): this is K4Item.Passive {return "subType" in this.system && this.system["subType"] === K4ItemSubType.passive;}
@@ -404,14 +404,11 @@ export default class K4Item extends Item {
 
   // #region GETTERS & SETTERS ~
 
-  get parentID(): IDString | undefined {return this.isSubItem() ? this.parentItem?.id! : undefined;}
+  get parentID(): IDString | undefined {return this.isSubItem() ? this.parentItem?.id ?? undefined : undefined;}
   get parentType(): K4ItemType {return this.isSubItem() ? this.system.parentItem.type as K4ItemType : this.type as K4ItemType;}
   get parentName(): string {return this.isSubItem() ? this.system.parentItem.name : this.name;}
   get parentItem(): K4Item.Parent | null {
     if (!this.isOwnedSubItem()) {return null;}
-    if (!this.system.parentItem) {
-      throw new Error(`SubItem ${this.name} is missing a parentItem.`);
-    }
     return this.system.parentItem;
   }
 

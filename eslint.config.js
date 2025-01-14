@@ -8,6 +8,26 @@ import { includeIgnoreFile } from "@eslint/compat";
 
 import * as path from "path";
 
+const IS_LINTING_FOR_PRODUCTION = false;
+const IS_FAST_LINTING = true;
+
+const rules_overrides = {};
+
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+if (IS_FAST_LINTING) {
+  Object.assign(rules_overrides, {
+    "tsdoc/syntax": "off"
+
+  });
+}
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+if (!IS_LINTING_FOR_PRODUCTION) {
+  Object.assign(rules_overrides, {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
+  });
+}
+
 export default ts.config(
   js.configs.recommended,
   ...ts.configs.strictTypeChecked,
@@ -72,6 +92,7 @@ export default ts.config(
       "@typescript-eslint/no-non-null-assertion": "off",
 
       "tsdoc/syntax": "warn",
+      ...rules_overrides
     },
   },
   {

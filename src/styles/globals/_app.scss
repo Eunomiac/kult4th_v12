@@ -1,0 +1,54 @@
+& {
+
+	&:not([class*='k4-theme']) {
+		@include set-default-theme()
+	}
+
+  --form-field-height: 26px;
+	box-shadow: none;
+
+	.window-header {
+
+    background: var(--K4-dBLACK);
+		.header-button {
+			position: relative;
+			// font-size: 0;
+
+			i[class^="fa"] {
+				font-size: $rem-16;
+				text-shadow:
+					0 0 3px var(--K4-BLACK),
+					0 0 3px var(--K4-BLACK),
+					0 0 3px var(--K4-BLACK),
+					0 0 3px var(--K4-BLACK),
+					0 0 3px var(--K4-BLACK),
+					0 0 5px var(--K4-bGOLD),
+					0 0 5px var(--K4-bGOLD);
+			}
+		}
+	}
+
+	.window-content {
+    --K4-background: transparent #{to-url("backgrounds/bg-gold.webp")} repeat repeat center center/1000px 1000px;
+		background: var(--K4-background);
+
+		text-align: justify;
+		hyphens: auto;
+	}
+
+	div.toggle-box-container {
+		position: relative;
+		user-select: none;
+		cursor: pointer;
+
+		input[type="checkbox"].toggle-box {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		.toggle-box-mode { display: none }
+		input[type="checkbox"].toggle-box:checked ~ .toggle-box-checked { display: inline-block }
+		input[type="checkbox"].toggle-box:not(:checked) ~ .toggle-box-unchecked { display: inline-block }
+	}
+}

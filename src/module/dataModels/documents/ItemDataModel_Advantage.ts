@@ -3,17 +3,24 @@ import TypeDataModel = foundry.abstract.TypeDataModel;
 import fields = foundry.data.fields;
 import type {EmptyObject, InterfaceToObject} from "fvtt-types/utils";
 
-const ItemSchema_Advantage = {
+const getItemSchema_Advantage = () => ({
   ...ItemSchemaComponent_Base(),
   ...ItemSchemaComponent_HasSubItems(),
   ...ItemSchemaComponent_RulesData(),
   currentHold: new fields.NumberField()
-}
+})
+
+type ItemSchema_Advantage = ReturnType<typeof getItemSchema_Advantage>;
 
 type ItemDerivedData_Advantage = ItemDerivedData_Base & ItemDerivedData_HasSubItems & ItemDerivedData_RulesData;
 
-export default class ItemDataModel_Advantage extends TypeDataModel<typeof ItemSchema_Advantage, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Advantage>> {
-  static override defineSchema(): typeof ItemSchema_Advantage {
-    return ItemSchema_Advantage;
+export default class ItemDataModel_Advantage extends TypeDataModel<ItemSchema_Advantage, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Advantage>> {
+
+  private static _definedSchema: Maybe<ItemSchema_Advantage>;
+  static override defineSchema(): ItemSchema_Advantage {
+    if (!ItemDataModel_Advantage._definedSchema) {
+      ItemDataModel_Advantage._definedSchema = getItemSchema_Advantage();
+    }
+    return ItemDataModel_Advantage._definedSchema;
   }
 }

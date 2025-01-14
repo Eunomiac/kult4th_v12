@@ -1,0 +1,93 @@
+&.chat-roll-result {
+
+  --source-item-vert-shift: 32px;
+
+
+
+  &.mod-rows-0 {
+    --modifiers-height: 0px;
+    --roll-total-font-size: 150px;
+    --roll-total-line-height: 70px;
+    --roll-total-vert-scale: 0.95;
+    --roll-dice-terms-vert-shift: 0px;
+  }
+
+  &.mod-rows-1 {
+    --modifiers-height: 25px;
+    --roll-total-font-size: 180px;
+    --roll-total-line-height: 105px;
+  }
+
+  &.mod-rows-2 {
+    --modifiers-height: 50px;
+    --roll-total-line-height: 150px;
+    --roll-total-vert-scale: 1.05;
+  }
+
+  &.mod-rows-3 {
+    --modifiers-height: 70px;
+    --roll-total-line-height: 170px;
+    --roll-total-vert-scale: 1.15;
+  }
+
+
+
+	.roll-dice-results {
+
+		.roll-modifiers {
+			grid-area: roll-modifiers;
+			display: flex;
+			flex-wrap: wrap;
+			height: 100%;
+			width: 100%;
+			--roll-text-shadow-size: 2px;
+      z-index: 1;
+      position: relative;
+
+			.roll-mod {
+				display: grid;
+				grid-template-columns: 25px 1fr;
+        gap: 0px 5px;
+				width: 50%;
+				margin: 2px 0;
+				--K4-color-primary-bright: var(--K4-bGOLD);
+				--K4-color-primary-glow: var(--K4-bbGOLD);
+				&.roll-mod-neg {
+					--K4-color-primary: var(--K4-RED);
+					--K4-color-primary-bright: var(--K4-bRED);
+					--K4-color-primary-glow: var(--K4-bbRED);
+				}
+				.roll-mod-val {
+					font-size: $rem-20;
+					font-weight: $font-weight-bold;
+          white-space: nowrap;
+					width: 25px;
+					text-align: right;
+					color: var(--K4-color-primary-glow);
+					text-shadow:
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK);
+				}
+				.roll-mod-desc {
+					font-size: $rem-10;
+					line-height: $rem-10;
+          width: 100%;
+					color: var(--K4-color-primary-bright);
+					text-shadow:
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK),
+						0 0 var(--roll-text-shadow-size) var(--K4-dBLACK);
+          overflow-wrap: break-word;
+          word-break: keep-all;
+				}
+			}
+		}
+
+
+	}
+
+
+}

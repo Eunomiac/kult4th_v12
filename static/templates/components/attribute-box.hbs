@@ -1,0 +1,7 @@
+<div class="attribute-box" data-attribute="{{key}}">
+	<img src="/systems/kult4th/assets/animations/attribute-flare.webp" alt="{{localize "kult4th.sheet.imageAlts.attributeFlare"}}" width="200" height="200">
+	<span class="attribute-title" data-action="roll" data-item-name="{{key}}">{{name}}</span>
+	<select class="attribute-value" name="system.attributes.{{key}}.value" value="{{value}}" required>
+    {{selectOptions selectList selected=value localize=false}}
+	</select>
+</div>

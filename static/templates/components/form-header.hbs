@@ -1,0 +1,16 @@
+{{kLog "{comp} form-header.hbs" this}}
+<aside class="header-icon header-{{docType}}">
+
+  {{> "systems/kult4th/templates/components/icon.hbs"
+    icon=item.img
+    type=docType
+    name=docName
+  }}
+</aside>
+<header class="sheet-header {{docType}}-header">
+	{{~#if isBullet}}
+	<span class="header-bullet">•</span>
+	{{/if~}}
+	<label class="k4-title item-title">{{docName}}</label>
+	<span class="header-filler"></span>
+</header>

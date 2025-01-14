@@ -14,5 +14,9 @@
     "**/node_modules": true
   },
   "explorerExclude.backup": {},
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "eunomiac",
+    "projectKey": "Eunomiac_kult4th"
+  }
 }

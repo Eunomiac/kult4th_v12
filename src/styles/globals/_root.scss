@@ -1,0 +1,27 @@
+:root {
+  &, * {
+    scrollbar-color: unset !important;
+
+    ::-webkit-scrollbar {
+      width: 6px !important;
+      min-height: 20px !important;
+    }
+
+    ::-webkit-scrollbar-track {
+      box-shadow: 0 0 1px var(--K4-bbGOLD) !important;
+      border-radius: 4px !important;
+      background: black !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      box-shadow: 0 0 1px var(--K4-bbGOLD) !important;
+      outline: none !important;
+      border-radius: 2px !important;
+      background: var(--K4-GOLD) !important;
+      min-height: 50px !important;
+      border: 4px outset var(--K4-bGOLD) !important;
+    }
+  }
+
+
+}
