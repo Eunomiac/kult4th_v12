@@ -7,7 +7,7 @@
       "command": "node",
       "args": [
         "C:/FoundryVTT/v12/Foundry Virtual Tabletop/resources/app/main.js",
-        "--port=31200",
+        "--port=30000",
         "--dataPath=D:/Projects/.CODING/FoundryVTT/FoundryV12DistData",
         "--hotReload"
       ],
@@ -27,7 +27,7 @@
       "args": ["run", "dev"],
       "options": {
         "env": {
-          "FOUNDRY_PORT": "31200"
+          "FOUNDRY_PORT": "30000"
         }
       },
       "problemMatcher": []
@@ -39,7 +39,7 @@
       "args": ["run", "build"],
       "options": {
         "env": {
-          "FOUNDRY_PORT": "31200"
+          "FOUNDRY_PORT": "30000"
         }
       },
       "problemMatcher": []

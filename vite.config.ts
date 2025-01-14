@@ -73,6 +73,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fileName: "kult4th",
       },
       target: "es2023",
+      rollupOptions: {
+        output: {
+          assetFileNames: ({ names }): string => {
+            if (names.includes("kult4th.css")) {
+              return "styles.css";
+            }
+
+            return "assets/[name]-[hash][extname]";
+          },
+        },
+      },
     },
     optimizeDeps: {
       entries: [],
