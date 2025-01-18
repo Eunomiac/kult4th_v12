@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import esbuild from "esbuild";
 import * as path from "path";
 import { findFoundryHost, findManifestJSON } from "./utils";
-
+import checker from "vite-plugin-checker";
 export type PackageType = "module" | "system" | "world";
 
 const packageType: PackageType = "system";
@@ -36,7 +36,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
   const outDir = "dist";
 
   const plugins: Vite.PluginOption[] = [
-    // checker({ typescript: { buildMode: true } }),
+    checker({ typescript: { buildMode: true } }),
     tsconfigPaths(),
     foundryEntrypointsPlugin(),
   ];

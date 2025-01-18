@@ -25,6 +25,8 @@ import registerConsoleLogger from "./scripts/logger.js";
 
 // import InitializeLibraries, {gsap} from "./libraries.js";
 // import K4ChatMessage from "./documents/K4ChatMessage.js";
+// @ts-expect-error Workaround for Vite not importing SCSS files
+import "../styles/styles.scss";
 // #endregion
 
 // #region === CONSTANTS === ~
