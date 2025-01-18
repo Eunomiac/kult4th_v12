@@ -152,6 +152,7 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
      */
   override prepareDerivedData() {
     super.prepareDerivedData();
+    const parent = this.parent;
     this.moves = this.parent.getItemsOfType(K4ItemType.move)
       .sort((a, b) => a.name.localeCompare(b.name));
     this.basicMoves = this.moves.filter((move) => move.isBasicMove());
@@ -159,19 +160,20 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
       .filter((subItem) => !subItem.isEdge());
     this.derivedEdges = this.moves.filter((move): move is K4ItemOfType<K4ItemType.move> => move.isEdge());
     this.activeEdges = (() => {
-      if (!this.parent.isType(K4ActorType.pc)) {return [];}
+      if (!this.parent.isPC()) {return [];}
       if (!this.edges.sourceName) {return [];}
       if (!this.edges.value) {return [];}
       return this.derivedEdges
-        .filter((edge): this is K4ActorOfType<K4ActorType.pc> => (edge.system.parentItem as Maybe<Item>)?.name === this.edges.sourceName);
+        .filter((edge): this is K4ActorOfType<K4ActorType.pc> => edge.system.parentItem?.name === this.edges.sourceName);
     })();
-    this.advantages = this.parent.getItemsOfType(K4ItemType.advantage);
-    this.disadvantages = this.parent.getItemsOfType(K4ItemType.disadvantage);
-    this.darkSecrets = this.parent.getItemsOfType(K4ItemType.darksecret);
-    this.weapons = this.parent.getItemsOfType(K4ItemType.weapon);
-    this.gear = this.parent.getItemsOfType(K4ItemType.gear);
-    this.relations = this.parent.getItemsOfType(K4ItemType.relation);
-    this.derivedItems = this.parent.items.filter((item: K4Item): item is K4ItemOfType<K4ItemType.move> => item.isSubItem());
+    this.advantages = parent.getItemsOfType(K4ItemType.advantage);
+    this.disadvantages = parent.getItemsOfType(K4ItemType.disadvantage);
+    this.darkSecrets = parent.getItemsOfType(K4ItemType.darksecret);
+    this.weapons = parent.getItemsOfType(K4ItemType.weapon);
+    this.gear = parent.getItemsOfType(K4ItemType.gear);
+    this.relations = parent.getItemsOfType(K4ItemType.relation);
+    // @ts-expect-error Excessively-deep type instantiation doesn't seem to be a problem here.
+    this.derivedItems = parent.items.filter((item: K4Item): item is K4ItemOfType<K4ItemType.move> => item.isSubItem());
 
     this.maxWounds = {
       serious: this.modifiers.wounds_serious.length,

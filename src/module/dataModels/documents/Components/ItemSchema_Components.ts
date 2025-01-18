@@ -1,14 +1,14 @@
+import fields = foundry.data.fields;
 import {ListDataField, ParentItemReferenceField} from "../Fields/ItemFields";
 import {K4ItemSubType, K4RollResult, K4ItemType} from "../../../scripts/enums";
 import ItemDataModel_Move from "../ItemDataModel_Move";
-import fields = foundry.data.fields;
 
 export function ItemSchemaComponent_Base() {
   return {
-    subType: new fields.StringField({required: true, choices: Object.values(K4ItemSubType)}),
-    gmNotes: new fields.StringField({}),
-    shortDesc: new fields.StringField({}),
-    traitNotesTarget: new fields.StringField({}),
+    subType: new foundry.data.fields.StringField({required: true, choices: Object.values(K4ItemSubType)}),
+    gmNotes: new foundry.data.fields.StringField({}),
+    shortDesc: new foundry.data.fields.StringField({}),
+    traitNotesTarget: new foundry.data.fields.StringField({}),
   }
 }
 
@@ -28,7 +28,7 @@ export interface ItemDerivedData_CanBeSubItem {
 
 export function ItemSchemaComponent_IsSubItem() {
   return {
-    chatName: new fields.StringField(),
+    chatName: new foundry.data.fields.StringField(),
     parentItemRef: ParentItemReferenceField(true)
   }
 }
@@ -39,7 +39,7 @@ export interface ItemDerivedData_IsSubItem {
 
 export function ItemSchemaComponent_HasSubItems() {
   return {
-    subItemData: new fields.ArrayField(new fields.EmbeddedDataField(ItemDataModel_Move))
+    subItemData: new foundry.data.fields.ArrayField(new foundry.data.fields.ObjectField())
   }
 }
 
@@ -49,13 +49,13 @@ export interface ItemDerivedData_HasSubItems {
 
 export function ItemSchemaComponent_RulesData() {
   return {
-    rules: new fields.SchemaField({
-      intro: new fields.HTMLField(),
-      trigger: new fields.HTMLField(),
-      outro: new fields.HTMLField(),
-      listRefs: new fields.ArrayField(new fields.StringField()),
+    rules: new foundry.data.fields.SchemaField({
+      intro: new foundry.data.fields.HTMLField(),
+      trigger: new foundry.data.fields.HTMLField(),
+      outro: new foundry.data.fields.HTMLField(),
+      listRefs: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField()),
       // effects: K4ActiveEffect.BuildData[],
-      holdText: new fields.HTMLField()
+      holdText: new foundry.data.fields.HTMLField()
     })
   }
 }
@@ -66,10 +66,10 @@ export interface ItemDerivedData_RulesData {
 
 export function ItemSchemaComponent_ResultData() {
   return {
-    result: new fields.StringField(),
-    listRefs: new fields.ArrayField(new fields.StringField()),
+    result: new foundry.data.fields.StringField(),
+    listRefs: new foundry.data.fields.ArrayField(new foundry.data.fields.StringField()),
     // effects: K4ActiveEffect.BuildData[],
-    edges: new fields.NumberField()
+    edges: new foundry.data.fields.NumberField()
   }
 }
 
@@ -79,11 +79,11 @@ export interface ItemDerivedData_ResultData {
 
 export function ItemSchemaComponent_ResultsData() {
   return {
-    results: new fields.SchemaField({
-      [K4RollResult.completeSuccess]: new fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
-      [K4RollResult.partialSuccess]: new fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
-      [K4RollResult.failure]: new fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
-      triggered: new fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false})
+    results: new foundry.data.fields.SchemaField({
+      [K4RollResult.completeSuccess]: new foundry.data.fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
+      [K4RollResult.partialSuccess]: new foundry.data.fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
+      [K4RollResult.failure]: new foundry.data.fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false}),
+      triggered: new foundry.data.fields.SchemaField(ItemSchemaComponent_ResultData(), {required: false})
     })
   }
 }

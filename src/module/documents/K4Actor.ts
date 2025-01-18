@@ -34,7 +34,7 @@ export default class K4Actor extends Actor {
      * - Creates the singleton "Wounds" and "Stability" K4ActiveEffects.
      */
     async initMovesAndEffects() {
-      if (!this.isType(K4ActorType.pc)) {return;}
+      if (!this.isPC()) {return;}
 
       // eslint-disable-next-line @typescript-eslint/require-await
       await (async () => {
@@ -118,29 +118,27 @@ export default class K4Actor extends Actor {
      * @returns {K4Actor | undefined} The player character owned by the user, or undefined if not found.
      * @throws {Error} If the user ID cannot be determined.
      */
-    static GetCharacter(user: User): Maybe<K4ActorOfType<K4ActorType.pc>> {
+    static GetCharacter(user: User): Maybe<K4Actor> {
       if (!user.id) {
         throw new Error("Unable to determine ID of user.");
       }
-      const playerCharacters = getActors().filter((actor): actor is K4ActorOfType<K4ActorType.pc> => actor.isType(K4ActorType.pc));
-      const ownedPlayerCharacter = playerCharacters.find((actor: K4ActorOfType<K4ActorType.pc>) => actor.ownership[user.id as IDString] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
+      const playerCharacters = getActors().filter((actor) => actor.type === K4ActorType.pc);
+      const ownedPlayerCharacter = playerCharacters.find((actor: K4Actor) => actor.ownership[user.id as IDString] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) as Maybe<K4Actor>;
       return ownedPlayerCharacter;
     }
 
     // #region Type Guards ~
-    /**
-     * Type guard to check if the actor is of a specific type.
-     * @param {T} type - The type to check against.
-     * @returns {boolean} True if the actor is of the specified type.
-     */
-    isType<T extends K4ActorType>(actorType: T): this is K4ActorOfType<T> {
-      return this.type === actorType
+    isPC(): this is K4ActorOfType<K4ActorType.pc> {
+      return this.type === K4ActorType.pc
+    }
+    isNPC(): this is K4ActorOfType<K4ActorType.npc> {
+      return this.type === K4ActorType.npc
     }
     // #endregion
 
     // #region GETTERS ~
     get user(): Maybe<User> {
-      if (!this.isType(K4ActorType.pc)) {return undefined;}
+      if (this.type !== K4ActorType.pc) {return undefined;}
       const ownerID = (Object.keys(this.ownership))
         .filter((id: IDString) => (getGame().users.get(id) as Maybe<User>)?.isGM === false)
         .find((id: IDString) => this.ownership[id] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
@@ -180,7 +178,7 @@ export default class K4Actor extends Actor {
      * @returns {Array<K4ItemOfType<Type>>} An array of items of the specified type.
      */
     getItemsOfType<Type extends K4ItemType>(type: Type): Array<K4ItemOfType<Type>> {
-      return ([...this.items] as K4Item[]).filter((item: K4Item): item is K4ItemOfType<Type> => item.isType(type));
+      return this.items.filter((item: K4Item): item is K4ItemOfType<Type> => item.type === type);
     }
     /**
      * Retrieves an item by its name.
@@ -196,7 +194,7 @@ export default class K4Actor extends Actor {
      * @returns {K4Item | undefined} The move if found, otherwise undefined.
      */
     getMoveByName(mName: string) {
-      if (!this.isType(K4ActorType.pc)) {return undefined;}
+      if (!this.isPC()) { return undefined;}
       return this.system.moves.find((move: K4Item) => move.name === mName);
     }
     /**
@@ -204,13 +202,13 @@ export default class K4Actor extends Actor {
      * @param {string} sourceID - The source ID of the items.
      * @returns {K4Item.SubItem[]} An array of sub-items with the specified source ID.
      */
-    // getItemsBySource(sourceID: string): Array<K4Item & K4Item.SubItem> {
-    //   return this.items.filter((item: K4Item): item is K4Item & K4Item.SubItem => {
-    //     if (!("parentItem" in item.system)) {return false;}
-    //     const {parentItem} = item.system;
-    //     return item.isSubItem() && parentItem?.id === sourceID;
-    //   });
-    // }
+    getItemsBySource(sourceID: string): Array<K4ItemOfType<K4ItemType.move>> {
+      return this.items.filter((item: K4Item): item is K4ItemOfType<K4ItemType.move> => {
+        if (!("parentItem" in item.system)) {return false;}
+        const parentItem = item.system["parentItem"] as K4ItemClass.Parent;
+        return item.isSubItem() && parentItem?.id === sourceID;
+      });
+    }
 
     /**
      * Retrieves items by a variety of filters.

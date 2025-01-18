@@ -4,9 +4,9 @@ import fields = foundry.data.fields;
 import type {EmptyObject, InterfaceToObject} from "fvtt-types/utils";
 
 const ItemSchemaAdvantage = {
-  ...ItemSchemaComponent_Base(),
-  ...ItemSchemaComponent_HasSubItems(),
-  ...ItemSchemaComponent_RulesData(),
+  // ...ItemSchemaComponent_Base(),
+  // ...ItemSchemaComponent_HasSubItems(),
+  // ...ItemSchemaComponent_RulesData(),
   currentHold: new fields.NumberField()
 };
 

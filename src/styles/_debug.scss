@@ -1,4 +1,7 @@
 
+$isDebugging: false;
+$isDebuggingChat: false;
+
 @if $isDebugging {
   #position-display {
     height: 200px;

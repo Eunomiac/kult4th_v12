@@ -1,6 +1,3 @@
-$assetPath: '/assets';
-$baseOverlayIndex: 99;
-
 @import 'globals/functions';
 @import 'globals/typography';
 @import 'globals/root';
@@ -20,8 +17,6 @@ $baseOverlayIndex: 99;
 		outline: 3px solid lime !important;
 	}
 
-	$isDebugging: false;
-	$isDebuggingChat: false;
 	@import 'debug';
 	--scrollbar-width: 6px;
 

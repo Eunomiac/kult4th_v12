@@ -27,7 +27,8 @@ import type {Socket, SocketLib} from "./socketlib/index";
 // type RollDoc = K4Roll; // Roll;
 // type SceneDoc = K4Scene; // Scene;
 // type UserDoc = User; // User;
-
+// import fields = foundry.data.fields;
+// import {SchemaField} from "fvtt-types/utils";
 
 // #endregion
 
