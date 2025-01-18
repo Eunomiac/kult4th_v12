@@ -8,21 +8,6 @@ import U from "../scripts/utilities.js";
 // #endregion
 
 
-// #region === TYPES === ~
-declare global {
-
-  export namespace K4Actor {
-
-    export type System<Type extends K4ActorType> =
-      Type extends K4ActorType.pc ? ActorDataModel_PC
-    : Type extends K4ActorType.npc ? ActorDataModel_NPC
-    : never;
-
-    export type OfType<Type extends K4ActorType> = K4Actor & {system: System<Type>};
-  }
-}
-// #endregion
-
 // #region === K4ACTOR CLASS ===
 export default class K4Actor extends Actor {
     // #region INITIALIZATION ~
@@ -133,12 +118,12 @@ export default class K4Actor extends Actor {
      * @returns {K4Actor | undefined} The player character owned by the user, or undefined if not found.
      * @throws {Error} If the user ID cannot be determined.
      */
-    static GetCharacter(user: User): Maybe<K4Actor.OfType<K4ActorType.pc>> {
+    static GetCharacter(user: User): Maybe<K4ActorOfType<K4ActorType.pc>> {
       if (!user.id) {
         throw new Error("Unable to determine ID of user.");
       }
-      const playerCharacters = getActors().filter((actor): actor is K4Actor.OfType<K4ActorType.pc> => actor.isType(K4ActorType.pc));
-      const ownedPlayerCharacter = playerCharacters.find((actor: K4Actor.OfType<K4ActorType.pc>) => actor.ownership[user.id as IDString] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
+      const playerCharacters = getActors().filter((actor): actor is K4ActorOfType<K4ActorType.pc> => actor.isType(K4ActorType.pc));
+      const ownedPlayerCharacter = playerCharacters.find((actor: K4ActorOfType<K4ActorType.pc>) => actor.ownership[user.id as IDString] === CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
       return ownedPlayerCharacter;
     }
 
@@ -148,7 +133,7 @@ export default class K4Actor extends Actor {
      * @param {T} type - The type to check against.
      * @returns {boolean} True if the actor is of the specified type.
      */
-    isType<T extends K4ActorType>(actorType: T): this is K4Actor.OfType<T> {
+    isType<T extends K4ActorType>(actorType: T): this is K4ActorOfType<T> {
       return this.type === actorType
     }
     // #endregion
@@ -192,10 +177,10 @@ export default class K4Actor extends Actor {
     /**
      * Retrieves items of a specific type.
      * @param {Type} type - The type of items to retrieve.
-     * @returns {Array<K4Item.OfType<Type>>} An array of items of the specified type.
+     * @returns {Array<K4ItemOfType<Type>>} An array of items of the specified type.
      */
-    getItemsOfType<Type extends K4ItemType>(type: Type): Array<K4Item.OfType<Type>> {
-      return ([...this.items] as K4Item[]).filter((item: K4Item): item is K4Item.OfType<Type> => item.isType(type));
+    getItemsOfType<Type extends K4ItemType>(type: Type): Array<K4ItemOfType<Type>> {
+      return ([...this.items] as K4Item[]).filter((item: K4Item): item is K4ItemOfType<Type> => item.isType(type));
     }
     /**
      * Retrieves an item by its name.
@@ -237,8 +222,8 @@ export default class K4Actor extends Actor {
      * @returns {K4Item[]} - An array of matching items.
      */
     getItemsByFilter(filter: string): K4Item[];
-    getItemsByFilter<Type extends K4ItemType>(type: Type, filter: string): Array<K4Item.OfType<Type>>;
-    getItemsByFilter<Type extends K4ItemType>(arg1: Type | string, arg2?: string): Array<K4Item | K4Item.OfType<Type>> {
+    getItemsByFilter<Type extends K4ItemType>(type: Type, filter: string): Array<K4ItemOfType<Type>>;
+    getItemsByFilter<Type extends K4ItemType>(arg1: Type | string, arg2?: string): Array<K4Item | K4ItemOfType<Type>> {
       /**
        * Filters items based on a provided filter string.
        *

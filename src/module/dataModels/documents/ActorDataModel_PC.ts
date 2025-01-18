@@ -91,18 +91,18 @@ const ActorSchema_PC = {
 }
 
 interface ActorDerivedData_PC {
-  moves: K4Item.OfType<K4ItemType.move>[]
-  basicMoves: K4Item.OfType<K4ItemType.move>[]
-  derivedMoves: K4Item.OfType<K4ItemType.move>[]
-  derivedEdges: K4Item.OfType<K4ItemType.move>[]
-  activeEdges: K4Item.OfType<K4ItemType.move>[]
-  advantages: K4Item.OfType<K4ItemType.advantage>[]
-  disadvantages: K4Item.OfType<K4ItemType.disadvantage>[]
-  darkSecrets: K4Item.OfType<K4ItemType.darksecret>[]
-  weapons: K4Item.OfType<K4ItemType.weapon>[]
-  gear: K4Item.OfType<K4ItemType.gear>[]
-  relations: K4Item.OfType<K4ItemType.relation>[]
-  derivedItems: K4Item.OfType<K4ItemType.move>[]
+  moves: K4ItemOfType<K4ItemType.move>[]
+  basicMoves: K4ItemOfType<K4ItemType.move>[]
+  derivedMoves: K4ItemOfType<K4ItemType.move>[]
+  derivedEdges: K4ItemOfType<K4ItemType.move>[]
+  activeEdges: K4ItemOfType<K4ItemType.move>[]
+  advantages: K4ItemOfType<K4ItemType.advantage>[]
+  disadvantages: K4ItemOfType<K4ItemType.disadvantage>[]
+  darkSecrets: K4ItemOfType<K4ItemType.darksecret>[]
+  weapons: K4ItemOfType<K4ItemType.weapon>[]
+  gear: K4ItemOfType<K4ItemType.gear>[]
+  relations: K4ItemOfType<K4ItemType.relation>[]
+  derivedItems: K4ItemOfType<K4ItemType.move>[]
 
   maxWounds: {serious: number, critical: number, total: number}
   wounds_serious: WoundModel[]
@@ -155,15 +155,15 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     this.moves = this.parent.getItemsOfType(K4ItemType.move)
       .sort((a, b) => a.name.localeCompare(b.name));
     this.basicMoves = this.moves.filter((move) => move.isBasicMove());
-    this.derivedMoves = this.moves.filter((move): move is K4Item.OfType<K4ItemType.move> & K4Item.SubItem => move.isSubItem())
+    this.derivedMoves = this.moves.filter((move): move is K4ItemOfType<K4ItemType.move> => move.isSubItem())
       .filter((subItem) => !subItem.isEdge());
-    this.derivedEdges = this.moves.filter((move): move is K4Item.OfType<K4ItemType.move> & K4Item.SubItem => move.isEdge());
+    this.derivedEdges = this.moves.filter((move): move is K4ItemOfType<K4ItemType.move> => move.isEdge());
     this.activeEdges = (() => {
       if (!this.parent.isType(K4ActorType.pc)) {return [];}
       if (!this.edges.sourceName) {return [];}
       if (!this.edges.value) {return [];}
       return this.derivedEdges
-        .filter((edge): this is K4Actor.OfType<K4ActorType.pc> => edge.system.parentItem?.name === this.edges.sourceName);
+        .filter((edge): this is K4ActorOfType<K4ActorType.pc> => (edge.system.parentItem as Maybe<Item>)?.name === this.edges.sourceName);
     })();
     this.advantages = this.parent.getItemsOfType(K4ItemType.advantage);
     this.disadvantages = this.parent.getItemsOfType(K4ItemType.disadvantage);
@@ -171,7 +171,7 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     this.weapons = this.parent.getItemsOfType(K4ItemType.weapon);
     this.gear = this.parent.getItemsOfType(K4ItemType.gear);
     this.relations = this.parent.getItemsOfType(K4ItemType.relation);
-    this.derivedItems = this.parent.items.filter((item: K4Item): item is K4Item & K4Item.SubItem => item.isSubItem());
+    this.derivedItems = this.parent.items.filter((item: K4Item): item is K4ItemOfType<K4ItemType.move> => item.isSubItem());
 
     this.maxWounds = {
       serious: this.modifiers.wounds_serious.length,
@@ -180,7 +180,7 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     };
 
 
-    this.gear = this.parent.getItemsOfType(K4ItemType.gear); // return type K4Item.OfType<K4ItemType.gear>[]
+    this.gear = this.parent.getItemsOfType(K4ItemType.gear); // return type K4ItemOfType<K4ItemType.gear>[]
     this.armor = 1 + this.gear.reduce((acc, gear) => acc + (gear.system.armor ?? 0), 0);
 
 
@@ -597,16 +597,16 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     //   display: string,
     //   tooltip: string,
     //   value: number,
-    //   othering: Array<"all" | K4Item.Types.Rollable>,
-    //   category: "all" | "type" | K4Item.Types.Rollable,
+    //   othering: Array<"all" | K4ItemClass.Rollable>,
+    //   category: "all" | "type" | K4ItemClass.Rollable,
     //   filter: string
     // }> {
 
     //   const collapsedModifierData: Array<{
     //     display: string,
     //     value: number,
-    //     othering: Array<"all" | K4Item.Types.Rollable>,
-    //     category: "all" | "type" | K4Item.Types.Rollable,
+    //     othering: Array<"all" | K4ItemClass.Rollable>,
+    //     category: "all" | "type" | K4ItemClass.Rollable,
     //     filter: string
     //   }
     //   > = [];
@@ -617,7 +617,7 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     //     [K4ItemType.advantage]: 0,
     //     [K4ItemType.disadvantage]: 0
     //   };
-    //   const moveTypeRecord: Record<string, K4Item.Types.Rollable> = {};
+    //   const moveTypeRecord: Record<string, K4ItemClass.Rollable> = {};
     //   const statusBarVals = this.collapsibleRollChanges
     //     .map((change) => ({
     //       filter: change.filter,
@@ -640,8 +640,8 @@ export default class ActorDataModel_PC extends TypeDataModel<typeof ActorSchema_
     //     display: string,
     //     value: number,
     //     filter: string,
-    //     othering: Array<"all" | K4Item.Types.Rollable>,
-    //     category: "all" | "type" | K4Item.Types.Rollable
+    //     othering: Array<"all" | K4ItemClass.Rollable>,
+    //     category: "all" | "type" | K4ItemClass.Rollable
     //   ) => {
     //     const existing = collapsedModifierData.find((mod) => mod.display === display);
     //     if (existing) {

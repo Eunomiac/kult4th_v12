@@ -10,16 +10,17 @@ const getItemSchema_Disadvantage = () => ({
   currentHold: new fields.NumberField()
 })
 
-type ItemSchema_Disadvantage = ReturnType<typeof getItemSchema_Disadvantage>;
+const ItemSchemaDisadvantage = {
+  ...ItemSchemaComponent_Base(),
+  ...ItemSchemaComponent_HasSubItems(),
+  ...ItemSchemaComponent_RulesData(),
+  currentHold: new fields.NumberField()
+}
 
 type ItemDerivedData_Disadvantage = ItemDerivedData_Base & ItemDerivedData_HasSubItems & ItemDerivedData_RulesData;
 
-export default class ItemDataModel_Disadvantage extends TypeDataModel<ItemSchema_Disadvantage, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Disadvantage>> {
-  private static _definedSchema: Maybe<ItemSchema_Disadvantage>;
-  static override defineSchema(): ItemSchema_Disadvantage {
-    if (!ItemDataModel_Disadvantage._definedSchema) {
-      ItemDataModel_Disadvantage._definedSchema = getItemSchema_Disadvantage();
-    }
-    return ItemDataModel_Disadvantage._definedSchema;
+export default class ItemDataModel_Disadvantage extends TypeDataModel<typeof ItemSchemaDisadvantage, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Disadvantage>> {
+  static override defineSchema() {
+    return ItemSchemaDisadvantage;
   }
 }

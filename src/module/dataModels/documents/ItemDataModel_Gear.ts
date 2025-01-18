@@ -10,16 +10,17 @@ const getItemSchema_Gear = () => ({
   armor: new fields.NumberField({required: false})
 })
 
-type ItemSchema_Gear = ReturnType<typeof getItemSchema_Gear>;
+const ItemSchemaGear = {
+  ...ItemSchemaComponent_Base(),
+  ...ItemSchemaComponent_HasSubItems(),
+  ...ItemSchemaComponent_RulesData(),
+  armor: new fields.NumberField({required: false})
+}
 
 type ItemDerivedData_Gear = ItemDerivedData_Base & ItemDerivedData_HasSubItems & ItemDerivedData_RulesData;
 
-export default class ItemDataModel_Gear extends TypeDataModel<ItemSchema_Gear, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Gear>> {
-  private static _definedSchema: Maybe<ItemSchema_Gear>;
-  static override defineSchema(): ItemSchema_Gear {
-    if (!ItemDataModel_Gear._definedSchema) {
-      ItemDataModel_Gear._definedSchema = getItemSchema_Gear();
-    }
-    return ItemDataModel_Gear._definedSchema;
+export default class ItemDataModel_Gear extends TypeDataModel<typeof ItemSchemaGear, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_Gear>> {
+  static override defineSchema() {
+    return ItemSchemaGear;
   }
 }

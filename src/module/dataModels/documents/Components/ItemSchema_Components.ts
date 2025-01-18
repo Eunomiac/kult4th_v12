@@ -23,7 +23,7 @@ export function ItemSchemaComponent_CanBeSubItem() {
 }
 
 export interface ItemDerivedData_CanBeSubItem {
-  parentItem: Maybe<K4Item.Parent>
+  parentItem: K4ItemClass.Parent
 }
 
 export function ItemSchemaComponent_IsSubItem() {
@@ -34,7 +34,7 @@ export function ItemSchemaComponent_IsSubItem() {
 }
 
 export interface ItemDerivedData_IsSubItem {
-  parentItem: K4Item.Parent
+  parentItem: K4ItemClass.Parent
 }
 
 export function ItemSchemaComponent_HasSubItems() {
@@ -44,7 +44,7 @@ export function ItemSchemaComponent_HasSubItems() {
 }
 
 export interface ItemDerivedData_HasSubItems {
-  subItems: K4Item.OfType<K4ItemType.move>[]
+  subItems: K4ItemOfType<K4ItemType.move>[]
 }
 
 export function ItemSchemaComponent_RulesData() {

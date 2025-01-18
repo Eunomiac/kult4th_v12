@@ -10,16 +10,16 @@ const getItemSchema_GMTracker = () => ({
   gamePhase: new fields.StringField({required: true, initial: K4GamePhase.intro, choices: Object.values(K4GamePhase)})
 })
 
-type ItemSchema_GMTracker = ReturnType<typeof getItemSchema_GMTracker>;
+const ItemSchemaGMTracker = {
+  ...ItemSchemaComponent_Base(),
+  ...ItemSchemaComponent_HasSubItems(),
+  gamePhase: new fields.StringField({required: true, initial: K4GamePhase.intro, choices: Object.values(K4GamePhase)})
+}
 
 type ItemDerivedData_GMTracker = ItemDerivedData_Base & ItemDerivedData_HasSubItems;
 
-export default class ItemDataModel_GMTracker extends TypeDataModel<ItemSchema_GMTracker, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_GMTracker>> {
-  private static _definedSchema: Maybe<ItemSchema_GMTracker>;
-  static override defineSchema(): ItemSchema_GMTracker {
-    if (!ItemDataModel_GMTracker._definedSchema) {
-      ItemDataModel_GMTracker._definedSchema = getItemSchema_GMTracker();
-    }
-    return ItemDataModel_GMTracker._definedSchema;
+export default class ItemDataModel_GMTracker extends TypeDataModel<typeof ItemSchemaGMTracker, Item.ConfiguredInstance, EmptyObject, InterfaceToObject<ItemDerivedData_GMTracker>> {
+  static override defineSchema() {
+    return ItemSchemaGMTracker;
   }
 }

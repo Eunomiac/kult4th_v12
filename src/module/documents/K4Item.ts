@@ -251,71 +251,28 @@ import type {InterfaceToObject} from "fvtt-types/utils";
 //     /**
 //      * Discriminated unions of item types by subType or other criteria
 //      */
-//     export type Parent<T extends Types.Parent = Types.Parent> = K4Item.OfType<T>;
-//     export type Static<T extends Types.Static = Types.Static> = K4Item.OfType<T>;
-//     export type Passive<T extends Types.Passive = Types.Passive> = K4Item.OfType<T>;
-//     export type Active<T extends Types.Active = Types.Active> = K4Item.OfType<T>;
+//     export type Parent<T extends Types.Parent = Types.Parent> = K4ItemOfType<T>;
+//     export type Static<T extends Types.Static = Types.Static> = K4ItemOfType<T>;
+//     export type Passive<T extends Types.Passive = Types.Passive> = K4ItemOfType<T>;
+//     export type Active<T extends Types.Active = Types.Active> = K4ItemOfType<T>;
 //     export type HaveRules<T extends Types.HaveRules = Types.HaveRules> =
-//       K4Item.OfType<T>;
+//       K4ItemOfType<T>;
 //     export type HaveResults<T extends Types.HaveResults = Types.HaveResults> =
-//       K4Item.OfType<T>;
+//       K4ItemOfType<T>;
 //     export type HaveMainEffects<
 //       T extends Types.HaveMainEffects = Types.HaveMainEffects,
-//     > = K4Item.OfType<T>;
+//     > = K4ItemOfType<T>;
 //   }
 // }
 // #ENDREGION
 // #endregion
 // #REGION === K4ITEM CLASS ===
-// interface K4Item.OfType<Type extends K4ItemType = K4ItemType> {
+// interface K4ItemOfType<Type extends K4ItemType = K4ItemType> {
 //   get id(): IDString;
 //   get uuid(): UUIDString;
 
-//   get effects(): foundry.abstract.EmbeddedCollection<K4ActiveEffect & foundry.abstract.Document.Any, K4Item.OfType<Type> & foundry.abstract.Document.Any>;
+//   get effects(): foundry.abstract.EmbeddedCollection<K4ActiveEffect & foundry.abstract.Document.Any, K4ItemOfType<Type> & foundry.abstract.Document.Any>;
 // }
-
-declare global {
-
-  export namespace K4Item {
-
-    export namespace Types {
-      export type Parent = K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
-      export type Rollable = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage;
-      export type Static = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
-      export type Passive = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.relation | K4ItemType.weapon | K4ItemType.gear;
-      export type Active = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.gear;
-      export type HaveRules = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.darksecret | K4ItemType.weapon | K4ItemType.gear;
-      export type HaveResults = K4ItemType.move;
-      export type HaveMainEffects = K4ItemType.move | K4ItemType.advantage | K4ItemType.disadvantage | K4ItemType.weapon | K4ItemType.gear;
-    }
-
-    export type System<Type extends K4ItemType> =
-      Type extends K4ItemType.advantage ? ItemDataModel_Advantage
-    : Type extends K4ItemType.disadvantage ? ItemDataModel_Disadvantage
-    : Type extends K4ItemType.darksecret ? ItemDataModel_DarkSecret
-    : Type extends K4ItemType.move ? ItemDataModel_Move
-    : Type extends K4ItemType.relation ? ItemDataModel_Relation
-    : Type extends K4ItemType.weapon ? ItemDataModel_Weapon
-    : Type extends K4ItemType.gear ? ItemDataModel_Gear
-    : Type extends K4ItemType.gmtracker ? ItemDataModel_GMTracker
-    : never;
-
-    /**
-   * Discriminated unions of item types by subType or other criteria
-   */
-    export type Parent<T extends Types.Parent = Types.Parent> = K4Item.OfType<T>;
-    export type Static<T extends Types.Static = Types.Static> = K4Item.OfType<T>;
-    export type Passive<T extends Types.Passive = Types.Passive> = K4Item.OfType<T>;
-    export type Active<T extends Types.Active = Types.Active> = K4Item.OfType<T>;
-    export type HaveRules<T extends Types.HaveRules = Types.HaveRules> = K4Item.OfType<T>;
-    export type HaveResults<T extends Types.HaveResults = Types.HaveResults> = K4Item.OfType<T>;
-    export type HaveMainEffects<T extends Types.HaveMainEffects = Types.HaveMainEffects> = K4Item.OfType<T>;
-
-    export type OfType<Type extends K4ItemType> = K4Item & {system: System<Type>};
-
-    export type SubItem = K4Item.OfType<K4ItemType.move>;
-  }
-}
 
 
 export default class K4Item extends Item {
@@ -368,28 +325,28 @@ export default class K4Item extends Item {
    * @param {T} type - The type to check against.
    * @returns {boolean} True if the actor is of the specified type.
    */
-  isType<T extends K4ItemType>(this: K4Item, itemType: T): this is K4Item.OfType<T> {
+  isType<T extends K4ItemType>(this: K4Item, itemType: T): this is K4ItemOfType<T> {
     return this.type === itemType
   }
-  isParentItem(): this is K4Item.Parent {return Boolean("subItems" in this.system && Array.isArray(this.system["subItems"]) && this.system["subItems"].length > 0);}
-  hasSubMoves(): this is K4Item.Parent {return "subMoves" in this.system && Array.isArray(this.system["subMoves"]) && this.system["subMoves"].length > 0;}
-  hasSubAttacks(): this is K4Item.Parent {return "subAttacks" in this.system && Array.isArray(this.system["subAttacks"]) && this.system["subAttacks"].length > 0;}
-  isSubItem(): this is K4Item.OfType<K4ItemType.move> & {system: {parentItem: K4Item.Parent}} {
+  isParentItem(): this is K4ItemClass.Parent {return Boolean("subItems" in this.system && Array.isArray(this.system["subItems"]) && this.system["subItems"].length > 0);}
+  hasSubMoves(): this is K4ItemClass.Parent {return "subMoves" in this.system && Array.isArray(this.system["subMoves"]) && this.system["subMoves"].length > 0;}
+  hasSubAttacks(): this is K4ItemClass.Parent {return "subAttacks" in this.system && Array.isArray(this.system["subAttacks"]) && this.system["subAttacks"].length > 0;}
+  isSubItem(): this is K4ItemOfType<K4ItemType.move> & {system: {parentItem: K4ItemClass.Parent}} {
     if (!this.isType(K4ItemType.move)) {return false;}
     return Boolean(this.system.parentItem?.name);
   }
-  isBasicMove(): this is K4Item.OfType<K4ItemType.move> {return C.BasicMoves.includes(this.name);}
-  isEdge(): this is K4Item.OfType<K4ItemType.move> {return this.isSubItem() && Boolean("isEdge" in this.system && this.system["isEdge"]);}
+  isBasicMove(): this is K4ItemOfType<K4ItemType.move> {return C.BasicMoves.includes(this.name);}
+  isEdge(): this is K4ItemOfType<K4ItemType.move> {return this.isSubItem() && Boolean("isEdge" in this.system && this.system["isEdge"]);}
   isOwnedItem(): this is K4Item & {parent: K4Actor;} {return Boolean(this.isEmbedded && this.parent instanceof Actor);}
-  isOwnedSubItem(): this is K4Item & K4Item.SubItem & {parent: K4Actor, system: {parentItem: K4Item.Parent}} {return this.isSubItem() && this.isOwnedItem();}
+  isOwnedSubItem(): this is K4ItemOfType<K4ItemType.move> {return this.isSubItem() && this.isOwnedItem();}
   isOwnedByUser(): this is K4Item & {parent: K4Actor;} {return this.isOwnedItem() && (this.parent as K4Actor).isOwner;}
-  isActiveItem(): this is K4Item.Active {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeRolled;}
-  isStaticItem(): this is K4Item.Static {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeStatic;}
-  isPassiveItem(): this is K4Item.Passive {return "subType" in this.system && this.system["subType"] === K4ItemSubType.passive;}
-  hasRules(): this is K4Item.HaveRules {return "rules" in this.system;}
+  isActiveItem(): this is K4ItemClass.Active {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeRolled;}
+  isStaticItem(): this is K4ItemClass.Static {return "subType" in this.system && this.system["subType"] === K4ItemSubType.activeStatic;}
+  isPassiveItem(): this is K4ItemClass.Passive {return "subType" in this.system && this.system["subType"] === K4ItemSubType.passive;}
+  hasRules(): this is K4ItemClass.HaveRules {return "rules" in this.system;}
   // hasOwnRules(): this is K4Item.HaveRules {return this.hasRules() && Object.values(this.system.rules)
   //   .some((rule: ValueOrArray<string>|K4ActiveEffect.BuildData[]) => rule.length > 0);}
-  hasResults(): this is K4Item.HaveResults { return "results" in this.system;}
+  hasResults(): this is K4ItemClass.HaveResults { return "results" in this.system;}
   // hasCreateEffects(): this is K4Item.HaveMainEffects {
   //   return Boolean(this.hasRules()
   //     && this.system.rules.effects
@@ -407,7 +364,7 @@ export default class K4Item extends Item {
   get parentID(): IDString | undefined {return this.isSubItem() ? this.parentItem?.id ?? undefined : undefined;}
   get parentType(): K4ItemType {return this.isSubItem() ? this.system.parentItem.type as K4ItemType : this.type as K4ItemType;}
   get parentName(): string {return this.isSubItem() ? this.system.parentItem.name : this.name;}
-  get parentItem(): K4Item.Parent | null {
+  get parentItem(): K4ItemClass.Parent | null {
     if (!this.isOwnedSubItem()) {return null;}
     return this.system.parentItem;
   }
@@ -428,10 +385,10 @@ export default class K4Item extends Item {
 //   }
 
 //   get subMoves(): K4Item.SubItem[] {
-//     return this.subItems.filter((subItem): subItem is K4Item.OfType<K4ItemType.move> & K4Item.SubItem => !subItem.isEdge());
+//     return this.subItems.filter((subItem): subItem is K4ItemOfType<K4ItemType.move> & K4Item.SubItem => !subItem.isEdge());
 //   }
-//   get edges(): Array<K4Item.OfType<K4ItemType.move> & K4Item.SubItem> {
-//     return this.subItems.filter((subItem): subItem is K4Item.OfType<K4ItemType.move> & K4Item.SubItem => subItem.isEdge());
+//   get edges(): Array<K4ItemOfType<K4ItemType.move> & K4Item.SubItem> {
+//     return this.subItems.filter((subItem): subItem is K4ItemOfType<K4ItemType.move> & K4Item.SubItem => subItem.isEdge());
 //   }
 //   get shortDesc(): string {
 //     return this.system.shortDesc ?? "";
@@ -520,7 +477,7 @@ export default class K4Item extends Item {
 //         //   .map((effectDataSet) => K4ActiveEffect.CreateFromBuildData(
 //         //     effectDataSet,
 //         //     this as K4ActiveEffect.Origin,
-//         //     parent as K4Item.OfType<K4ItemType.gmtracker> | K4Actor.OfType<K4ActorType.pc>
+//         //     parent as K4ItemOfType<K4ItemType.gmtracker> | K4Actor.OfType<K4ActorType.pc>
 //         //   ))
 //         // );
 //       }
@@ -810,7 +767,7 @@ export default class K4Item extends Item {
 //       resultPromises.push(K4ActiveEffect.CreateFromBuildData(
 //         immediateEffects,
 //         message,
-//         this.parent as K4Item.OfType<K4ItemType.gmtracker> | K4Actor.OfType<K4ActorType.pc>
+//         this.parent as K4ItemOfType<K4ItemType.gmtracker> | K4Actor.OfType<K4ActorType.pc>
 //       ));
 //     }
 //     return Promise.all(resultPromises);

@@ -1,7 +1,7 @@
 // import K4ActiveEffect from "../documents/K4ActiveEffect.js";
 import K4Actor from "../documents/K4Actor";
 import {K4ActorType, K4ItemType} from "../scripts/enums.js";
-import ActorDataModel_PC from "../dataModels/documents/ActorDataModel_PC.js";
+import ActorDataModel_PC from "../dataModels/documents/ActorDataModel_PC.js"
 import ActorDataModel_NPC from "../dataModels/documents/ActorDataModel_NPC.js";
 import K4Item from "../documents/K4Item";
 import ItemDataModel_Advantage from "../dataModels/documents/ItemDataModel_Advantage.js";

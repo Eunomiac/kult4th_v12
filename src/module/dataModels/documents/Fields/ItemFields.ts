@@ -1,5 +1,4 @@
 import {K4ItemType} from "../../../scripts/enums";
-import K4Item from "../../../documents/K4Item";
 import TypeDataModel = foundry.abstract.TypeDataModel;
 import fields = foundry.data.fields;
 
@@ -26,13 +25,13 @@ export function SubItemDataField() {
     type: new fields.StringField({required: true, choices: Object.values(K4ItemType)}),
     img: new fields.FilePathField({required: true, categories: ["IMAGE"], initial: (model: unknown) => {
       if (model instanceof TypeDataModel) {
-        const parent = model.parent;
-        if (parent instanceof K4Item) {
+        const parent = model.parent as Maybe<{img: unknown}>;
+        if (parent && typeof parent.img === "string") {
           return parent.img;
         }
       }
       return null;
     }}),
-    system: new fields.TypeDataField(K4Item)
+    system: new fields.TypeDataField(Item)
   });
 }
