@@ -2565,7 +2565,7 @@ __metadata:
     ffprobe: "npm:^1.1.2"
     ffprobe-static: "npm:^3.1.0"
     form-data: "npm:^4.0.0"
-    fvtt-types: "github:League-of-Foundry-Developers/foundry-vtt-types#main"
+    fvtt-types: "github:League-of-Foundry-Developers/foundry-vtt-types#documents-v2"
     gsap: "npm:^3.12.5"
     logrocket: "npm:^8.1.2"
     openai: "npm:^4.29.2"
@@ -2584,9 +2584,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"fvtt-types@github:League-of-Foundry-Developers/foundry-vtt-types#main":
+"fvtt-types@github:League-of-Foundry-Developers/foundry-vtt-types#documents-v2":
   version: 12.331.3-beta
-  resolution: "fvtt-types@https://github.com/League-of-Foundry-Developers/foundry-vtt-types.git#commit=c8e7dd408bc28a93dc2459bfd7fefec01f63c7f4"
+  resolution: "fvtt-types@https://github.com/League-of-Foundry-Developers/foundry-vtt-types.git#commit=80489316b3cd08bdf4accbd4297221069549b938"
   dependencies:
     "@pixi/graphics-smooth": "npm:^1.1.0"
     "@pixi/particle-emitter": "npm:^5.0.8"
@@ -2615,7 +2615,7 @@ __metadata:
     tinymce: "npm:^6.8.3"
   peerDependencies:
     typescript: ^5.4
-  checksum: 10c0/08cc517323682ba9f7d5817da4f08719ec39672c4167e1943e7e4a8b0a07af2a3e220986bf63e5a6ba58dccc0186a4ba6e78ff9055ad758a2ed39707eb74b1a8
+  checksum: 10c0/0e094b9b7f33936b4650ba6782d40bc8f269f884e085d00a4304ee0b70b08a54fca07be4c842bb5f05d7611b85240f369b98eeef643e403bac856284da455d14
   languageName: node
   linkType: hard
 

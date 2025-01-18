@@ -194,7 +194,7 @@ function GlobalAssignment() {
   Hooks.once("ready", () => {
     const ACTOR = getGame().actors.values().next().value as Maybe<K4Actor>;
     const ITEM = getGame().items.values().next().value as Maybe<K4Item>;
-    const EMBED = ACTOR?.items.values().next().value as Maybe<K4Item>;
+    // const EMBED = ACTOR!.items.values().next().value;
     const ACTORSHEET = ACTOR?.sheet;
 
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -216,7 +216,7 @@ function GlobalAssignment() {
         return archetypesThatHaveTrait.length === 1;
       }
       const getArchetypeReport = () => {
-        return Object.fromEntries([K4ItemType.advantage, K4ItemType.disadvantage, K4ItemType.darksecret].map((tType: K4ItemType) => [tType, Object.fromEntries((getGame().items as Collection<K4Item>).filter((item) => item.type === tType).map((item) => [item.name, whichArchetypesHave(item.name)]))]));
+        return Object.fromEntries([K4ItemType.advantage, K4ItemType.disadvantage, K4ItemType.darksecret].map((tType: K4ItemType) => [tType, Object.fromEntries((getGame().items).filter((item) => item.type === tType).map((item) => [item.name, whichArchetypesHave(item.name)]))]));
       }
 
       Object.assign(globalThis, {
@@ -225,8 +225,8 @@ function GlobalAssignment() {
         C,
         ActorSheet,
         formatForKult,
-        ACTOR, ITEM, EMBED, ACTORSHEET,
-        ENTITIES: [ACTOR, ITEM, EMBED],
+        ACTOR, ITEM, /*EMBED,*/ ACTORSHEET,
+        ENTITIES: [ACTOR, ITEM, /*EMBED*/],
         ...InitializableClasses,
         // PACKS,
         // getItemSystemReport,
